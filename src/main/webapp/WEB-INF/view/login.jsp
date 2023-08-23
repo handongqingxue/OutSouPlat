@@ -21,8 +21,8 @@ $(function(){
             $(data.elem).attr('class', 'layui-btn layui-btn-disabled');
             var url=baseUrl + "/main/login"
             var params = {
-                    yhm: data.field.yhm,
-                    mm: MD5(data.field.mm).toUpperCase(),
+            		username: data.field.username,
+            		password: MD5(data.field.password).toUpperCase(),
                     //mm: data.field.mm,
                     rememberMe : data.field.rememberMe
             };
@@ -107,14 +107,14 @@ body {
 		<form class="layui-form" method="post">
 			<div class="layui-form-item">
 				<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i>
-				</label> <input type="text" name="yhm" placeholder="请输入登录名"
-					class="layui-input" lay-verify="required|yhm"
+				</label> <input type="text" name="username" placeholder="请输入登录名"
+					class="layui-input" lay-verify="required|username"
 					autocomplete="off" value="">
 			</div>
 			<div class="layui-form-item">
 				<label class="beg-login-icon"> <i class="layui-icon">&#xe642;</i>
-				</label> <input type="password" name="mm" placeholder="请输入密码"
-					class="layui-input" lay-verify="required|mm_"
+				</label> <input type="password" name="password" placeholder="请输入密码"
+					class="layui-input" lay-verify="required|password_"
 					autocomplete="off" value="">
 			</div>
 			<div class="layui-form-item">
