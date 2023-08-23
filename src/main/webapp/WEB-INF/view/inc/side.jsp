@@ -71,66 +71,44 @@
 	height: 1px;
 	background-color: #CAD9EA;
 }
-.bgLogo_img{
-	width: 101px;
-	height: 57px;
-}
 </style>
 <script type="text/javascript">
-var yhm='${sessionScope.yongHu.yhm}';
+var username='${sessionScope.user.username}';
 var qxIds='${sessionScope.yongHu.qxIds}';
 $(function(){
 	showLeftMenuByQx();
 });
 
 function showLeftMenuByQx(){
-	$(".ddgl_first_div").css("display","none");
-	$(".ddzt_item_li").css("display","none");
-	$(".drk_item_li").css("display","none");
-	$(".zhcx_item_li").css("display","none");
-	$(".shjl_item_li").css("display","none");
+	$(".xmgl_first_div").css("display","none");
+	$(".xmlb_item_li").css("display","none");
 
-	$(".gbgl_first_div").css("display","none");
-	$(".bdjl_item_li").css("display","none");
-	$(".gbjl_item_li").css("display","none");
-	$(".dyjsh_item_li").css("display","none");
-	$(".dejsh_item_li").css("display","none");
+	$(".rwbgl_first_div").css("display","none");
+	$(".rwblb_item_li").css("display","none");
 	
-	$(".wzgl_first_div").css("display","none");
-	$(".wzlx_item_li").css("display","none");
-	$(".wzcx_item_li").css("display","none");
+	$(".csjg_first_div").css("display","none");
+	$(".csjg_first_div .zhcx_item_li").css("display","none");
 	
-	$(".dwgl_first_div").css("display","none");
-	$(".yss_item_li").css("display","none");
-	$(".fhdw_item_li").css("display","none");
-	$(".shbm_item_li").css("display","none");
+	$(".lsrw_first_div").css("display","none");
+	$(".rwdlb_item_li").css("display","none");
 
 	$(".xtgl_first_div").css("display","none");
 	$(".yhcx_item_li").css("display","none");
 	$(".dshyh_item_li").css("display","none");
 	$(".qxcx_item_li").css("display","none");
 	
-	if(yhm=="admin"){
-		$(".ddgl_first_div").css("display","block");
-		$(".ddzt_item_li").css("display","block");
-		$(".drk_item_li").css("display","block");
-		$(".zhcx_item_li").css("display","block");
-		$(".shjl_item_li").css("display","block");
+	if(username=="admin"){
+		$(".xmgl_first_div").css("display","block");
+		$(".xmlb_item_li").css("display","block");
 
-		$(".gbgl_first_div").css("display","block");
-		$(".bdjl_item_li").css("display","block");
-		$(".gbjl_item_li").css("display","block");
-		$(".dyjsh_item_li").css("display","block");
-		$(".dejsh_item_li").css("display","block");
+		$(".rwbgl_first_div").css("display","block");
+		$(".rwblb_item_li").css("display","block");
 
-		$(".wzgl_first_div").css("display","block");
-		$(".wzlx_item_li").css("display","block");
-		$(".wzcx_item_li").css("display","block");
+		$(".csjg_first_div").css("display","block");
+		$(".csjg_first_div .zhcx_item_li").css("display","block");
 		
-		$(".dwgl_first_div").css("display","block");
-		$(".yss_item_li").css("display","block");
-		$(".fhdw_item_li").css("display","block");
-		$(".shbm_item_li").css("display","block");
+		$(".lsrw_first_div").css("display","block");
+		$(".rwdlb_item_li").css("display","block");
 		
 		$(".xtgl_first_div").css("display","block");
 		$(".yhcx_item_li").css("display","block");
@@ -141,34 +119,25 @@ function showLeftMenuByQx(){
 		var qxIdsArr=qxIds.split(",");
 		for(var i=0;i<qxIdsArr.length;i++){
 			if(qxIdsArr[i]==1){
-				$(".ddgl_first_div").css("display","block");
+				$(".xmgl_first_div").css("display","block");
 				$(".zhcx_item_li").css("display","block");
 			}
 			if(qxIdsArr[i]==2){
-				$(".ddgl_first_div").css("display","block");
-				$(".drk_item_li").css("display","block");
-				$(".zhcx_item_li").css("display","block");
+				$(".xmgl_first_div").css("display","block");
 				$(".shjl_item_li").css("display","block");
 				
-				$(".wzgl_first_div").css("display","block");
-				$(".wzlx_item_li").css("display","block");
-				$(".wzcx_item_li").css("display","block");
+				$(".csjg_first_div").css("display","block");
+				$(".csjg_first_div .zhcx_item_li").css("display","block");
 
-				$(".dwgl_first_div").css("display","block");
-				$(".yss_item_li").css("display","block");
-				$(".fhdw_item_li").css("display","block");
-				$(".shbm_item_li").css("display","block");
+				$(".lsrw_first_div").css("display","block");
+				$(".rwdlb_item_li").css("display","block");
 			}
 			if(qxIdsArr[i]==3){
-				$(".gbgl_first_div").css("display","block");
-				$(".bdjl_item_li").css("display","block");
-				$(".gbjl_item_li").css("display","block");
-				$(".dyjsh_item_li").css("display","block");
-				$(".dejsh_item_li").css("display","block");
+				$(".rwbgl_first_div").css("display","block");
+				$(".rwblb_item_li").css("display","block");
 			}
 			if(qxIdsArr[i]==6){
-				$(".ddgl_first_div").css("display","block");
-				$(".drk_item_li").css("display","block");
+				$(".xmgl_first_div").css("display","block");
 			}
 		}
 	}
@@ -178,16 +147,12 @@ function showLeftMenuByQx(){
 <body>
 <div class="layui-header header_div">
 		<div class="layui-logo">
-			<img class="bgLogo_img" alt="" src="<%=basePath%>resource/image/bgLogo.jpg"/>
-			<a>山东蓝帆健康科技称重平台</a>
+			<a>外包平台</a>
 		</div>
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;"> 
-					<!-- 
-					<img src="${sessionScope.user.headImgUrl }" class="layui-nav-img">
-					 -->
-					${sessionScope.yongHu.yhm }
+					${sessionScope.user.username }
 				</a>
 			</li>
 			<li class="layui-nav-item"><a href="<%=basePath%>main/exit">退出</a>
@@ -198,143 +163,59 @@ function showLeftMenuByQx(){
 	<div class="layui-side ">
 		<div class="layui-side-scroll">
 			<ul class="layui-nav layui-nav-tree layui-inline level-ul" lay-filter="demo">
-				<div class="first-level-div ddgl_first_div">
+				<div class="first-level-div xmgl_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
-							订单管理
+							项目管理
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item ddzt_item_li">
+					<li class="layui-nav-item xmlb_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>ddgl/ddzt/list">
-							&nbsp;&nbsp;&nbsp;订单状态
+							&nbsp;&nbsp;&nbsp;项目列表
+						</a>
+					</li>
+				</div>
+				<div class="first-level-div rwbgl_first_div">
+					<li class="layui-nav-item first-level">
+						<a>
+							任务包管理
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item drk_item_li">
+					<li class="layui-nav-item rwblb_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>ddgl/dsh/list">
-							&nbsp;&nbsp;&nbsp;待审核
+						<a href="<%=basePath%>gbgl/bdjl/list">
+							&nbsp;&nbsp;&nbsp;任务包列表
 						</a>
 					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item drk_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>ddgl/drk/list">
-							&nbsp;&nbsp;&nbsp;待入库
+				</div>
+				<div class="first-level-div csjg_first_div">
+					<li class="layui-nav-item first-level">
+						<a>
+							测试结果
 						</a>
 					</li>
 					<div class="line_div"></div>
 					<li class="layui-nav-item zhcx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>ddgl/zhcx/list">
+						<a href="<%=basePath%>wzgl/wzlx/list">
 							&nbsp;&nbsp;&nbsp;综合查询
 						</a>
 					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item shjl_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>ddgl/shjl/list">
-							&nbsp;&nbsp;&nbsp;审核记录
-						</a>
-					</li>
 				</div>
-				<div class="first-level-div gbgl_first_div">
+				<div class="first-level-div lsrw_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
-							过磅管理
+							历史任务
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item bdjl_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>gbgl/bdjl/list">
-							&nbsp;&nbsp;&nbsp;磅单记录
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item gbjl_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>gbgl/gbjl/list">
-							&nbsp;&nbsp;&nbsp;过磅记录
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item dyjsh_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>gbgl/yjdsh/list">
-							&nbsp;&nbsp;&nbsp;一检待审核
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item dejsh_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>gbgl/ejdsh/list">
-							&nbsp;&nbsp;&nbsp;二检待审核
-						</a>
-					</li>
-				</div>
-				<div class="first-level-div wzgl_first_div">
-					<li class="layui-nav-item first-level">
-						<a>
-							物资管理
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item wzlx_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>wzgl/wzlx/list">
-							&nbsp;&nbsp;&nbsp;物资类型
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item wzcx_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>wzgl/wzcx/list">
-							&nbsp;&nbsp;&nbsp;物资查询
-						</a>
-					</li>
-				</div>
-				<div class="first-level-div dwgl_first_div">
-					<li class="layui-nav-item first-level">
-						<a>
-							单位管理
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item yss_item_li">
+					<li class="layui-nav-item rwdlb_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>dwgl/yss/list">
-							&nbsp;&nbsp;&nbsp;运输商
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item fhdw_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>dwgl/fhdw/list">
-							&nbsp;&nbsp;&nbsp;发货单位
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item shbm_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>dwgl/shbm/list">
-							&nbsp;&nbsp;&nbsp;收货部门
-						</a>
-					</li>
-				</div>
-				<div class="first-level-div">
-					<li class="layui-nav-item first-level">
-						<a>
-							车辆台账管理
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>cltzgl/zhcx/list">
-							&nbsp;&nbsp;&nbsp;综合查询
+							&nbsp;&nbsp;&nbsp;任务单列表
 						</a>
 					</li>
 				</div>
@@ -359,21 +240,19 @@ function showLeftMenuByQx(){
 						</a>
 					</li>
 					<div class="line_div"></div>
+					<li class="layui-nav-item jscx_item_li">
+						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
+						<a href="<%=basePath%>xtgl/jscx/list">
+							&nbsp;&nbsp;&nbsp;角色查询
+						</a>
+					</li>
+					<div class="line_div"></div>
 					<li class="layui-nav-item qxcx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>xtgl/qxcx/list">
 							&nbsp;&nbsp;&nbsp;权限查询
 						</a>
 					</li>
-					<!-- 
-					<div class="line_div"></div>
-					<li class="layui-nav-item">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>background/bus/busStop/list">
-							&nbsp;&nbsp;&nbsp;菜单查询
-						</a>
-					</li>
-					 -->
 				</div>
 			</ul>
 		</div>
