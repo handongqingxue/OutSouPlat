@@ -2,6 +2,7 @@ package com.outSouPlat.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,14 +32,13 @@ public class ProjManaController {
 	
 	@RequestMapping(value="/queryList")
 	@ResponseBody
-	public Map<String, Object> queryList(String name,String deveLang,String database,String deveTool,Integer outCount,
-			Integer taskBagCount,String createTimeStart,String createTimeEnd,Integer state,int page,int rows,String sort,String order) {
+	public Map<String, Object> queryList(String name,String deveLang,String database,String deveTool,String createTimeStart,String createTimeEnd,Integer state,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = projectService.queryForInt(name,deveLang,database,deveTool,outCount,taskBagCount,createTimeStart,createTimeEnd,state);
-			List<Project> projectList=projectService.queryList(name,deveLang,database,deveTool,outCount,taskBagCount,createTimeStart,createTimeEnd,state, page, rows, sort, order);
+			int count = projectService.queryForInt(name,deveLang,database,deveTool,createTimeStart,createTimeEnd,state);
+			List<Project> projectList=projectService.queryList(name,deveLang,database,deveTool,createTimeStart,createTimeEnd,state, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", projectList);

@@ -1,1 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.outSouPlat.dao.ProjectMapper">
+	<select id="queryForInt" resultType="java.lang.Integer">
+		select count(*) from project where 1=1
+		<if test="name!=''&amp;name!=null">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="deveLang!=''&amp;deveLang!=null">
+			and deveLang=#{deveLang}
+		</if>
+		<if test="database!=''&amp;database!=null">
+			and database like CONCAT('%',#{database},'%')
+		</if>
+		<if test="deveTool!=''&amp;deveTool!=null">
+			and deveTool like CONCAT('%',#{deveTool},'%')
+		</if>
+		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd">
+			and createTime between #{createTimeStart} and #{createTimeEnd}
+		</if>
+		<if test="state!=''&amp;state!=null">
+			and state=#{state}
+		</if>
+	</select>
+	<select id="queryList" resultType="com.outSouPlat.entity.Project">
+		select * from project where 1=1
+		<if test="name!=''&amp;name!=null">
+			and name like CONCAT('%',#{name},'%')
+		</if>
+		<if test="deveLang!=''&amp;deveLang!=null">
+			and deveLang=#{deveLang}
+		</if>
+		<if test="database!=''&amp;database!=null">
+			and database like CONCAT('%',#{database},'%')
+		</if>
+		<if test="deveTool!=''&amp;deveTool!=null">
+			and deveTool like CONCAT('%',#{deveTool},'%')
+		</if>
+		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd">
+			and createTime between #{createTimeStart} and #{createTimeEnd}
+		</if>
+		<if test="state!=''&amp;state!=null">
+			and state=#{state}
+		</if>
+		order by createTime desc
+		limit #{rowNum},#{rows}
+	</select>
+</mapper>

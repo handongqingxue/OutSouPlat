@@ -16,18 +16,16 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectMapper projectDao;
 
 	@Override
-	public int queryForInt(String name, String deveLang, String database, String deveTool, Integer outCount,
-			Integer taskBagCount, String createTimeStart, String createTimeEnd, Integer state) {
+	public int queryForInt(String name, String deveLang, String database, String deveTool, String createTimeStart, String createTimeEnd, Integer state) {
 		// TODO Auto-generated method stub
-		return projectDao.queryForInt(name, deveLang, database, deveTool, outCount, taskBagCount, createTimeStart, createTimeEnd, state);
+		return projectDao.queryForInt(name, deveLang, database, deveTool, createTimeStart, createTimeEnd, state);
 	}
 
 	@Override
-	public List<Project> queryList(String name, String deveLang, String database, String deveTool, Integer outCount,
-			Integer taskBagCount, String createTimeStart, String createTimeEnd, Integer state, int page, int rows,
+	public List<Project> queryList(String name, String deveLang, String database, String deveTool, String createTimeStart, String createTimeEnd, Integer state, int page, int rows,
 			String sort, String order) {
 		// TODO Auto-generated method stub
-		return projectDao.queryList(name, deveLang, database, deveTool, outCount, taskBagCount, createTimeStart, 
+		return projectDao.queryList(name, deveLang, database, deveTool, createTimeStart, 
 				createTimeEnd, state, (page-1)*rows, rows, sort, order);
 	}
 
