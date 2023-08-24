@@ -33,6 +33,8 @@ public class MainController {
 	@RequestMapping(value="/goLogin")
 	public String goLogin() {
 		
+		//http://localhost:8080/OutSouPlat/main/goLogin
+		
 		return "login";
 	}
 	
