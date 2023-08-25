@@ -21,6 +21,12 @@ public class Project {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
+	public String getIllusUrl() {
+		return illusUrl;
+	}
+	public void setIllusUrl(String illusUrl) {
+		this.illusUrl = illusUrl;
+	}
 	public String getDeveLang() {
 		return deveLang;
 	}
@@ -65,6 +71,7 @@ public class Project {
 	}
 	private String name;
 	private String intro;
+	private String illusUrl;
 	private String deveLang;
 	private String database;
 	private String deveTool;

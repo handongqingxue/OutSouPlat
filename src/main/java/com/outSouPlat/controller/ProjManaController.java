@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.outSouPlat.entity.*;
 import com.outSouPlat.service.*;
+import com.outSouPlat.util.*;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/projMana")
@@ -22,12 +27,70 @@ public class ProjManaController {
 	private ProjectService projectService;
 	public static final String MODULE_NAME="projMana";
 	
+	@RequestMapping(value="/projList/new")
+	public String goProjListNew(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		
+		return MODULE_NAME+"/projList/new";
+	}
+	
 	@RequestMapping(value="/projList/list")
 	public String goProjListList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
 		
 		return MODULE_NAME+"/projList/list";
+	}
+	
+	@RequestMapping(value="/newProject")
+	@ResponseBody
+	public Map<String, Object> newProject(Project project,
+			@RequestParam(value="illus_file",required=false) MultipartFile illus_file) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=illus_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						String folder="Project/";
+						switch (i) {
+						case 0:
+							folder+="Illus";//插图
+							break;
+						}
+						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								project.setIllusUrl(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=0;//projectService.add(project);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建项目信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建项目信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
 	}
 	
 	@RequestMapping(value="/queryList")

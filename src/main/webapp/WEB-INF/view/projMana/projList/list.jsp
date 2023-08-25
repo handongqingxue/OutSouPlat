@@ -99,7 +99,7 @@ function initAddLB(){
 	addLB=$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=projManaPath+"zhcx/new";
+			location.href=projManaPath+"projList/new";
 		}
 	});
 }

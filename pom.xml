@@ -65,6 +65,11 @@
 		<artifactId>jackson-annotations</artifactId>
 		<version>2.7.0</version>
 	</dependency>
+	<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20140107</version>
+	</dependency>
 	<!-- jsp页面轻标签 -->
 	<dependency>
 		<groupId>javax.servlet</groupId>
