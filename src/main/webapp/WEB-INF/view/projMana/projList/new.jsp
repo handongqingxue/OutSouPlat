@@ -54,7 +54,7 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
-var gbglPath=path+'gbgl/';
+var projManaPath=path+'projMana/';
 var dialogTop=70;
 var dialogLeft=20;
 var ndNum=0;
@@ -118,6 +118,40 @@ function initNewDialog(){
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
+}
+
+function checkNew(){
+	if(checkName()){
+		if(checkDeveLang()){
+			if(checkDatabase()){
+				if(checkDeveTool()){
+					newProject();
+				}
+			}
+		}
+	}
+}
+
+function newProject(){
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:projManaPath+"newProject",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
 }
 
 function focusName(){

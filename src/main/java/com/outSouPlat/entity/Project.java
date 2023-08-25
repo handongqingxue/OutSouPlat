@@ -1,6 +1,27 @@
 package com.outSouPlat.entity;
 
 public class Project {
+	
+	/**
+	 * 待发布
+	 */
+	public static final int DAI_FA_BU=1;
+	/**
+	 * 待开发
+	 */
+	public static final int DAI_KAI_FA=2;
+	/**
+	 * 开发中
+	 */
+	public static final int KAI_FA_ZHONG=3;
+	/**
+	 * 已完成
+	 */
+	public static final int YI_WAN_CHENG=4;
+	/**
+	 * 已下架
+	 */
+	public static final int YI_XIA_JIA=5;
 
 	private Integer id;
 	public Integer getId() {

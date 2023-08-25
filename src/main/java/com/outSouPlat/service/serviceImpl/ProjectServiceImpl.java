@@ -16,6 +16,12 @@ public class ProjectServiceImpl implements ProjectService {
 	private ProjectMapper projectDao;
 
 	@Override
+	public int add(Project project) {
+		// TODO Auto-generated method stub
+		return projectDao.add(project);
+	}
+
+	@Override
 	public int queryForInt(String name, String deveLang, String database, String deveTool, String createTimeStart, String createTimeEnd, Integer state) {
 		// TODO Auto-generated method stub
 		return projectDao.queryForInt(name, deveLang, database, deveTool, createTimeStart, createTimeEnd, state);
@@ -28,5 +34,4 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.queryList(name, deveLang, database, deveTool, createTimeStart, 
 				createTimeEnd, state, (page-1)*rows, rows, sort, order);
 	}
-
 }

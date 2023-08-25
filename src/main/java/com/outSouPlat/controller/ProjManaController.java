@@ -77,7 +77,7 @@ public class ProjManaController {
 				}
 			}
 			
-			int count=0;//projectService.add(project);
+			int count=projectService.add(project);
 			if(count>0) {
 				jsonMap.put("message", "ok");
 				jsonMap.put("info", "创建项目信息成功！");

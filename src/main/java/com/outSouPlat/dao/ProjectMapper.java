@@ -8,6 +8,8 @@ import com.outSouPlat.entity.*;
 
 public interface ProjectMapper {
 
+	int add(Project project);
+
 	int queryForInt(@Param("name") String name, @Param("deveLang") String deveLang, @Param("database") String database, @Param("deveTool") String deveTool, @Param("createTimeStart") String createTimeStart, @Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state);
 
 	List<Project> queryList(@Param("name") String name, @Param("deveLang") String deveLang, @Param("database") String database, @Param("deveTool") String deveTool, @Param("createTimeStart") String createTimeStart, @Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state, 
