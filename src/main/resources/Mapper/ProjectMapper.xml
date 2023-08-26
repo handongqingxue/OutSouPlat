@@ -55,6 +55,30 @@
 				${@com.outSouPlat.entity.Project@DAI_FA_BU}
 		</trim>
 	</insert>
+	<update id="edit" parameterType="com.outSouPlat.entity.Project">
+		update project set 
+		<trim suffixOverrides=",">
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="intro!=null">
+				intro=#{intro},
+			</if>
+			<if test="illusUrl!=null">
+				illusUrl=#{illusUrl},
+			</if>
+			<if test="deveLang!=null">
+				deveLang=#{deveLang},
+			</if>
+			<if test="database!=null">
+				`database`=#{database},
+			</if>
+			<if test="deveTool!=null">
+				deveTool=#{deveTool},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from project where 1=1
 		<if test="name!=''&amp;name!=null">
@@ -98,5 +122,8 @@
 		</if>
 		order by createTime desc
 		limit #{rowNum},#{rows}
+	</select>
+	<select id="selectById" resultType="com.outSouPlat.entity.Project">
+		select * from project where id=#{0}
 	</select>
 </mapper>

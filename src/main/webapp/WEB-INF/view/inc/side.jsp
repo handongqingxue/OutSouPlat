@@ -172,7 +172,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item xmlb_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>ddgl/ddzt/list">
+						<a href="<%=basePath%>projMana/projList/list">
 							&nbsp;&nbsp;&nbsp;项目列表
 						</a>
 					</li>

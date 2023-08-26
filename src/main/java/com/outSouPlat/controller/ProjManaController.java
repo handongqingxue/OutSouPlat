@@ -34,6 +34,16 @@ public class ProjManaController {
 		
 		return MODULE_NAME+"/projList/new";
 	}
+
+	@RequestMapping(value="/projList/edit")
+	public String goProjListEdit(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		Project project=projectService.selectById(id);
+		request.setAttribute("project", project);
+			
+		return MODULE_NAME+"/projList/edit";
+	}
 	
 	@RequestMapping(value="/projList/list")
 	public String goProjListList(HttpServletRequest request) {
@@ -41,6 +51,16 @@ public class ProjManaController {
 		//publicService.selectNav(request);
 		
 		return MODULE_NAME+"/projList/list";
+	}
+
+	@RequestMapping(value="/projList/detail")
+	public String goProjListDetail(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		Project project=projectService.selectById(id);
+		request.setAttribute("project", project);
+			
+		return MODULE_NAME+"/projList/detail";
 	}
 	
 	@RequestMapping(value="/newProject")
@@ -85,6 +105,55 @@ public class ProjManaController {
 			else {
 				jsonMap.put("message", "no");
 				jsonMap.put("info", "创建项目信息失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editProject")
+	@ResponseBody
+	public Map<String, Object> editProject(Project project,
+			@RequestParam(value="illus_file",required=false) MultipartFile illus_file) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=illus_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						String folder="Project/";
+						switch (i) {
+						case 0:
+							folder+="Illus";//插图
+							break;
+						}
+						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								project.setIllusUrl(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=projectService.edit(project);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑项目信息成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑项目信息失败！");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

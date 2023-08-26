@@ -22,6 +22,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
+	public int edit(Project project) {
+		// TODO Auto-generated method stub
+		return projectDao.edit(project);
+	}
+
+	@Override
 	public int queryForInt(String name, String deveLang, String database, String deveTool, String createTimeStart, String createTimeEnd, Integer state) {
 		// TODO Auto-generated method stub
 		return projectDao.queryForInt(name, deveLang, database, deveTool, createTimeStart, createTimeEnd, state);
@@ -33,5 +39,11 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return projectDao.queryList(name, deveLang, database, deveTool, createTimeStart, 
 				createTimeEnd, state, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public Project selectById(String id) {
+		// TODO Auto-generated method stub
+		return projectDao.selectById(id);
 	}
 }
