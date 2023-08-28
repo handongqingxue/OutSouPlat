@@ -186,7 +186,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item rwblb_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>gbgl/bdjl/list">
+						<a href="<%=basePath%>taskBagMana/taskBagList/list">
 							&nbsp;&nbsp;&nbsp;任务包列表
 						</a>
 					</li>
