@@ -287,8 +287,10 @@ function setFitWidthInParent(parent,self){
 					<textarea rows="6" cols="10" class="describe_inp" id="describe" name="describe" placeholder="请输入简介"></textarea>
 				</td>
 				<td class="td1" align="right">
+					附件
 				</td>
 				<td class="td2">
+					<input type="file" id="annex_file" name="annex_file"/>
 				</td>
 			  </tr>
 			</table>

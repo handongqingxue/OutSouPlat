@@ -45,11 +45,39 @@ public class TaskBagManaController {
 	
 	@RequestMapping(value="/newTaskBag")
 	@ResponseBody
-	public Map<String, Object> newTaskBag(TaskBag taskBag) {
+	public Map<String, Object> newTaskBag(TaskBag taskBag,
+			@RequestParam(value="annex_file",required=false) MultipartFile annex_file) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
+			MultipartFile[] fileArr=new MultipartFile[3];
+			fileArr[0]=annex_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						String folder="TaskBag/";
+						switch (i) {
+						case 0:
+							folder+="annex";//附件
+							break;
+						}
+						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								taskBag.setAnnexFileSize(annex_file.getSize());
+								taskBag.setAnnexFileUrl(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
 			int count=taskBagService.add(taskBag);
 			if(count>0) {
 				jsonMap.put("message", "ok");

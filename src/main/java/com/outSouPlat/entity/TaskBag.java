@@ -21,10 +21,22 @@ public class TaskBag {
 	public void setCommission(Float commission) {
 		this.commission = commission;
 	}
-	public Float getCodeFileSize() {
+	public Long getAnnexFileSize() {
+		return annexFileSize;
+	}
+	public void setAnnexFileSize(Long annexFileSize) {
+		this.annexFileSize = annexFileSize;
+	}
+	public String getAnnexFileUrl() {
+		return annexFileUrl;
+	}
+	public void setAnnexFileUrl(String annexFileUrl) {
+		this.annexFileUrl = annexFileUrl;
+	}
+	public Long getCodeFileSize() {
 		return codeFileSize;
 	}
-	public void setCodeFileSize(Float codeFileSize) {
+	public void setCodeFileSize(Long codeFileSize) {
 		this.codeFileSize = codeFileSize;
 	}
 	public String getCodeFileUrl() {
@@ -89,7 +101,9 @@ public class TaskBag {
 	}
 	private String name;
 	private Float commission;
-	private Float codeFileSize;
+	private Long annexFileSize;
+	private String annexFileUrl;
+	private Long codeFileSize;
 	private String codeFileUrl;
 	private String createTime;
 	private Integer uploadUserId;

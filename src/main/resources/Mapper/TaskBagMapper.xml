@@ -12,6 +12,12 @@
 			<if test="commission!=null">
 				commission,
 			</if>
+			<if test="annexFileSize!=null">
+				annexFileSize,
+			</if>
+			<if test="annexFileUrl!=null">
+				annexFileUrl,
+			</if>
 				createTime,
 			<if test="uploadUserId!=null">
 				uploadUserId,
@@ -35,6 +41,12 @@
 			</if>
 			<if test="commission!=null">
 				#{commission},
+			</if>
+			<if test="annexFileSize!=null">
+				#{annexFileSize},
+			</if>
+			<if test="annexFileUrl!=null">
+				#{annexFileUrl},
 			</if>
 				now(),
 			<if test="uploadUserId!=null">
