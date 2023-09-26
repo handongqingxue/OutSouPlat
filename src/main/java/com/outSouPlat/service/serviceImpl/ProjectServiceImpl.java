@@ -46,4 +46,10 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return projectDao.selectById(id);
 	}
+
+	@Override
+	public List<Project> queryCBBList() {
+		// TODO Auto-generated method stub
+		return projectDao.queryCBBList();
+	}
 }

@@ -16,4 +16,6 @@ public interface ProjectService {
 			Integer state, int page, int rows, String sort, String order);
 
 	public Project selectById(String id);
+
+	public List<Project> queryCBBList();
 }

@@ -14,4 +14,6 @@ public interface TaskBagMapper {
 	List<TaskBag> queryList(@Param("name") String name, @Param("projectName") String projectName, @Param("uploadUserName") String uploadUserName, @Param("createTimeStart") String createTimeStart,
 			@Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state, @Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
 
+	int add(TaskBag taskBag);
+
 }

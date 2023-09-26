@@ -126,4 +126,7 @@
 	<select id="selectById" resultType="com.outSouPlat.entity.Project">
 		select * from project where id=#{0}
 	</select>
+	<select id="queryCBBList" resultType="com.outSouPlat.entity.Project">
+		select id,name from project order by createTime
+	</select>
 </mapper>

@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.outSouPlat.entity.*;
 import com.outSouPlat.service.*;
+import com.outSouPlat.util.FileUploadUtil;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/taskBagMana")
@@ -22,12 +27,45 @@ public class TaskBagManaController {
 	private TaskBagService taskBagService;
 	public static final String MODULE_NAME="taskBagMana";
 	
+	@RequestMapping(value="/taskBagList/new")
+	public String goTaskBagListNew(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		
+		return MODULE_NAME+"/taskBagList/new";
+	}
+	
 	@RequestMapping(value="/taskBagList/list")
 	public String goTaskBagListList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
 		
 		return MODULE_NAME+"/taskBagList/list";
+	}
+	
+	@RequestMapping(value="/newTaskBag")
+	@ResponseBody
+	public Map<String, Object> newTaskBag(TaskBag taskBag) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count=taskBagService.add(taskBag);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建任务包成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建任务包失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建任务包失败！");
+		}
+		return jsonMap;
 	}
 	
 	@RequestMapping(value="/queryList")

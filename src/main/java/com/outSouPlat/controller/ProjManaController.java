@@ -181,4 +181,17 @@ public class ProjManaController {
 		
 		return jsonMap;
 	}
+	
+	@RequestMapping(value="/queryCBBList")
+	@ResponseBody
+	public Map<String, Object> queryCBBList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<Project> projectList=projectService.queryCBBList();
+		
+		jsonMap.put("rows", projectList);
+		
+		return jsonMap;
+	}
 }

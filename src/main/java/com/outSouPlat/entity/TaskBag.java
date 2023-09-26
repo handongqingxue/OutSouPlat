@@ -45,16 +45,22 @@ public class TaskBag {
 	public void setUploadUserId(Integer uploadUserId) {
 		this.uploadUserId = uploadUserId;
 	}
+	public String getUploadUserName() {
+		return uploadUserName;
+	}
+	public void setUploadUserName(String uploadUserName) {
+		this.uploadUserName = uploadUserName;
+	}
 	public Integer getDownloadCount() {
 		return downloadCount;
 	}
 	public void setDownloadCount(Integer downloadCount) {
 		this.downloadCount = downloadCount;
 	}
-	public Float getMakeTime() {
+	public String getMakeTime() {
 		return makeTime;
 	}
-	public void setMakeTime(Float makeTime) {
+	public void setMakeTime(String makeTime) {
 		this.makeTime = makeTime;
 	}
 	public String getDescribe() {
@@ -63,17 +69,23 @@ public class TaskBag {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	public Integer getState() {
-		return state;
-	}
-	public void setState(Integer state) {
-		this.state = state;
-	}
 	public Integer getProjectId() {
 		return projectId;
 	}
 	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	private String name;
 	private Float commission;
@@ -81,9 +93,11 @@ public class TaskBag {
 	private String codeFileUrl;
 	private String createTime;
 	private Integer uploadUserId;
+	private String uploadUserName;
 	private Integer downloadCount;
-	private Float makeTime;
+	private String makeTime;
 	private String describe;
-	private Integer state;
 	private Integer projectId;
+	private String projectName;
+	private Integer state;
 }

@@ -12,4 +12,6 @@ public interface TaskBagService {
 	List<TaskBag> queryList(String name, String projectName, String uploadUserName, String createTimeStart,
 			String createTimeEnd, Integer state, int page, int rows, String sort, String order);
 
+	int add(TaskBag taskBag);
+
 }

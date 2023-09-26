@@ -82,12 +82,11 @@ function initSearchLB(){
 			var name=$("#toolbar #name").val();
 			var projectName=$("#toolbar #projectName").val();
 			var uploadUserName=$("#toolbar #uploadUserName").val();
-			var deveTool=$("#toolbar #deveTool").val();
 			var createTimeStart=createTimeStartDTB.datetimebox("getValue");
 			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
 			var state=stateCBB.combobox("getValue");
 			
-			tab1.datagrid("load",{name:name,projectName:projectName,uploadUserName:uploadUserName,deveTool:deveTool,
+			tab1.datagrid("load",{name:name,projectName:projectName,uploadUserName:uploadUserName,
 				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,state:state});
 		}
 	});
@@ -97,7 +96,7 @@ function initAddLB(){
 	addLB=$("#add_but").linkbutton({
 		iconCls:"icon-add",
 		onClick:function(){
-			location.href=taskBagManaPath+"projList/new";
+			location.href=taskBagManaPath+"taskBagList/new";
 		}
 	});
 }
@@ -120,9 +119,9 @@ function initTab1(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"name",title:"项目名称",width:150},
+			{field:"name",title:"任务名称",width:150},
 			{field:"projectName",title:"项目",width:150},
-			{field:"database",title:"佣金",width:150},
+			{field:"commission",title:"佣金",width:150},
 			{field:"uploadUserName",title:"上传者",width:150},
 			{field:"createTime",title:"发布时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
@@ -188,8 +187,8 @@ function setFitWidthInParent(parent,self){
 	<div class="tab1_div" id="tab1_div">
 		<div class="toolbar" id="toolbar">
 			<div class="row_div">
-				<span class="name_span">项目名称：</span>
-				<input type="text" class="name_inp" id="name" placeholder="请输入项目名称"/>
+				<span class="name_span">任务名称：</span>
+				<input type="text" class="name_inp" id="name" placeholder="请输入任务名称"/>
 				<span class="projectName_span">项目：</span>
 				<input type="text" class="projectName_inp" id="projectName" placeholder="请输入项目"/>
 				<span class="uploadUserName_span">上传者：</span>

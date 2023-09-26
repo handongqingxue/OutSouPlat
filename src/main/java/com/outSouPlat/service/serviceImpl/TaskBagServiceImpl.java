@@ -29,4 +29,10 @@ public class TaskBagServiceImpl implements TaskBagService {
 		return taskBagDao.queryList(name, projectName, uploadUserName, createTimeStart, 
 				createTimeEnd, state, (page-1)*rows, rows, sort, order);
 	}
+
+	@Override
+	public int add(TaskBag taskBag) {
+		// TODO Auto-generated method stub
+		return taskBagDao.add(taskBag);
+	}
 }

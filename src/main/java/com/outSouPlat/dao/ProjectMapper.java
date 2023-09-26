@@ -19,4 +19,6 @@ public interface ProjectMapper {
 
 	Project selectById(String id);
 
+	List<Project> queryCBBList();
+
 }
