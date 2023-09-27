@@ -34,6 +34,22 @@ public class TaskBagManaController {
 		
 		return MODULE_NAME+"/taskBagList/new";
 	}
+
+	/**
+	 * 跳转到任务包管理-任务包列表-编辑页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/taskBagList/edit")
+	public String goTaskBagListEdit(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		TaskBag taskBag=taskBagService.selectById(id);
+		request.setAttribute("taskBag", taskBag);
+		
+		return MODULE_NAME+"/taskBagList/edit";
+	}
 	
 	@RequestMapping(value="/taskBagList/list")
 	public String goTaskBagListList(HttpServletRequest request) {
@@ -92,6 +108,58 @@ public class TaskBagManaController {
 			e.printStackTrace();
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "创建任务包失败！");
+		}
+		return jsonMap;
+	}
+
+	@RequestMapping(value="/editTaskBag")
+	@ResponseBody
+	public Map<String, Object> editTaskBag(TaskBag taskBag,
+			@RequestParam(value="annex_file",required=false) MultipartFile annex_file) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			MultipartFile[] fileArr=new MultipartFile[3];
+			fileArr[0]=annex_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						String folder="TaskBag/";
+						switch (i) {
+						case 0:
+							folder+="annex";//附件
+							break;
+						}
+						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								taskBag.setAnnexFileSize(annex_file.getSize());
+								taskBag.setAnnexFileUrl(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+		
+			int count=taskBagService.edit(taskBag);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "编辑任务包成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "编辑任务包失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑任务包失败！");
 		}
 		return jsonMap;
 	}

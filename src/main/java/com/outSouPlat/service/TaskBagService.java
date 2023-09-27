@@ -2,7 +2,7 @@ package com.outSouPlat.service;
 
 import java.util.List;
 
-import com.outSouPlat.entity.TaskBag;
+import com.outSouPlat.entity.*;
 
 public interface TaskBagService {
 
@@ -13,5 +13,9 @@ public interface TaskBagService {
 			String createTimeEnd, Integer state, int page, int rows, String sort, String order);
 
 	int add(TaskBag taskBag);
+
+	int edit(TaskBag taskBag);
+
+	TaskBag selectById(String id);
 
 }

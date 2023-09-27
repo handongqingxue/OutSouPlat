@@ -35,4 +35,16 @@ public class TaskBagServiceImpl implements TaskBagService {
 		// TODO Auto-generated method stub
 		return taskBagDao.add(taskBag);
 	}
+
+	@Override
+	public int edit(TaskBag taskBag) {
+		// TODO Auto-generated method stub
+		return taskBagDao.edit(taskBag);
+	}
+
+	@Override
+	public TaskBag selectById(String id) {
+		// TODO Auto-generated method stub
+		return taskBagDao.selectById(id);
+	}
 }

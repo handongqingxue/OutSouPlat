@@ -65,6 +65,48 @@
 				1
 		</trim>
 	</insert>
+	<update id="edit" parameterType="com.outSouPlat.entity.TaskBag">
+		update task_bag set 
+		<trim suffixOverrides=",">
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="commission!=null">
+				commission=#{commission},
+			</if>
+			<if test="annexFileSize!=null">
+				annexFileSize=#{annexFileSize},
+			</if>
+			<if test="annexFileUrl!=null">
+				annexFileUrl=#{annexFileUrl},
+			</if>
+			<if test="codeFileSize!=null">
+				codeFileSize=#{codeFileSize},
+			</if>
+			<if test="codeFileUrl!=null">
+				codeFileUrl=#{codeFileUrl},
+			</if>
+			<if test="downloadCount!=null">
+				downloadCount=#{downloadCount},
+			</if>
+			<if test="makeTime!=null">
+				makeTime=#{makeTime},
+			</if>
+			<if test="describe!=null">
+				`describe`=#{describe},
+			</if>
+			<if test="projectId!=null">
+				projectId=#{projectId},
+			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+	<select id="selectById" resultType="com.outSouPlat.entity.TaskBag">
+		select * from task_bag where id=#{id}
+	</select>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from task_bag tb,project p,user u where tb.projectId=p.id and tb.uploadUserId=u.id
 		<if test="name!=''&amp;name!=null">

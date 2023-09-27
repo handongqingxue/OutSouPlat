@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.outSouPlat.entity.TaskBag;
+import com.outSouPlat.entity.*;
 
 public interface TaskBagMapper {
 
@@ -15,5 +15,9 @@ public interface TaskBagMapper {
 			@Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state, @Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
 
 	int add(TaskBag taskBag);
+
+	int edit(TaskBag taskBag);
+
+	TaskBag selectById(@Param("id") String id);
 
 }
