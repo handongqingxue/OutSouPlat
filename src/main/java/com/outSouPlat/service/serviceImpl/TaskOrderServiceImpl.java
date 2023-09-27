@@ -30,4 +30,10 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 		return taskOrderDao.queryList(no, taskBagName, userName, createTimeStart, createTimeEnd, 
 				finishTimeStart, finishTimeEnd, state, (page-1)*rows, rows, sort, order);
 	}
+
+	@Override
+	public TaskOrder selectById(String id) {
+		// TODO Auto-generated method stub
+		return taskOrderDao.selectById(id);
+	}
 }

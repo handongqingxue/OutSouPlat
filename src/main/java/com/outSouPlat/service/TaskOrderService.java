@@ -12,4 +12,6 @@ public interface TaskOrderService {
 	List<TaskOrder> queryList(String no, String taskBagName, String userName, String createTimeStart,
 			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, 
 			int page, int rows, String sort, String order);
+
+	TaskOrder selectById(String id);
 }

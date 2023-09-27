@@ -83,6 +83,21 @@ public class TaskBagManaController {
 		
 		return MODULE_NAME+"/taskOrder/list";
 	}
+
+	/**
+	 * 跳转到任务包管理-任务单查询-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/taskOrder/detail")
+	public String goTaskOrderDetail(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		TaskOrder taskOrder=taskOrderService.selectById(id);
+		request.setAttribute("taskOrder", taskOrder);
+			
+		return MODULE_NAME+"/taskOrder/detail";
+	}
 	
 	@RequestMapping(value="/newTaskBag")
 	@ResponseBody
