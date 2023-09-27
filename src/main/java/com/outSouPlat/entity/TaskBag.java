@@ -33,18 +33,6 @@ public class TaskBag {
 	public void setAnnexFileUrl(String annexFileUrl) {
 		this.annexFileUrl = annexFileUrl;
 	}
-	public Long getCodeFileSize() {
-		return codeFileSize;
-	}
-	public void setCodeFileSize(Long codeFileSize) {
-		this.codeFileSize = codeFileSize;
-	}
-	public String getCodeFileUrl() {
-		return codeFileUrl;
-	}
-	public void setCodeFileUrl(String codeFileUrl) {
-		this.codeFileUrl = codeFileUrl;
-	}
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -103,8 +91,6 @@ public class TaskBag {
 	private Float commission;
 	private Long annexFileSize;
 	private String annexFileUrl;
-	private Long codeFileSize;
-	private String codeFileUrl;
 	private String createTime;
 	private Integer uploadUserId;
 	private String uploadUserName;

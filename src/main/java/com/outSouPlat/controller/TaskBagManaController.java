@@ -25,6 +25,8 @@ public class TaskBagManaController {
 
 	@Autowired
 	private TaskBagService taskBagService;
+	@Autowired
+	private TaskOrderService taskOrderService;
 	public static final String MODULE_NAME="taskBagMana";
 	
 	@RequestMapping(value="/taskBagList/new")
@@ -72,6 +74,14 @@ public class TaskBagManaController {
 		request.setAttribute("taskBag", taskBag);
 			
 		return MODULE_NAME+"/taskBagList/detail";
+	}
+	
+	@RequestMapping(value="/taskOrder/list")
+	public String goTaskOrderList(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		
+		return MODULE_NAME+"/taskOrder/list";
 	}
 	
 	@RequestMapping(value="/newTaskBag")
@@ -191,6 +201,27 @@ public class TaskBagManaController {
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", taskBagList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/queryTaskOrderList")
+	@ResponseBody
+	public Map<String, Object> queryTaskOrderList(String no,String taskBagName,String userName,String createTimeStart,String createTimeEnd,
+			String finishTimeStart,String finishTimeEnd,Integer state,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count = taskOrderService.queryForInt(no,taskBagName,userName,createTimeStart,createTimeEnd,finishTimeStart,finishTimeEnd,state);
+			List<TaskOrder> taskOrderList=taskOrderService.queryList(no,taskBagName,userName,createTimeStart,createTimeEnd,finishTimeStart,finishTimeEnd,state, page, rows, sort, order);
+			
+			jsonMap.put("total", count);
+			jsonMap.put("rows", taskOrderList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

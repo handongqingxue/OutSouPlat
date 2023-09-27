@@ -193,8 +193,8 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item rwdlb_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>dwgl/yss/list">
-							&nbsp;&nbsp;&nbsp;任务记录
+						<a href="<%=basePath%>taskBagMana/taskOrder/list">
+							&nbsp;&nbsp;&nbsp;任务单查询
 						</a>
 					</li>
 				</div>
