@@ -105,7 +105,7 @@
 		where id=#{id}
 	</update>
 	<select id="selectById" resultType="com.outSouPlat.entity.TaskBag">
-		select * from task_bag where id=#{id}
+		select tb.*,p.name projectName,u.username uploadUserName from task_bag tb,project p,user u where tb.projectId=p.id and tb.uploadUserId=u.id and tb.id=#{id}
 	</select>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from task_bag tb,project p,user u where tb.projectId=p.id and tb.uploadUserId=u.id

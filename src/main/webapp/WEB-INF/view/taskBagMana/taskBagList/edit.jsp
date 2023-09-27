@@ -80,7 +80,7 @@ function initEditDialog(){
 	$("#edit_div table .td2").css("width","30%");
 	$("#edit_div table tr").css("border-bottom","#CAD9EA solid 1px");
 	$("#edit_div table tr").each(function(i){
-		$(this).css("height",(i==2?300:45)+"px");
+		$(this).css("height",(i==4?300:45)+"px");
 	});
 
 	$(".panel.window").eq(edNum).css("margin-top","20px");
@@ -285,16 +285,42 @@ function setFitWidthInParent(parent,self){
 			  </tr>
 			  <tr>
 				<td class="td1" align="right">
-					简介
+					发布时间
 				</td>
 				<td class="td2">
-					<textarea rows="6" cols="10" class="describe_inp" id="describe" name="describe" placeholder="请输入简介">${requestScope.taskBag.describe }</textarea>
+					${requestScope.taskBag.createTime }
+				</td>
+				<td class="td1" align="right">
+					上传者
+				</td>
+				<td class="td2">
+					${requestScope.taskBag.uploadUserName }
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					下载次数
+				</td>
+				<td class="td2">
+					${requestScope.taskBag.downloadCount }
 				</td>
 				<td class="td1" align="right">
 					附件
 				</td>
 				<td class="td2">
 					<input type="file" id="annex_file" name="annex_file"/>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					简介
+				</td>
+				<td class="td2">
+					<textarea rows="6" cols="10" class="describe_inp" id="describe" name="describe" placeholder="请输入简介">${requestScope.taskBag.describe }</textarea>
+				</td>
+				<td class="td1" align="right">
+				</td>
+				<td class="td2">
 				</td>
 			  </tr>
 			</table>

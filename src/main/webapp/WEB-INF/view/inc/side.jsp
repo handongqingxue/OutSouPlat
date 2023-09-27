@@ -190,6 +190,13 @@ function showLeftMenuByQx(){
 							&nbsp;&nbsp;&nbsp;任务包列表
 						</a>
 					</li>
+					<div class="line_div"></div>
+					<li class="layui-nav-item rwdlb_item_li">
+						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
+						<a href="<%=basePath%>dwgl/yss/list">
+							&nbsp;&nbsp;&nbsp;任务记录
+						</a>
+					</li>
 				</div>
 				<div class="first-level-div csjg_first_div">
 					<li class="layui-nav-item first-level">
@@ -202,20 +209,6 @@ function showLeftMenuByQx(){
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>wzgl/wzlx/list">
 							&nbsp;&nbsp;&nbsp;综合查询
-						</a>
-					</li>
-				</div>
-				<div class="first-level-div lsrw_first_div">
-					<li class="layui-nav-item first-level">
-						<a>
-							历史任务
-						</a>
-					</li>
-					<div class="line_div"></div>
-					<li class="layui-nav-item rwdlb_item_li">
-						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>dwgl/yss/list">
-							&nbsp;&nbsp;&nbsp;任务单列表
 						</a>
 					</li>
 				</div>

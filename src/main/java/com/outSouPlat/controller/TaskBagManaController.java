@@ -58,6 +58,21 @@ public class TaskBagManaController {
 		
 		return MODULE_NAME+"/taskBagList/list";
 	}
+
+	/**
+	 * 跳转到任务包管理-任务包列表-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/taskBagList/detail")
+	public String goTaskBagListDetail(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		TaskBag taskBag=taskBagService.selectById(id);
+		request.setAttribute("taskBag", taskBag);
+			
+		return MODULE_NAME+"/taskBagList/detail";
+	}
 	
 	@RequestMapping(value="/newTaskBag")
 	@ResponseBody
