@@ -25,6 +25,22 @@ public class SysManaController {
 	@Autowired
 	private UserService userService;
 	public static final String MODULE_NAME="sysMana";
+
+	/**
+	 * 跳转到系统管理-用户查询-编辑页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/user/edit")
+	public String goUserEdit(HttpServletRequest request) {
+
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		User user=userService.selectById(id);
+		request.setAttribute("user", user);
+		
+		return MODULE_NAME+"/user/edit";
+	}
 	
 	@RequestMapping(value="/user/list")
 	public String goUserList(HttpServletRequest request) {

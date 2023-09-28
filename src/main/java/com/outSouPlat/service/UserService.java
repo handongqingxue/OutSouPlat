@@ -14,4 +14,6 @@ public interface UserService {
 
 	int add(User user);
 
+	User selectById(String id);
+
 }

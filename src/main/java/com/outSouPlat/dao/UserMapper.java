@@ -19,4 +19,6 @@ public interface UserMapper {
 	int getCountByUsername(@Param("username") String username);
 
 	int add(User user);
+
+	User selectById(@Param("id") String id);
 }

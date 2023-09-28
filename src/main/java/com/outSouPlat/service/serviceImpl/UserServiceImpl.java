@@ -40,4 +40,30 @@ public class UserServiceImpl implements UserService {
 		return userDao.add(user);
 	}
 
+	@Override
+	public User selectById(String id) {
+		// TODO Auto-generated method stub
+		User user = userDao.selectById(id);
+		/*
+		List<JueSe> jsList = jueSeDao.queryCBBList();
+		String jsIds = yh.getJsIds();
+		if(!StringUtils.isEmpty(jsIds)) {
+			String[] jsIdArr = jsIds.split(",");
+			String jsMcs = "";
+			for (String jsIdStr : jsIdArr) {
+				int jsId = Integer.valueOf(jsIdStr);
+				for (int i = 0; i < jsList.size(); i++) {
+					JueSe js = jsList.get(i);
+					if(jsId==js.getId()) {
+						jsMcs+=","+js.getMc();
+						break;
+					}
+				}
+			}
+			yh.setJsMcs(jsMcs.substring(1));
+		}
+		*/
+		return user;
+	}
+
 }
