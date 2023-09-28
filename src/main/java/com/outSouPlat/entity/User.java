@@ -1,6 +1,19 @@
 package com.outSouPlat.entity;
 
 public class User {
+	
+	/**
+	 * 待审核
+	 */
+	public static final int NO_CHECK=1;
+	/**
+	 * 审核通过
+	 */
+	public static final int CHECKED=2;
+	/**
+	 * 编辑中
+	 */
+	public static final int EDITING=3;
 
 	private Integer id;
 	public Integer getId() {
@@ -51,6 +64,12 @@ public class User {
 	public void setRoleIds(String roleIds) {
 		this.roleIds = roleIds;
 	}
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
 	private String username;
 	private String password;
 	private String phone;
@@ -58,4 +77,5 @@ public class User {
 	private String weixin;
 	private String createTime;
 	private String roleIds;
+	private Integer state;//1.待审核 2.审核通过 3.编辑中
 }

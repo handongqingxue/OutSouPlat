@@ -221,7 +221,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item yhcx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>xtgl/yhcx/list">
+						<a href="<%=basePath%>sysMana/user/list">
 							&nbsp;&nbsp;&nbsp;用户查询
 						</a>
 					</li>

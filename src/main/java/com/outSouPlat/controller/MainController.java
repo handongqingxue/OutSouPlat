@@ -38,6 +38,37 @@ public class MainController {
 		return "login";
 	}
 	
+	@RequestMapping(value="/goRegist")
+	public String goRegist(HttpServletRequest request) {
+		
+		return "regist";
+	}
+	
+	/**
+	 * 注册信息处理接口
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/regist" , method = RequestMethod.POST,produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String regist(User user) {
+		
+		PlanResult plan=new PlanResult();
+		int count=userService.add(user);
+		if(count==0) {
+			plan.setStatus(count);
+			plan.setMsg("系统错误，请联系维护人员");
+			return JsonUtil.getJsonFromObject(plan);
+		}else {
+			plan.setStatus(0);
+			plan.setMsg("注册成功");
+			plan.setData(user);
+			plan.setUrl("/main/goLogin");
+		}
+		
+		return JsonUtil.getJsonFromObject(plan);
+	}
+	
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String login(String username,String password,
@@ -74,6 +105,29 @@ public class MainController {
 		plan.setMsg("验证通过");
 		plan.setUrl("projMana/projList/list");
 		return JsonUtil.getJsonFromObject(plan);
+	}
+
+	/**
+	 * 验证用户名是否存在
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value="/checkUsernameIfExist",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String checkUsernameIfExist(String username) {
+		boolean exist=userService.checkUsernameIfExist(username);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(exist) {
+			plan.setStatus(0);
+			plan.setMsg("用户名已存在");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 
 	@RequestMapping(value="/exit")
