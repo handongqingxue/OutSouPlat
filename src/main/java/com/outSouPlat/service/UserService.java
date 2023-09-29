@@ -16,4 +16,6 @@ public interface UserService {
 
 	User selectById(String id);
 
+	int edit(User user);
+
 }

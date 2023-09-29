@@ -71,6 +71,30 @@
 				${@com.outSouPlat.entity.User@NO_CHECK},
 		</trim>
 	</insert>
+	<update id="edit" parameterType="com.outSouPlat.entity.User">
+		update user set 
+		<trim suffixOverrides=",">
+			<if test="password!=null">
+				password=#{password},
+			</if>
+			<if test="phone!=null">
+				phone=#{phone},
+			</if>
+			<if test="qq!=null">
+				qq=#{qq},
+			</if>
+			<if test="weixin!=null">
+				weixin=#{weixin},
+			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+			<if test="roleIds!=null">
+				roleIds=#{roleIds},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
 	<select id="selectById" resultType="com.outSouPlat.entity.User">
 		select * from user where id=#{id}
 	</select>

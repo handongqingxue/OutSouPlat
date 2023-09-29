@@ -21,4 +21,6 @@ public interface UserMapper {
 	int add(User user);
 
 	User selectById(@Param("id") String id);
+
+	int edit(User user);
 }

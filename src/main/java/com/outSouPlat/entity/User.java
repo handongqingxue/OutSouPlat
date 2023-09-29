@@ -64,6 +64,12 @@ public class User {
 	public void setRoleIds(String roleIds) {
 		this.roleIds = roleIds;
 	}
+	public String getRoleNames() {
+		return roleNames;
+	}
+	public void setRoleNames(String roleNames) {
+		this.roleNames = roleNames;
+	}
 	public Integer getState() {
 		return state;
 	}
@@ -77,5 +83,6 @@ public class User {
 	private String weixin;
 	private String createTime;
 	private String roleIds;
+	private String roleNames;
 	private Integer state;//1.待审核 2.审核通过 3.编辑中
 }

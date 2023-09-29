@@ -24,6 +24,8 @@ public class SysManaController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RoleService roleService;
 	public static final String MODULE_NAME="sysMana";
 
 	/**
@@ -51,6 +53,29 @@ public class SysManaController {
 	}
 	
 	/**
+	 * 编辑用户
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/editUser")
+	@ResponseBody
+	public Map<String, Object> editUser(User user) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=userService.edit(user);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑用户信息成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑用户信息失败！");
+		}
+		return jsonMap;
+	}
+	
+	/**
 	 * 查询用户
 	 * @param username
 	 * @param state
@@ -71,6 +96,23 @@ public class SysManaController {
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", userList);
+		
+		return jsonMap;
+	}
+	
+	/**
+	 * 查询下拉框角色
+	 * @return
+	 */
+	@RequestMapping(value="/queryRoleCBBList")
+	@ResponseBody
+	public Map<String, Object> queryRoleCBBList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<Role> roleList=roleService.queryCBBList();
+		
+		jsonMap.put("rows", roleList);
 		
 		return jsonMap;
 	}

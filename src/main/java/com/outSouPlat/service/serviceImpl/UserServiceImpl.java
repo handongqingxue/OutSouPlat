@@ -2,11 +2,12 @@ package com.outSouPlat.service.serviceImpl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.outSouPlat.entity.*;
 import com.outSouPlat.dao.*;
-import com.outSouPlat.entity.User;
 import com.outSouPlat.service.*;
 
 @Service
@@ -14,6 +15,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userDao;
+	@Autowired
+	private RoleMapper roleDao;
 	
 	@Override
 	public int queryForInt(String username, Integer state) {
@@ -44,26 +47,30 @@ public class UserServiceImpl implements UserService {
 	public User selectById(String id) {
 		// TODO Auto-generated method stub
 		User user = userDao.selectById(id);
-		/*
-		List<JueSe> jsList = jueSeDao.queryCBBList();
-		String jsIds = yh.getJsIds();
-		if(!StringUtils.isEmpty(jsIds)) {
-			String[] jsIdArr = jsIds.split(",");
-			String jsMcs = "";
-			for (String jsIdStr : jsIdArr) {
-				int jsId = Integer.valueOf(jsIdStr);
-				for (int i = 0; i < jsList.size(); i++) {
-					JueSe js = jsList.get(i);
-					if(jsId==js.getId()) {
-						jsMcs+=","+js.getMc();
+		List<Role> roleList = roleDao.queryCBBList();
+		String roleIds = user.getRoleIds();
+		if(!StringUtils.isEmpty(roleIds)) {
+			String[] roleIdArr = roleIds.split(",");
+			String roleNames = "";
+			for (String roleIdStr : roleIdArr) {
+				int roleId = Integer.valueOf(roleIdStr);
+				for (int i = 0; i < roleList.size(); i++) {
+					Role role = roleList.get(i);
+					if(roleId==role.getId()) {
+						roleNames+=","+role.getName();
 						break;
 					}
 				}
 			}
-			yh.setJsMcs(jsMcs.substring(1));
+			user.setRoleNames(roleNames.substring(1));
 		}
-		*/
 		return user;
+	}
+
+	@Override
+	public int edit(User user) {
+		// TODO Auto-generated method stub
+		return userDao.edit(user);
 	}
 
 }

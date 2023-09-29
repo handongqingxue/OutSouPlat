@@ -19,18 +19,14 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
-.zsxm_inp{
+.phone_inp,.qq_inp,.weixin_inp{
 	width: 150px;
-	height:30px;
-}
-.js_inp{
-	width: 180px;
 	height:30px;
 }
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
-var xtglPath=path+'xtgl/';
+var sysManaPath=path+'sysMana/';
 var dialogTop=70;
 var dialogLeft=20;
 var edNum=0;
@@ -56,7 +52,7 @@ function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"用户信息",
 		width:setFitWidthInParent("body","edit_div"),
-		height:250,
+		height:300,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -93,25 +89,25 @@ function initEditDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 
-	initJSIdsCBB();
+	initRoleIdsCBB();
 }
 
-function initJSIdsCBB(){
+function initRoleIdsCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择角色"});
-	$.post(xtglPath+"queryJueSeCBBList",
+	$.post(sysManaPath+"queryRoleCBBList",
 		function(result){
 			var rows=result.rows;
 			for(var i=0;i<rows.length;i++){
-				data.push({"value":rows[i].id,"text":rows[i].mc});
+				data.push({"value":rows[i].id,"text":rows[i].name});
 			}
-			jsIdsCBB=$("#edit_div #jsIds_cbb").combobox({
+			roleIdsCBB=$("#edit_div #roleIds_cbb").combobox({
 				valueField:"value",
 				textField:"text",
 				data:data,
 				multiple:true,
 				onLoadSuccess:function(){
-					$(this).combobox("setValues",'${requestScope.yh.jsIds }'.split(","));
+					$(this).combobox("setValues",'${requestScope.user.roleIds }'.split(","));
 				}
 			});
 		}
@@ -119,21 +115,21 @@ function initJSIdsCBB(){
 }
 
 function checkEdit(){
-	editYongHu();
+	editUser();
 }
 
-function editYongHu(){
-	var jsIdsArr=jsIdsCBB.combobox("getValues");
-	var jsIds=jsIdsArr.sort().toString();
-	if(jsIds.substring(0,1)==",")
-		jsIds=jsIds.substring(1);
-	jsIdsCBB.combobox("setValues",jsIds.split(","));
-	$("#edit_div #jsIds").val(jsIds);
+function editUser(){
+	var roleIdsArr=roleIdsCBB.combobox("getValues");
+	var roleIds=roleIdsArr.sort().toString();
+	if(roleIds.substring(0,1)==",")
+		roleIds=roleIds.substring(1);
+	roleIdsCBB.combobox("setValues",roleIds.split(","));
+	$("#edit_div #roleIds").val(roleIds);
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:xtglPath+"editYongHu",
+		url:sysManaPath+"editUser",
 		dataType: "json",
 		data:formData,
 		cache: false,
@@ -178,20 +174,34 @@ function setFitWidthInParent(parent,self){
 		
 		<div id="edit_div">
 			<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
-			<input type="hidden" id="id" name="id" value="${requestScope.yh.id }"/>
+			<input type="hidden" id="id" name="id" value="${requestScope.user.id }"/>
 			<table>
 			  <tr>
 				<td class="td1" align="right">
 					用户名
 				</td>
 				<td class="td2">
-					${requestScope.yh.yhm }
+					${requestScope.user.username }
 				</td>
 				<td class="td1" align="right">
-					真实姓名
+					手机号
 				</td>
 				<td class="td2">
-					<input type="text" class="zsxm_inp" id="zsxm" name="zsxm" value="${requestScope.yh.xm }"/>
+					<input type="text" class="phone_inp" id="phone" name="phone" value="${requestScope.user.phone }"/>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					qq号
+				</td>
+				<td class="td2">
+					<input type="text" class="qq_inp" id="qq" name="qq" value="${requestScope.user.qq }"/>
+				</td>
+				<td class="td1" align="right">
+					微信号
+				</td>
+				<td class="td2">
+					<input type="text" class="weixin_inp" id="weixin" name="weixin" value="${requestScope.user.weixin }"/>
 				</td>
 			  </tr>
 			  <tr>
@@ -199,30 +209,30 @@ function setFitWidthInParent(parent,self){
 					创建时间
 				</td>
 				<td class="td2">
-					${requestScope.yh.cjsj }
+					${requestScope.user.createTime }
 				</td>
 				<td class="td1" align="right">
 					审核状态
 				</td>
 				<td class="td2">
-					<c:if test="${requestScope.yh.shzt eq requestScope.dshShzt }">${requestScope.dshShztMc }</c:if>
-					<c:if test="${requestScope.yh.shzt eq requestScope.shtgShzt }">${requestScope.shtgShztMc}</c:if>
-					<c:if test="${requestScope.yh.shzt eq requestScope.bjzShzt }">${requestScope.bjzShztMc}</c:if>
+					<c:choose>
+						<c:when test="${requestScope.user.state eq 1 }">待审核</c:when>
+						<c:when test="${requestScope.user.state eq 2 }">审核通过</c:when>
+						<c:when test="${requestScope.user.state eq 3 }">编辑中</c:when>
+					</c:choose>
 				</td>
 			  </tr>
 			  <tr>
 				<td class="td1" align="right">
-					简述
-				</td>
-				<td class="td2">
-					<input type="text" class="js_inp" id="js" name="js" value="${requestScope.yh.js }"/>
-				</td>
-				<td class="td1" align="right">
 					角色
 				</td>
 				<td class="td2">
-					<input id="jsIds_cbb"/>
-					<input type="hidden" id="jsIds" name="jsIds" value="${requestScope.yh.jsIds }"/>
+					<input id="roleIds_cbb"/>
+					<input type="hidden" id="roleIds" name="roleIds" value="${requestScope.user.roleIds }"/>
+				</td>
+				<td class="td1" align="right">
+				</td>
+				<td class="td2">
 				</td>
 			  </tr>
 			</table>
