@@ -51,6 +51,22 @@ public class SysManaController {
 		
 		return MODULE_NAME+"/user/list";
 	}
+
+	/**
+	 * 跳转到角色查询-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/user/detail")
+	public String goJscxDetail(HttpServletRequest request) {
+
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		User user=userService.selectById(id);
+		request.setAttribute("user", user);
+		
+		return MODULE_NAME+"/user/detail";
+	}
 	
 	/**
 	 * 编辑用户
