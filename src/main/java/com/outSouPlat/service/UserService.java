@@ -18,4 +18,6 @@ public interface UserService {
 
 	int edit(User user);
 
+	int checkByIds(String ids, UserCheckRec ucr);
+
 }

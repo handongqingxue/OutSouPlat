@@ -23,4 +23,6 @@ public interface UserMapper {
 	User selectById(@Param("id") String id);
 
 	int edit(User user);
+
+	public int checkByIds(@Param("idList") List<String> idList, @Param("result") Boolean result);
 }

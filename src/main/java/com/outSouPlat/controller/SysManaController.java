@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.outSouPlat.entity.*;
 import com.outSouPlat.service.*;
+import com.outSouPlat.util.*;
 
 import net.sf.json.JSONObject;
 
@@ -66,6 +67,14 @@ public class SysManaController {
 		request.setAttribute("user", user);
 		
 		return MODULE_NAME+"/user/detail";
+	}
+	
+	@RequestMapping(value="/unCheckUser/list")
+	public String goUnCheckUserList(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		
+		return MODULE_NAME+"/unCheckUser/list";
 	}
 	
 	/**
@@ -131,5 +140,38 @@ public class SysManaController {
 		jsonMap.put("rows", roleList);
 		
 		return jsonMap;
+	}
+
+	/**
+	 * 审核用户
+	 * @param ids
+	 * @param ucr
+	 * @return
+	 */
+	@RequestMapping(value="/checkUserByIds",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String checkUserByIds(String ids, UserCheckRec ucr) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=userService.checkByIds(ids,ucr);
+		PlanResult plan=new PlanResult();
+		String tsStr=null;
+		Boolean result = ucr.getResult();
+		if(result)
+			tsStr="审核";
+		else
+			tsStr="退回";
+		
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg(tsStr+"用户信息失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg(tsStr+"用户信息成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 }

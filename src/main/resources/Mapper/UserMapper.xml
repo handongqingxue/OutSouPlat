@@ -98,4 +98,19 @@
 	<select id="selectById" resultType="com.outSouPlat.entity.User">
 		select * from user where id=#{id}
 	</select>
+	<update id="checkByIds">
+		update user set 
+		<choose>
+			<when test="result">
+				state=${@com.outSouPlat.entity.User@CHECKED}
+			</when>
+			<otherwise>
+				state=${@com.outSouPlat.entity.User@EDITING}
+			</otherwise>
+		</choose>
+		where 1=1
+		<foreach collection="idList" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
 </mapper>

@@ -228,7 +228,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item dshyh_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>xtgl/dshyh/list">
+						<a href="<%=basePath%>sysMana/unCheckUser/list">
 							&nbsp;&nbsp;&nbsp;待审核用户
 						</a>
 					</li>

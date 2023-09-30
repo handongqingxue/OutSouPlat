@@ -1,5 +1,6 @@
 package com.outSouPlat.service.serviceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +16,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userDao;
+	@Autowired
+	private UserCheckRecMapper userCheckRecDao;
 	@Autowired
 	private RoleMapper roleDao;
 	
@@ -71,6 +74,21 @@ public class UserServiceImpl implements UserService {
 	public int edit(User user) {
 		// TODO Auto-generated method stub
 		return userDao.edit(user);
+	}
+
+	@Override
+	public int checkByIds(String ids, UserCheckRec ucr) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		if(userDao.checkByIds(idList,ucr.getResult())>0) {
+			for (String idStr : idList) {
+				Integer userId = Integer.valueOf(idStr);
+				ucr.setUserId(userId);
+				count+=userCheckRecDao.add(ucr);
+			}
+		}
+		return count;
 	}
 
 }
