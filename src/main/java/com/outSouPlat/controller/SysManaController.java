@@ -89,6 +89,22 @@ public class SysManaController {
 
 		return MODULE_NAME+"/role/new";
 	}
+
+	/**
+	 * 跳转到角色查询-编辑页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/role/edit")
+	public String goRoleEdit(HttpServletRequest request) {
+
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		Role role=roleService.selectById(id);
+		request.setAttribute("role", role);
+		
+		return MODULE_NAME+"/role/edit";
+	}
 	
 	/**
 	 * 跳转到角色查询-列表页面

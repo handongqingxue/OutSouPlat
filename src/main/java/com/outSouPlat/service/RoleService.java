@@ -13,4 +13,6 @@ public interface RoleService {
 	List<Role> queryList(String name, int page, int rows, String sort, String order);
 
 	List<Role> queryCBBList();
+
+	Role selectById(String id);
 }

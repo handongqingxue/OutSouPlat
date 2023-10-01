@@ -15,4 +15,6 @@ public interface RoleMapper {
 	List<Role> queryList(@Param("name") String name, @Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
 
 	List<Role> queryCBBList();
+
+	Role selectById(@Param("id") String id);
 }

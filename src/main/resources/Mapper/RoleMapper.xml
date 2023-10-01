@@ -45,4 +45,7 @@
 	<select id="queryCBBList" resultType="com.outSouPlat.entity.Role">
 		select id,name from role
 	</select>
+	<select id="selectById" resultType="com.outSouPlat.entity.Role">
+		select * from role where id=#{id}
+	</select>
 </mapper>

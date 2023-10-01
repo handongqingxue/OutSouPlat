@@ -38,4 +38,10 @@ public class RoleServiceImpl implements RoleService {
 		// TODO Auto-generated method stub
 		return roleDao.queryCBBList();
 	}
+
+	@Override
+	public Role selectById(String id) {
+		// TODO Auto-generated method stub
+		return roleDao.selectById(id);
+	}
 }
