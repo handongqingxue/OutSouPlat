@@ -27,6 +27,8 @@ public class SysManaController {
 	private UserService userService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private PermissionService permissionService;
 	public static final String MODULE_NAME="sysMana";
 
 	/**
@@ -78,6 +80,28 @@ public class SysManaController {
 	}
 	
 	/**
+	 * 跳转到角色查询-添加页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/role/new")
+	public String goRoleNew(HttpServletRequest request) {
+
+		return MODULE_NAME+"/role/new";
+	}
+	
+	/**
+	 * 跳转到角色查询-列表页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/role/list")
+	public String goRoleList(HttpServletRequest request) {
+
+		return MODULE_NAME+"/role/list";
+	}
+	
+	/**
 	 * 编辑用户
 	 * @param user
 	 * @return
@@ -126,6 +150,38 @@ public class SysManaController {
 	}
 	
 	/**
+	 * 添加角色
+	 * @param role
+	 * @return
+	 */
+	@RequestMapping(value="/newRole")
+	@ResponseBody
+	public Map<String, Object> newRole(Role role) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count=roleService.add(role);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建角色成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建角色失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建角色失败！");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
+	/**
 	 * 查询下拉框角色
 	 * @return
 	 */
@@ -138,6 +194,23 @@ public class SysManaController {
 		List<Role> roleList=roleService.queryCBBList();
 		
 		jsonMap.put("rows", roleList);
+		
+		return jsonMap;
+	}
+	
+	/**
+	 * 查询下拉框权限
+	 * @return
+	 */
+	@RequestMapping(value="/queryPermissionCBBList")
+	@ResponseBody
+	public Map<String, Object> queryPermissionCBBList() {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<Permission> permissionList=permissionService.queryCBBList();
+		
+		jsonMap.put("rows", permissionList);
 		
 		return jsonMap;
 	}
@@ -173,5 +246,29 @@ public class SysManaController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
+	}
+	
+	/**
+	 * 查询角色
+	 * @param name
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryRoleList")
+	@ResponseBody
+	public Map<String, Object> queryRoleList(String name,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = roleService.queryForInt(name);
+		List<Role> roleList=roleService.queryList(name, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", roleList);
+		
+		return jsonMap;
 	}
 }

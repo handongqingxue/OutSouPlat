@@ -16,6 +16,24 @@ public class RoleServiceImpl implements RoleService {
 	private RoleMapper roleDao;
 
 	@Override
+	public int add(Role role) {
+		// TODO Auto-generated method stub
+		return roleDao.add(role);
+	}
+
+	@Override
+	public int queryForInt(String name) {
+		// TODO Auto-generated method stub
+		return roleDao.queryForInt(name);
+	}
+
+	@Override
+	public List<Role> queryList(String name, int page, int rows, String sort, String order) {
+		// TODO Auto-generated method stub
+		return roleDao.queryList(name, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
 	public List<Role> queryCBBList() {
 		// TODO Auto-generated method stub
 		return roleDao.queryCBBList();

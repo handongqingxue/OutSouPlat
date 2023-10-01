@@ -235,7 +235,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item jscx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>xtgl/jscx/list">
+						<a href="<%=basePath%>sysMana/role/list">
 							&nbsp;&nbsp;&nbsp;角色查询
 						</a>
 					</li>

@@ -13,10 +13,10 @@
 .tab1_div .toolbar{
 	height:32px;
 }
-.tab1_div .toolbar .yhm_span{
+.tab1_div .toolbar .username_span{
 	margin-left: 13px;
 }
-.tab1_div .toolbar .yhm_inp{
+.tab1_div .toolbar .username_inp{
 	width: 120px;height: 25px;
 }
 .tab1_div .toolbar .search_but{
@@ -53,8 +53,8 @@ var defaultState=1;//'${requestScope.dshShzt}';
 
 $(function(){
 	initSearchLB();
-	initSHTGLB();
-	initTuiHuiLB();
+	initPassLB();
+	initReturnLB();
 	initTab1();
 });
 
@@ -62,15 +62,15 @@ function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var yhm=$("#toolbar #yhm").val();
-			tab1.datagrid("load",{yhm:yhm,shzt:defaultState});
+			var username=$("#toolbar #username").val();
+			tab1.datagrid("load",{username:username,state:defaultState});
 		}
 	});
 }
 
 //初始化审核通过按钮
-function initSHTGLB(){
-	$("#shtg_but").linkbutton({
+function initPassLB(){
+	$("#pass_but").linkbutton({
 		iconCls:"icon-ok",
 		onClick:function(){
 			checkByIds(true);
@@ -78,8 +78,8 @@ function initSHTGLB(){
 	});
 }
 
-function initTuiHuiLB(){
-	$("#tuiHui_but").linkbutton({
+function initReturnLB(){
+	$("#back_but").linkbutton({
 		iconCls:"icon-back",
 		onClick:function(){
 			checkByIds(false);
@@ -179,11 +179,11 @@ function setFitWidthInParent(parent,self){
 	<%@include file="../../inc/side.jsp"%>
 	<div class="tab1_div" id="tab1_div">
 		<div class="toolbar" id="toolbar">
-			<span class="yhm_span">用户名：</span>
-			<input type="text" class="yhm_inp" id="yhm" placeholder="请输入用户名"/>
+			<span class="username_span">用户名：</span>
+			<input type="text" class="username_inp" id="username" placeholder="请输入用户名"/>
 			<a class="search_but" id="search_but">查询</a>
-			<a id="shtg_but">审核通过</a>
-			<a id="tuiHui_but">退回</a>
+			<a id="pass_but">审核通过</a>
+			<a id="back_but">退回</a>
 		</div>
 		<table id="tab1">
 		</table>
