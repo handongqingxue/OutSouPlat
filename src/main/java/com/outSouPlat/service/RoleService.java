@@ -8,6 +8,8 @@ public interface RoleService {
 
 	int add(Role role);
 
+	int edit(Role role);
+
 	int queryForInt(String name);
 
 	List<Role> queryList(String name, int page, int rows, String sort, String order);

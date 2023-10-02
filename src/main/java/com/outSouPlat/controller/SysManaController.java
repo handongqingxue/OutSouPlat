@@ -116,6 +116,22 @@ public class SysManaController {
 
 		return MODULE_NAME+"/role/list";
 	}
+
+	/**
+	 * 跳转到角色查询-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/role/detail")
+	public String goRoleDetail(HttpServletRequest request) {
+
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		Role role=roleService.selectById(id);
+		request.setAttribute("role", role);
+		
+		return MODULE_NAME+"/role/detail";
+	}
 	
 	/**
 	 * 编辑用户
@@ -195,6 +211,29 @@ public class SysManaController {
 		finally {
 			return jsonMap;
 		}
+	}
+	
+	/**
+	 * 编辑角色
+	 * @param role
+	 * @return
+	 */
+	@RequestMapping(value="/editRole")
+	@ResponseBody
+	public Map<String, Object> editRole(Role role) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=roleService.edit(role);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑角色成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑角色失败！");
+		}
+		return jsonMap;
 	}
 	
 	/**

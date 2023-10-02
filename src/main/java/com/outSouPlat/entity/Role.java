@@ -27,7 +27,14 @@ public class Role {
 	public void setPermissionIds(String permissionIds) {
 		this.permissionIds = permissionIds;
 	}
+	public String getPermissionNames() {
+		return permissionNames;
+	}
+	public void setPermissionNames(String permissionNames) {
+		this.permissionNames = permissionNames;
+	}
 	private String name;
 	private String describe;
 	private String permissionIds;
+	private String permissionNames;
 }

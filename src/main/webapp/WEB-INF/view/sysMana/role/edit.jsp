@@ -26,23 +26,12 @@
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
-var xtglPath=path+'xtgl/';
+var sysManaPath=path+'sysMana/';
 var dialogTop=70;
 var dialogLeft=20;
 var edNum=0;
 
-var xzZt;
-var zcsyZt;
-var fqZt;
-var ywZt;
-
-var xzZtMc;
-var zcsyZtMc;
-var fqZtMc;
-var ywZtMc;
 $(function(){
-	initZtVar();
-	
 	initEditDialog();//0
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
@@ -57,18 +46,6 @@ function initDialogPosition(){
 	ccDiv.append(edpw);
 	ccDiv.append(edws);
 	ccDiv.css("width",setFitWidthInParent("body","center_con_div")+"px");
-}
-
-function initZtVar(){
-	xzZt=parseInt('${requestScope.xzZt}');
-	zcsyZt=parseInt('${requestScope.zcsyZt}');
-	fqZt=parseInt('${requestScope.fqZt}');
-	ywZt=parseInt('${requestScope.ywZt}');
-
-	xzZtMc='${requestScope.xzZtMc}';
-	zcsyZtMc='${requestScope.zcsyZtMc}';
-	fqZtMc='${requestScope.fqZtMc}';
-	ywZtMc='${requestScope.ywZtMc}';
 }
 
 function initEditDialog(){
@@ -121,11 +98,11 @@ function initEditDialog(){
 function initPermissionCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	$.post(xtglPath+"queryQuanXianCBBList",
+	$.post(sysManaPath+"queryPermissionCBBList",
 		function(result){
 			var rows=result.rows;
 			for(var i=0;i<rows.length;i++){
-				data.push({"value":rows[i].id,"text":rows[i].mc});
+				data.push({"value":rows[i].id,"text":rows[i].name});
 			}
 			permissionCBB=$("#edit_div #permission_cbb").combobox({
 				valueField:"value",
@@ -143,21 +120,19 @@ function initPermissionCBB(){
 function checkEdit(){
 	if(checkName()){
 		if(checkPermissionIds()){
-			editJueSe();
+			editRole();
 		}
 	}
 }
 
-function editJueSe(){
-	var zt=ztCBB.combobox("getValue");
-	$("#zt").val(zt);
+function editRole(){
 	var permissionIds=permissionCBB.combobox("getValues");
 	$("#permissionIds").val(String(permissionIds));
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
-		url:xtglPath+"editJueSe",
+		url:sysManaPath+"editRole",
 		dataType: "json",
 		data:formData,
 		cache: false,
@@ -186,7 +161,7 @@ function focusName(){
 //验证名称
 function checkName(){
 	var name = $("#name").val();
-	if(mc==null||mc==""||mc=="名称不能为空"){
+	if(name==null||name==""||name=="名称不能为空"){
 		$("#name").css("color","#E15748");
     	$("#name").val("名称不能为空");
     	return false;
@@ -256,7 +231,7 @@ function setFitWidthInParent(parent,self){
 					描述
 				</td>
 				<td class="td2">
-					<textarea id="ms" name="ms" rows="3" cols="30" placeholder="请输入描述">${requestScope.js.ms }</textarea>
+					<textarea id="describe" name="describe" rows="3" cols="30" placeholder="请输入描述">${requestScope.role.describe }</textarea>
 				</td>
 				<td class="td1" align="right">
 				</td>

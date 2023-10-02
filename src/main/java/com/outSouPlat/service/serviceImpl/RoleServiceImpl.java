@@ -22,6 +22,12 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
+	public int edit(Role role) {
+		// TODO Auto-generated method stub
+		return roleDao.edit(role);
+	}
+
+	@Override
 	public int queryForInt(String name) {
 		// TODO Auto-generated method stub
 		return roleDao.queryForInt(name);
