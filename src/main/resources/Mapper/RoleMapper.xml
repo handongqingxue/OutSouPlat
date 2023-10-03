@@ -36,7 +36,7 @@
 				name=#{name},
 			</if>
 			<if test="describe!=null">
-				describe=#{describe},
+				`describe`=#{describe},
 			</if>
 			<if test="permissionIds!=null">
 				permissionIds=#{permissionIds},

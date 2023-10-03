@@ -242,7 +242,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item qxcx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>xtgl/qxcx/list">
+						<a href="<%=basePath%>sysMana/permission/list">
 							&nbsp;&nbsp;&nbsp;权限查询
 						</a>
 					</li>

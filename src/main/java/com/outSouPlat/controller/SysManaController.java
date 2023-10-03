@@ -134,6 +134,28 @@ public class SysManaController {
 	}
 	
 	/**
+	 * 跳转到权限查询-列表页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/permission/list")
+	public String goPermissionList(HttpServletRequest request) {
+
+		return MODULE_NAME+"/permission/list";
+	}
+	
+	/**
+	 * 跳转到权限查询-添加页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/permission/new")
+	public String goPermissionNew(HttpServletRequest request) {
+
+		return MODULE_NAME+"/permission/new";
+	}
+	
+	/**
 	 * 编辑用户
 	 * @param user
 	 * @return
@@ -233,6 +255,53 @@ public class SysManaController {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "编辑角色失败！");
 		}
+		return jsonMap;
+	}
+	
+	/**
+	 * 添加权限
+	 * @param permission
+	 * @return
+	 */
+	@RequestMapping(value="/newPermission")
+	@ResponseBody
+	public Map<String, Object> newPermission(Permission permission) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=permissionService.add(permission);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "创建权限成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建权限失败！");
+		}
+		return jsonMap;
+	}
+	
+	/**
+	 * 查询权限
+	 * @param name
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/queryPermissionList")
+	@ResponseBody
+	public Map<String, Object> queryPermissionList(String name,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = permissionService.queryForInt(name);
+		List<Permission> permissionList=permissionService.queryList(name, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", permissionList);
+		
 		return jsonMap;
 	}
 	
