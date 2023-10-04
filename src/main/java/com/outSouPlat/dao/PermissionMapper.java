@@ -10,9 +10,13 @@ public interface PermissionMapper {
 
 	int add(Permission permission);
 
+	int edit(Permission permission);
+
 	int queryForInt(@Param("name") String name);
 
 	List<Permission> queryList(@Param("name") String name, @Param("rowNum") int rowNum, @Param("rows") int rows, String sort, String order);
+
+	Permission selectById(@Param("id") String id);
 
 	List<Permission> queryCBBList();
 

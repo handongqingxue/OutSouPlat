@@ -22,6 +22,12 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
+	public int edit(Permission permission) {
+		// TODO Auto-generated method stub
+		return permissionDao.edit(permission);
+	}
+
+	@Override
 	public int queryForInt(String name) {
 		// TODO Auto-generated method stub
 		return permissionDao.queryForInt(name);
@@ -31,6 +37,12 @@ public class PermissionServiceImpl implements PermissionService {
 	public List<Permission> queryList(String name, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return permissionDao.queryList(name, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public Permission selectById(String id) {
+		// TODO Auto-generated method stub
+		return permissionDao.selectById(id);
 	}
 
 	@Override

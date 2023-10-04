@@ -132,6 +132,22 @@ public class SysManaController {
 		
 		return MODULE_NAME+"/role/detail";
 	}
+
+	/**
+	 * 跳转到权限查询-编辑页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/permission/edit")
+	public String goPermissionEdit(HttpServletRequest request) {
+
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		Permission permission=permissionService.selectById(id);
+		request.setAttribute("permission", permission);
+		
+		return MODULE_NAME+"/permission/edit";
+	}
 	
 	/**
 	 * 跳转到权限查询-列表页面
@@ -277,6 +293,29 @@ public class SysManaController {
 		else {
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "创建权限失败！");
+		}
+		return jsonMap;
+	}
+	
+	/**
+	 * 编辑权限
+	 * @param permission
+	 * @return
+	 */
+	@RequestMapping(value="/editPermission")
+	@ResponseBody
+	public Map<String, Object> editPermission(Permission permission) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count=permissionService.edit(permission);
+		if(count>0) {
+			jsonMap.put("message", "ok");
+			jsonMap.put("info", "编辑权限成功！");
+		}
+		else {
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "编辑权限失败！");
 		}
 		return jsonMap;
 	}

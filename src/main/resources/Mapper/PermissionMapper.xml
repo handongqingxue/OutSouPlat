@@ -29,6 +29,9 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="edit" parameterType="com.outSouPlat.entity.Permission">
+		update permission set name=#{name},sort=#{sort},`describe`=#{describe} where id=#{id}
+	</update>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from permission where 1=1
 		<if test="name!=''&amp;name!=null">
@@ -42,6 +45,9 @@
 		</if>
 		order by sort
 		limit #{rowNum},#{rows}
+	</select>
+	<select id="selectById" resultType="com.outSouPlat.entity.Permission">
+		select * from permission where id=#{id}
 	</select>
 	<select id="queryCBBList" resultType="com.outSouPlat.entity.Permission">
 		select id,name from permission order by sort
