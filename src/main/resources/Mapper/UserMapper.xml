@@ -113,4 +113,10 @@
 		#{id}
 		</foreach>
 	</update>
+	<select id="getPasswordByUsername" resultType="String">
+		select password from user where username=#{username}
+	</select>
+	<update id="updatePwdById">
+		update user set password=#{password} where id=#{id}
+	</update>
 </mapper>

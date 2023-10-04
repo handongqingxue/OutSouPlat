@@ -221,6 +221,13 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item yhcx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
+						<a href="<%=basePath%>sysMana/perInfo">
+							&nbsp;&nbsp;&nbsp;个人信息
+						</a>
+					</li>
+					<div class="line_div"></div>
+					<li class="layui-nav-item yhcx_item_li">
+						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>sysMana/user/list">
 							&nbsp;&nbsp;&nbsp;用户查询
 						</a>

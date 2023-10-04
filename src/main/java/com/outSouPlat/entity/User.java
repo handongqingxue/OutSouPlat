@@ -15,6 +15,19 @@ public class User {
 	 */
 	public static final int EDITING=3;
 
+	/**
+	 * 待审核
+	 */
+	public static final String NO_CHECK_NAME="待审核";
+	/**
+	 * 审核通过
+	 */
+	public static final String CHECKED_NAME="审核通过";
+	/**
+	 * 编辑中
+	 */
+	public static final String EDITING_NAME="编辑中";
+
 	private Integer id;
 	public Integer getId() {
 		return id;

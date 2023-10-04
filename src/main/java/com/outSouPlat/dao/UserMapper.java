@@ -25,4 +25,8 @@ public interface UserMapper {
 	int edit(User user);
 
 	public int checkByIds(@Param("idList") List<String> idList, @Param("result") Boolean result);
+
+	String getPasswordByUsername(@Param("username") String username);
+	
+	int updatePwdById(@Param("password") String Password, @Param("id") Integer id);
 }

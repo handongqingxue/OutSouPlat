@@ -91,4 +91,22 @@ public class UserServiceImpl implements UserService {
 		return count;
 	}
 
+	@Override
+	public boolean checkPassword(String password, String username) {
+		// TODO Auto-generated method stub
+
+		String password1 = userDao.getPasswordByUsername(username);
+		if(password1.equals(password)) {
+			return true;
+		}
+		else
+			return false;
+	}
+
+	@Override
+	public int updatePwdById(String password, Integer id) {
+		// TODO Auto-generated method stub
+		return userDao.updatePwdById(password,id);
+	}
+
 }

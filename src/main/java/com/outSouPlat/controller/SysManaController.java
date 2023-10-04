@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,22 @@ public class SysManaController {
 	@Autowired
 	private PermissionService permissionService;
 	public static final String MODULE_NAME="sysMana";
+	
+	/**
+	 * 跳转到系统管理-个人信息页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/perInfo")
+	public String goPerInfo(HttpServletRequest request) {
+
+		//Constant.setYhQxInRequest(request);
+		Constant.setUserStateInRequest(request);
+		User user=(User)SecurityUtils.getSubject().getPrincipal();
+		request.setAttribute("user", user);
+		
+		return MODULE_NAME+"/perInfo";
+	}
 
 	/**
 	 * 跳转到系统管理-用户查询-编辑页面
@@ -409,6 +426,51 @@ public class SysManaController {
 			json=JsonUtil.getJsonFromObject(plan);
 		}
 		return json;
+	}
+	
+	/**
+	 * 根据用户名验证原密码
+	 * @param password
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value="/checkPassword")
+	@ResponseBody
+	public Map<String, Object> checkPassword(String password, String username) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		boolean bool=userService.checkPassword(password,username);
+		
+		if(bool) {
+			jsonMap.put("status", "ok");
+		}
+		else {
+			jsonMap.put("status", "no");
+			jsonMap.put("message", "原密码错误！");
+		}
+		return jsonMap;
+	}
+	
+	/**
+	 * 根据用户id修改密码
+	 * @param password
+	 * @return
+	 */
+	@RequestMapping(value="/updatePwdByUserId")
+	@ResponseBody
+	public String updatePwdByUserId(String password) {
+		User user=(User)SecurityUtils.getSubject().getPrincipal();
+		Integer id = user.getId();
+		int count = userService.updatePwdById(password,id);
+		
+		PlanResult plan=new PlanResult();
+		if(count==0) {
+			plan.setStatus(0);
+		}
+		else {
+			plan.setStatus(1);
+		}
+		return JsonUtil.getJsonFromObject(plan);
 	}
 	
 	/**

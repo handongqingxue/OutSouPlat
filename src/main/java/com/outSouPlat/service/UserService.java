@@ -20,4 +20,8 @@ public interface UserService {
 
 	int checkByIds(String ids, UserCheckRec ucr);
 
+	boolean checkPassword(String password, String username);
+
+	int updatePwdById(String password, Integer id);
+
 }
