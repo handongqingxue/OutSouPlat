@@ -1,6 +1,32 @@
 package com.outSouPlat.entity;
 
 public class TaskOrder {
+	
+	/**
+	 * 未完成
+	 */
+	public static final int UN_FINISH=1;
+	/**
+	 * 已完成
+	 */
+	public static final int FINISHED=2;
+	/**
+	 * 已废弃
+	 */
+	public static final int DISCARDED=3;
+	
+	/**
+	 * 未完成
+	 */
+	public static final String UN_FINISH_NAME="未完成";
+	/**
+	 * 已完成
+	 */
+	public static final String FINISHED_NAME="已完成";
+	/**
+	 * 已废弃
+	 */
+	public static final String DISCARDED_NAME="已废弃";
 
 	private Integer id;
 	private String no;

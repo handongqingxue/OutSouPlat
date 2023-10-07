@@ -60,4 +60,19 @@ public class Constant {
 		request.setAttribute("testingStateName", TaskBag.TESTING_NAME);
 		request.setAttribute("finishStateName", TaskBag.FINISH_NAME);
 	}
+	
+	/**
+	 * 存放任务单状态常量
+	 * @param request
+	 */
+	public static void setTaskOrderStateInRequest(HttpServletRequest request) {
+
+		request.setAttribute("unFinishState", TaskOrder.UN_FINISH);
+		request.setAttribute("finishedState", TaskOrder.FINISHED);
+		request.setAttribute("discardedState", TaskOrder.DISCARDED);
+		
+		request.setAttribute("unFinishStateName", TaskOrder.UN_FINISH_NAME);
+		request.setAttribute("finishedStateName", TaskOrder.FINISHED_NAME);
+		request.setAttribute("discardedStateName", TaskOrder.DISCARDED_NAME);
+	}
 }

@@ -37,7 +37,16 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var taskBagManaPath=path+'taskBagMana/';
+
+var unFinishState;
+var finishedState;
+var discardedState;
+
+var unFinishStateName;
+var finishedStateName;
+var discardedStateName;
 $(function(){
+	initStateVar();
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initFinishTimeStartDTB();
@@ -48,6 +57,16 @@ $(function(){
 	initRemoveLB();
 	initTab1();
 });
+
+function initStateVar(){
+	unFinishState=parseInt('${requestScope.unFinishState}');
+	finishedState=parseInt('${requestScope.finishedState}');
+	discardedState=parseInt('${requestScope.discardedState}');
+
+	unFinishStateName='${requestScope.unFinishStateName}';
+	finishedStateName='${requestScope.finishedStateName}';
+	discardedStateName='${requestScope.discardedStateName}';
+}
 
 function initCreateTimeStartDTB(){
 	createTimeStartDTB=$("#createTimeStart_dtb").datetimebox({
@@ -76,9 +95,9 @@ function initFinishTimeEndDTB(){
 function initStateCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":"1","text":"未完成"});
-	data.push({"value":"2","text":"已完成"});
-	data.push({"value":"3","text":"已废弃"});
+	data.push({"value":unFinishState,"text":unFinishStateName});
+	data.push({"value":finishedState,"text":finishedStateName});
+	data.push({"value":discardedState,"text":discardedStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
 		valueField:"value",
@@ -140,19 +159,7 @@ function initTab1(){
 			{field:"createTime",title:"发布时间",width:150},
 			{field:"finishTime",title:"完成时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
-            	var stateName;
-            	switch (value) {
-				case 1:
-					stateName="未完成";
-					break;
-				case 2:
-					stateName="已完成";
-					break;
-				case 3:
-					stateName="已废弃";
-					break;
-				}
-            	return stateName;
+            	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"detail?id="+value+"\">详情</a>";
@@ -172,6 +179,22 @@ function initTab1(){
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 		}
 	});
+}
+
+function getStateNameById(stateId){
+	var str;
+	switch (stateId) {
+	case unFinishState:
+		str=unFinishStateName;//未完成
+		break;
+	case finishedState:
+		str=finishedStateName;//已完成
+		break;
+	case discardedState:
+		str=discardedStateName;//已废弃
+		break;
+	}
+	return str;
 }
 
 function setFitWidthInParent(parent,self){

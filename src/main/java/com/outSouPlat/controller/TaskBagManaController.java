@@ -84,6 +84,8 @@ public class TaskBagManaController {
 		
 		//publicService.selectNav(request);
 		
+		Constant.setTaskOrderStateInRequest(request);
+		
 		return MODULE_NAME+"/taskOrder/list";
 	}
 
