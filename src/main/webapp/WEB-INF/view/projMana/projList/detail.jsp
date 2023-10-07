@@ -176,11 +176,12 @@ function setFitWidthInParent(parent,self){
 					状态
 				</td>
 				<td class="td2">
-					<c:if test="${requestScope.project.state eq 1 }">待发布</c:if>
-					<c:if test="${requestScope.project.state eq 2 }">待开发</c:if>
-					<c:if test="${requestScope.project.state eq 3 }">开发中</c:if>
-					<c:if test="${requestScope.project.state eq 4 }">已完成</c:if>
-					<c:if test="${requestScope.project.state eq 5 }">已下架</c:if>
+					<c:choose>
+						<c:when test="${requestScope.project.state eq requestScope.unContractState }">${requestScope.unContractStateName}</c:when>
+						<c:when test="${requestScope.project.state eq requestScope.contractedState }">${requestScope.contractedStateName}</c:when>
+						<c:when test="${requestScope.project.state eq requestScope.developingState }">${requestScope.developingStateName}</c:when>
+						<c:when test="${requestScope.project.state eq requestScope.finishState }">${requestScope.finishStateName}</c:when>
+					</c:choose>
 				</td>
 			  </tr>
 			</table>

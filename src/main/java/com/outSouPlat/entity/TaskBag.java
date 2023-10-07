@@ -1,6 +1,48 @@
 package com.outSouPlat.entity;
 
 public class TaskBag {
+	
+	/**
+	 * 未发布
+	 */
+	public static final int UN_SUBMIT=1;
+	/**
+	 * 未接单
+	 */
+	public static final int UN_ORDER=2;
+	/**
+	 * 开发中
+	 */
+	public static final int DEVELOPING=3;
+	/**
+	 * 测试中
+	 */
+	public static final int TESTING=4;
+	/**
+	 * 已完成
+	 */
+	public static final int FINISH=5;
+	
+	/**
+	 * 未发布
+	 */
+	public static final String UN_SUBMIT_NAME="未发布";
+	/**
+	 * 未接单
+	 */
+	public static final String UN_ORDER_NAME="未接单";
+	/**
+	 * 开发中
+	 */
+	public static final String DEVELOPING_NAME="开发中";
+	/**
+	 * 测试中
+	 */
+	public static final String TESTING_NAME="测试中";
+	/**
+	 * 已完成
+	 */
+	public static final String FINISH_NAME="已完成";
 
 	private Integer id;
 	public Integer getId() {

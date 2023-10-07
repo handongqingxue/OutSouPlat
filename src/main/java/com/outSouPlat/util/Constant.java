@@ -24,4 +24,40 @@ public class Constant {
 		request.setAttribute("checkedStateName", User.CHECKED_NAME);
 		request.setAttribute("editingStateName", User.EDITING_NAME);
 	}
+	
+	/**
+	 * 存放项目状态常量
+	 * @param request
+	 */
+	public static void setProjectStateInRequest(HttpServletRequest request) {
+
+		request.setAttribute("unContractState", Project.UN_CONTRACT);
+		request.setAttribute("contractedState", Project.CONTRACTED);
+		request.setAttribute("developingState", Project.DEVELOPING);
+		request.setAttribute("finishState", Project.FINISH);
+		
+		request.setAttribute("unContractStateName", Project.UN_CONTRACT_NAME);
+		request.setAttribute("contractedStateName", Project.CONTRACTED_NAME);
+		request.setAttribute("developingStateName", Project.DEVELOPING_NAME);
+		request.setAttribute("finishStateName", Project.FINISH_NAME);
+	}
+	
+	/**
+	 * 存放任务包状态常量
+	 * @param request
+	 */
+	public static void setTaskBagStateInRequest(HttpServletRequest request) {
+
+		request.setAttribute("unSubmitState", TaskBag.UN_SUBMIT);
+		request.setAttribute("unOrderState", TaskBag.UN_ORDER);
+		request.setAttribute("developingState", TaskBag.DEVELOPING);
+		request.setAttribute("testingState", TaskBag.TESTING);
+		request.setAttribute("finishState", TaskBag.FINISH);
+		
+		request.setAttribute("unSubmitStateName", TaskBag.UN_SUBMIT_NAME);
+		request.setAttribute("unOrderStateName", TaskBag.UN_ORDER_NAME);
+		request.setAttribute("developingStateName", TaskBag.DEVELOPING_NAME);
+		request.setAttribute("testingStateName", TaskBag.TESTING_NAME);
+		request.setAttribute("finishStateName", TaskBag.FINISH_NAME);
+	}
 }

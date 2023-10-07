@@ -49,6 +49,7 @@ public class ProjManaController {
 	public String goProjListList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setProjectStateInRequest(request);
 		
 		return MODULE_NAME+"/projList/list";
 	}
@@ -59,6 +60,8 @@ public class ProjManaController {
 		String id = request.getParameter("id");
 		Project project=projectService.selectById(id);
 		request.setAttribute("project", project);
+		
+		Constant.setProjectStateInRequest(request);
 			
 		return MODULE_NAME+"/projList/detail";
 	}

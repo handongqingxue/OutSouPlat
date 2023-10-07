@@ -36,7 +36,20 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var taskBagManaPath=path+'taskBagMana/';
+
+var unSubmitState;
+var unOrderState;
+var developingState;
+var testingState;
+var finishState;
+
+var unSubmitStateName;
+var unOrderStateName;
+var developingStateName;
+var testingStateName;
+var finishStateName;
 $(function(){
+	initStateVar();
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initStateCBB();
@@ -45,6 +58,20 @@ $(function(){
 	initRemoveLB();
 	initTab1();
 });
+
+function initStateVar(){
+	unSubmitState=parseInt('${requestScope.unSubmitState}');
+	unOrderState=parseInt('${requestScope.unOrderState}');
+	developingState=parseInt('${requestScope.developingState}');
+	testingState=parseInt('${requestScope.testingState}');
+	finishState=parseInt('${requestScope.finishState}');
+
+	unSubmitStateName='${requestScope.unSubmitStateName}';
+	unOrderStateName='${requestScope.unOrderStateName}';
+	developingStateName='${requestScope.developingStateName}';
+	testingStateName='${requestScope.testingStateName}';
+	finishStateName='${requestScope.finishStateName}';
+}
 
 function initCreateTimeStartDTB(){
 	createTimeStartDTB=$("#createTimeStart_dtb").datetimebox({
@@ -61,11 +88,11 @@ function initCreateTimeEndDTB(){
 function initStateCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":"1","text":"未发布"});
-	data.push({"value":"2","text":"未接单"});
-	data.push({"value":"3","text":"开发中"});
-	data.push({"value":"4","text":"测试中"});
-	data.push({"value":"5","text":"已完成"});
+	data.push({"value":unSubmitState,"text":unSubmitStateName});
+	data.push({"value":unOrderState,"text":unOrderStateName});
+	data.push({"value":developingState,"text":developingStateName});
+	data.push({"value":testingState,"text":testingStateName});
+	data.push({"value":finishState,"text":finishStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
 		valueField:"value",
@@ -125,25 +152,7 @@ function initTab1(){
 			{field:"uploadUserName",title:"上传者",width:150},
 			{field:"createTime",title:"发布时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
-            	var stateName;
-            	switch (value) {
-				case 1:
-					stateName="未发布";
-					break;
-				case 2:
-					stateName="未接单";
-					break;
-				case 3:
-					stateName="开发中";
-					break;
-				case 4:
-					stateName="测试中";
-					break;
-				case 5:
-					stateName="已完成";
-					break;
-				}
-            	return stateName;
+            	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
@@ -164,6 +173,28 @@ function initTab1(){
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 		}
 	});
+}
+
+function getStateNameById(stateId){
+	var str;
+	switch (stateId) {
+	case unSubmitState:
+		str=unSubmitStateName;//未发布
+		break;
+	case unOrderState:
+		str=unOrderStateName;//未接单
+		break;
+	case developingState:
+		str=developingStateName;//开发中
+		break;
+	case testingState:
+		str=testingStateName;//测试中
+		break;
+	case finishState:
+		str=finishStateName;//已完成
+		break;
+	}
+	return str;
 }
 
 function setFitWidthInParent(parent,self){

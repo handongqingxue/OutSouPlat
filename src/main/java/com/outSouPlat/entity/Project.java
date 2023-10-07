@@ -3,25 +3,38 @@ package com.outSouPlat.entity;
 public class Project {
 	
 	/**
-	 * 待发布
+	 * 待承包
 	 */
-	public static final int DAI_FA_BU=1;
+	public static final int UN_CONTRACT=1;
 	/**
-	 * 待开发
+	 * 已承包
 	 */
-	public static final int DAI_KAI_FA=2;
+	public static final int CONTRACTED=2;
 	/**
 	 * 开发中
 	 */
-	public static final int KAI_FA_ZHONG=3;
+	public static final int DEVELOPING=3;
 	/**
 	 * 已完成
 	 */
-	public static final int YI_WAN_CHENG=4;
+	public static final int FINISH=4;
+	
 	/**
-	 * 已下架
+	 * 待承包
 	 */
-	public static final int YI_XIA_JIA=5;
+	public static final String UN_CONTRACT_NAME="待承包";
+	/**
+	 * 已承包
+	 */
+	public static final String CONTRACTED_NAME="已承包";
+	/**
+	 * 开发中
+	 */
+	public static final String DEVELOPING_NAME="开发中";
+	/**
+	 * 已完成
+	 */
+	public static final String FINISH_NAME="已完成";
 
 	private Integer id;
 	public Integer getId() {

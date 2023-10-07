@@ -38,7 +38,18 @@
 <script type="text/javascript">
 var path='<%=basePath %>';
 var projManaPath=path+'projMana/';
+
+var unContractState;
+var contractedState;
+var developingState;
+var finishState;
+
+var unContractStateName;
+var contractedStateName;
+var developingStateName;
+var finishStateName;
 $(function(){
+	initStateVar();
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initStateCBB();
@@ -47,6 +58,18 @@ $(function(){
 	initRemoveLB();
 	initTab1();
 });
+
+function initStateVar(){
+	unContractState=parseInt('${requestScope.unContractState}');
+	contractedState=parseInt('${requestScope.contractedState}');
+	developingState=parseInt('${requestScope.developingState}');
+	finishState=parseInt('${requestScope.finishState}');
+
+	unContractStateName='${requestScope.unContractStateName}';
+	contractedStateName='${requestScope.contractedStateName}';
+	developingStateName='${requestScope.developingStateName}';
+	finishStateName='${requestScope.finishStateName}';
+}
 
 function initCreateTimeStartDTB(){
 	createTimeStartDTB=$("#createTimeStart_dtb").datetimebox({
@@ -63,11 +86,10 @@ function initCreateTimeEndDTB(){
 function initStateCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":"1","text":"待发布"});
-	data.push({"value":"2","text":"待开发"});
-	data.push({"value":"3","text":"开发中"});
-	data.push({"value":"4","text":"已完成"});
-	data.push({"value":"5","text":"已下架"});
+	data.push({"value":unContractState,"text":unContractStateName});
+	data.push({"value":contractedState,"text":contractedStateName});
+	data.push({"value":developingState,"text":developingStateName});
+	data.push({"value":finishState,"text":finishStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
 		valueField:"value",
@@ -130,25 +152,7 @@ function initTab1(){
 			{field:"taskBagCount",title:"任务包数量",width:150},
 			{field:"createTime",title:"发布时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
-            	var stateName;
-            	switch (value) {
-				case 1:
-					stateName="待发布";
-					break;
-				case 2:
-					stateName="待开发";
-					break;
-				case 3:
-					stateName="开发中";
-					break;
-				case 4:
-					stateName="已完成";
-					break;
-				case 5:
-					stateName="已下架";
-					break;
-				}
-            	return stateName;
+            	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
@@ -169,6 +173,25 @@ function initTab1(){
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 		}
 	});
+}
+
+function getStateNameById(stateId){
+	var str;
+	switch (stateId) {
+	case unContractState:
+		str=unContractStateName;//待承包
+		break;
+	case contractedState:
+		str=contractedStateName;//已承包
+		break;
+	case developingState:
+		str=developingStateName;//开发中
+		break;
+	case finishState:
+		str=finishStateName;//已完成
+		break;
+	}
+	return str;
 }
 
 function setFitWidthInParent(parent,self){

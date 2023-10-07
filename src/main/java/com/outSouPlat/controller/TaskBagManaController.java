@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.outSouPlat.entity.*;
 import com.outSouPlat.service.*;
+import com.outSouPlat.util.Constant;
 import com.outSouPlat.util.FileUploadUtil;
 
 import net.sf.json.JSONObject;
@@ -57,6 +58,8 @@ public class TaskBagManaController {
 	public String goTaskBagListList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		
+		Constant.setTaskBagStateInRequest(request);
 		
 		return MODULE_NAME+"/taskBagList/list";
 	}
