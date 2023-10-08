@@ -20,7 +20,7 @@
 .tab1_div .toolbar .row_div .no_span,
 .tab1_div .toolbar .row_div .state_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
-.tab1_div .toolbar .row_div .userName_span,
+.tab1_div .toolbar .row_div .testUserName_span,
 .tab1_div .toolbar .row_div .createTime_span,
 .tab1_div .toolbar .row_div .finishTime_span,
 .tab1_div .toolbar .row_div .search_but{
@@ -28,7 +28,7 @@
 }
 .tab1_div .toolbar .row_div .no_inp,
 .tab1_div .toolbar .row_div .taskBagName_inp,
-.tab1_div .toolbar .row_div .userName_inp{
+.tab1_div .toolbar .row_div .testUserName_inp{
 	width: 120px;
 	height: 25px;
 }
@@ -53,7 +53,6 @@ $(function(){
 	initFinishTimeEndDTB();
 	initStateCBB();
 	initSearchLB();
-	initUploadCodeLB();
 	initRemoveLB();
 	initTab1();
 });
@@ -126,15 +125,6 @@ function initSearchLB(){
 	});
 }
 
-function initUploadCodeLB(){
-	uploadCodeLB=$("#uploadCode_but").linkbutton({
-		iconCls:"icon-add",
-		onClick:function(){
-			
-		}
-	});
-}
-
 function initRemoveLB(){
 	removeLB=$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
@@ -146,7 +136,7 @@ function initRemoveLB(){
 
 function initTab1(){
 	tab1=$("#tab1").datagrid({
-		title:"任务单查询",
+		title:"测试结果查询",
 		url:taskBagManaPath+"queryTaskOrderList",
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body","tab1_div"),
@@ -155,9 +145,8 @@ function initTab1(){
 		columns:[[
 			{field:"no",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
-			{field:"userName",title:"接单人",width:150},
-			{field:"createTime",title:"发布时间",width:150},
-			{field:"finishTime",title:"完成时间",width:150},
+			{field:"testUserName",title:"测试人",width:150},
+			{field:"createTime",title:"测试时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
             	return getStateNameById(value);
             }},
@@ -169,7 +158,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{no:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"no",colspan:7});
+				$(this).datagrid("mergeCells",{index:0,field:"no",colspan:6});
 				data.total=0;
 			}
 			
@@ -222,9 +211,9 @@ function setFitWidthInParent(parent,self){
 				<input type="text" class="no_inp" id="no" placeholder="请输入任务单号"/>
 				<span class="taskBagName_span">任务包：</span>
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
-				<span class="userName_span">接单人：</span>
-				<input type="text" class="userName_inp" id="userName" placeholder="请输入接单人"/>
-				<span class="createTime_span">发布时间：</span>
+				<span class="testUserName_span">测试人：</span>
+				<input type="text" class="testUserName_inp" id="testUserName" placeholder="请输入测试人"/>
+				<span class="createTime_span">测试时间：</span>
 				<input id="createTimeStart_dtb"/>-
 				<input id="createTimeEnd_dtb"/>
 			</div>
@@ -235,7 +224,6 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
-				<a id="uploadCode_but">上传代码</a>
 				<a id="remove_but">删除</a>
 			</div>
 		</div>
