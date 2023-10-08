@@ -10,6 +10,8 @@ public interface ProjectMapper {
 
 	int add(Project project);
 
+	int deleteByIds(List<String> idList);
+
 	int edit(Project project);
 
 	int queryForInt(@Param("name") String name, @Param("deveLang") String deveLang, @Param("database") String database, @Param("deveTool") String deveTool, @Param("createTimeStart") String createTimeStart, @Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state);

@@ -14,6 +14,8 @@ public interface TaskBagService {
 
 	int add(TaskBag taskBag);
 
+	int deleteByIds(String ids);
+
 	int edit(TaskBag taskBag);
 
 	TaskBag selectById(String id);

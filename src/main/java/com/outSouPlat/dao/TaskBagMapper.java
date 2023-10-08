@@ -16,6 +16,8 @@ public interface TaskBagMapper {
 
 	int add(TaskBag taskBag);
 
+	int deleteByIds(List<String> idList);
+
 	int edit(TaskBag taskBag);
 
 	TaskBag selectById(@Param("id") String id);

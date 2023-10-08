@@ -8,6 +8,8 @@ public interface ProjectService {
 
 	public int add(Project project);
 
+	int deleteByIds(String ids);
+
 	public int edit(Project project);
 
 	int queryForInt(String name,String deveLang,String database,String deveTool,String createTimeStart,String createTimeEnd,Integer state);

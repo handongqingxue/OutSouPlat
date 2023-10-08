@@ -55,6 +55,12 @@
 				${@com.outSouPlat.entity.Project@DAI_FA_BU}
 		</trim>
 	</insert>
+	<delete id="deleteByIds">
+		delete from project where 1=1
+		<foreach collection="list" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 	<update id="edit" parameterType="com.outSouPlat.entity.Project">
 		update project set 
 		<trim suffixOverrides=",">
