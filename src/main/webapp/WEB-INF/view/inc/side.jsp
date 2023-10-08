@@ -207,7 +207,7 @@ function showLeftMenuByQx(){
 					<div class="line_div"></div>
 					<li class="layui-nav-item zhcx_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
-						<a href="<%=basePath%>wzgl/wzlx/list">
+						<a href="<%=basePath%>testResult/synthetic/list">
 							&nbsp;&nbsp;&nbsp;综合查询
 						</a>
 					</li>

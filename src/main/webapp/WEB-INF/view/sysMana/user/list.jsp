@@ -89,7 +89,7 @@ function initTab1(){
 			{field:"phone",title:"手机号",width:150},
 			{field:"qq",title:"qq号",width:150},
 			{field:"weixin",title:"微信号",width:150},
-			{field:"roleIdNames",title:"角色",width:150},
+			{field:"roleNames",title:"角色",width:150},
 			{field:"createTime",title:"创建时间",width:150},
 			{field:"state",title:"审核状态",width:100,formatter:function(value,row){
 				return getStateNameById(value);

@@ -30,7 +30,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> queryList(String username, Integer state, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return userDao.queryList(username, state, (page-1)*rows, rows, sort, order);
+		List<User> userList=userDao.queryList(username, state, (page-1)*rows, rows, sort, order);
+		List<Role> roleList = roleDao.queryCBBList();
+		for (int i = 0; i < userList.size(); i++) {
+			User user = userList.get(i);
+			String roleIds = user.getRoleIds();
+			if(!StringUtils.isEmpty(roleIds)) {
+				String[] roleIdArr = roleIds.split(",");
+				String roleNames = "";
+				for (String roleIdStr : roleIdArr) {
+					int roleId = Integer.valueOf(roleIdStr);
+					for (int j = 0; j < roleList.size(); j++) {
+						Role role = roleList.get(j);
+						if(roleId==role.getId()) {
+							roleNames+=","+role.getName();
+							break;
+						}
+					}
+				}
+				user.setRoleNames(roleNames.substring(1));
+			}
+		}
+		return userList;
 	}
 
 	@Override
