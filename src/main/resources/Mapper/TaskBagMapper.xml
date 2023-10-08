@@ -151,4 +151,7 @@
 		order by tb.createTime desc
 		limit #{rowNum},#{rows}
 	</select>
+	<update id="updateStateById">
+		update task_bag set state=#{state} where id=#{id}
+	</update>
 </mapper>

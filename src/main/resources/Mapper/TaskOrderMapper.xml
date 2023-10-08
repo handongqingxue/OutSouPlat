@@ -3,6 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.outSouPlat.dao.TaskOrderMapper">
+	<insert id="add" parameterType="com.outSouPlat.entity.TaskOrder">
+		insert into task_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="no!=null">
+				no,
+			</if>
+			<if test="taskBagId!=null">
+				taskBagId,
+			</if>
+			<if test="userId!=null">
+				userId,
+			</if>
+				createTime,
+				state
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="no!=null">
+				#{no},
+			</if>
+			<if test="taskBagId!=null">
+				#{taskBagId},
+			</if>
+			<if test="userId!=null">
+				#{userId},
+			</if>
+				now(),
+				${@com.outSouPlat.entity.TaskOrder@UN_FINISH}
+		</trim>
+	</insert>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id
 		<if test="no!=''&amp;no!=null">

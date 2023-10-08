@@ -8,6 +8,8 @@ import com.outSouPlat.entity.*;
 
 public interface TaskOrderMapper {
 
+	int add(TaskOrder taskOrder);
+
 	int queryForInt(@Param("no") String no, @Param("taskBagName") String taskBagName, @Param("userName") String userName, @Param("createTimeStart") String createTimeStart, 
 			@Param("createTimeEnd") String createTimeEnd, @Param("finishTimeStart") String finishTimeStart, @Param("finishTimeEnd") String finishTimeEnd, @Param("state") Integer state);
 

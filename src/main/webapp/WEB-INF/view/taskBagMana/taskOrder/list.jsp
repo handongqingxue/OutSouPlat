@@ -53,7 +53,6 @@ $(function(){
 	initFinishTimeEndDTB();
 	initStateCBB();
 	initSearchLB();
-	initUploadCodeLB();
 	initRemoveLB();
 	initTab1();
 });
@@ -126,15 +125,6 @@ function initSearchLB(){
 	});
 }
 
-function initUploadCodeLB(){
-	uploadCodeLB=$("#uploadCode_but").linkbutton({
-		iconCls:"icon-add",
-		onClick:function(){
-			
-		}
-	});
-}
-
 function initRemoveLB(){
 	removeLB=$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
@@ -156,13 +146,14 @@ function initTab1(){
 			{field:"no",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
 			{field:"userName",title:"接单人",width:150},
-			{field:"createTime",title:"发布时间",width:150},
+			{field:"createTime",title:"接单时间",width:150},
 			{field:"finishTime",title:"完成时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
             	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"detail?id="+value+"\">详情</a>";
+            	var str="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
+            	str+="<a onclick=\"showUploadCode("+value+")\">上传代码</a>&nbsp;&nbsp;";
             	return str;
             }}
 	    ]],
@@ -224,7 +215,7 @@ function setFitWidthInParent(parent,self){
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
 				<span class="userName_span">接单人：</span>
 				<input type="text" class="userName_inp" id="userName" placeholder="请输入接单人"/>
-				<span class="createTime_span">发布时间：</span>
+				<span class="createTime_span">接单时间：</span>
 				<input id="createTimeStart_dtb"/>-
 				<input id="createTimeEnd_dtb"/>
 			</div>
@@ -235,7 +226,6 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
-				<a id="uploadCode_but">上传代码</a>
 				<a id="remove_but">删除</a>
 			</div>
 		</div>

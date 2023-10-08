@@ -157,6 +157,10 @@ function initTab1(){
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
 	            	   +"<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
+   	            if(row.state==unSubmitState)
+	            	str+="<a onclick=\"submitById("+value+")\">发布</a>&nbsp;&nbsp;";
+	            if(row.state==unOrderState)
+	            	str+="<a onclick=\"receiveOrder("+value+")\">接单</a>&nbsp;&nbsp;";
             	return str;
             }}
 	    ]],
@@ -195,6 +199,37 @@ function getStateNameById(stateId){
 		break;
 	}
 	return str;
+}
+
+function submitById(id){
+	$.post(taskBagManaPath+"submitTaskBag",
+		{id:id},
+		function(data){
+			if(data.status==1){
+				alert(data.msg);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(data.msg);
+			}
+		}
+	,"json");
+}
+
+function receiveOrder(id){
+	var userId='${sessionScope.user.id}';
+	$.post(taskBagManaPath+"newTaskOrder",
+		{taskBagId:id,userId:userId},
+		function(data){
+			if(data.message=="ok"){
+				alert(data.info);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	,"json");
 }
 
 function setFitWidthInParent(parent,self){

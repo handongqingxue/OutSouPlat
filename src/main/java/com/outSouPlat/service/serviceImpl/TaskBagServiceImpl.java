@@ -57,4 +57,10 @@ public class TaskBagServiceImpl implements TaskBagService {
 		// TODO Auto-generated method stub
 		return taskBagDao.selectById(id);
 	}
+
+	@Override
+	public int submitById(Integer id) {
+		// TODO Auto-generated method stub
+		return taskBagDao.updateStateById(TaskBag.UN_ORDER, id);
+	}
 }

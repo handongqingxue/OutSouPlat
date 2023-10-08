@@ -17,6 +17,8 @@ import com.outSouPlat.entity.*;
 import com.outSouPlat.service.*;
 import com.outSouPlat.util.Constant;
 import com.outSouPlat.util.FileUploadUtil;
+import com.outSouPlat.util.JsonUtil;
+import com.outSouPlat.util.PlanResult;
 
 import net.sf.json.JSONObject;
 
@@ -231,6 +233,33 @@ public class TaskBagManaController {
 		return jsonMap;
 	}
 	
+	@RequestMapping(value="/newTaskOrder")
+	@ResponseBody
+	public Map<String, Object> newTaskOrder(TaskOrder taskOrder) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count=taskOrderService.add(taskOrder);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "创建任务单成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "创建任务单失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建任务单失败！");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
 	@RequestMapping(value="/queryTaskOrderList")
 	@ResponseBody
 	public Map<String, Object> queryTaskOrderList(String no,String taskBagName,String userName,String createTimeStart,String createTimeEnd,
@@ -250,5 +279,25 @@ public class TaskBagManaController {
 		}
 		
 		return jsonMap;
+	}
+
+	@RequestMapping(value="/submitTaskBag",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String submitTaskBag(Integer id) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=taskBagService.submitById(id);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("发布任务包失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("发布任务包成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
 	}
 }

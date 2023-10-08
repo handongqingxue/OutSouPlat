@@ -6,6 +6,8 @@ import com.outSouPlat.entity.*;
 
 public interface TaskOrderService {
 
+	int add(TaskOrder taskOrder);
+
 	int queryForInt(String no, String taskBagName, String userName, String createTimeStart,
 			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state);
 

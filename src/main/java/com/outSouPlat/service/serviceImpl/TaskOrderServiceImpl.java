@@ -1,5 +1,8 @@
 package com.outSouPlat.service.serviceImpl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,21 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 
 	@Autowired
 	private TaskOrderMapper taskOrderDao;
+	@Autowired
+	private TaskBagMapper taskBagDao;
+	private DateFormat yMdHmsSDF=new SimpleDateFormat("yyyyMMddHHmmss");
+
+	@Override
+	public int add(TaskOrder taskOrder) {
+		// TODO Auto-generated method stub
+		int count=0;
+		Integer taskBagId = taskOrder.getTaskBagId();
+		taskOrder.setNo(yMdHmsSDF.format(new Date())+taskBagId+taskOrder.getUserId());
+		count=taskOrderDao.add(taskOrder);
+		if(count>0)
+			count=taskBagDao.updateStateById(TaskBag.DEVELOPING,taskBagId);
+		return count;
+	}
 
 	@Override
 	public int queryForInt(String no, String taskBagName, String userName, String createTimeStart, String createTimeEnd,

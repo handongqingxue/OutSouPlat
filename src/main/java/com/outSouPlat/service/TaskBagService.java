@@ -20,4 +20,6 @@ public interface TaskBagService {
 
 	TaskBag selectById(String id);
 
+	int submitById(Integer id);
+
 }
