@@ -216,9 +216,9 @@ function setFitWidthInParent(parent,self){
 				</td>
 				<td class="td2">
 					<c:choose>
-						<c:when test="${requestScope.user.state eq 1 }">待审核</c:when>
-						<c:when test="${requestScope.user.state eq 2 }">审核通过</c:when>
-						<c:when test="${requestScope.user.state eq 3 }">编辑中</c:when>
+						<c:when test="${requestScope.user.state eq requestScope.noCheckState }">${requestScope.noCheckStateName}</c:when>
+						<c:when test="${requestScope.user.state eq requestScope.checkedState }">${requestScope.checkedStateName}</c:when>
+						<c:when test="${requestScope.user.state eq requestScope.editingState }">${requestScope.editingStateName}</c:when>
 					</c:choose>
 				</td>
 			  </tr>

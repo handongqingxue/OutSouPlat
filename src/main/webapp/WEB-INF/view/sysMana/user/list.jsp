@@ -34,10 +34,28 @@
 var path='<%=basePath %>';
 var sysManaPath=path+'sysMana/';
 
+var noCheckState;
+var checkedState;
+var editingState;
+
+var noCheckStateName;
+var checkedStateName;
+var editingStateName;
 $(function(){
+	initStateVar();
 	initSearchLB();
 	initTab1();
 });
+
+function initStateVar(){
+	noCheckState=parseInt('${requestScope.noCheckState}');
+	checkedState=parseInt('${requestScope.checkedState}');
+	editingState=parseInt('${requestScope.editingState}');
+
+	noCheckStateName='${requestScope.noCheckStateName}';
+	checkedStateName='${requestScope.checkedStateName}';
+	editingStateName='${requestScope.editingStateName}';
+}
 
 function initSearchLB(){
 	$("#search_but").linkbutton({
@@ -74,19 +92,7 @@ function initTab1(){
 			{field:"roleIdNames",title:"角色",width:150},
 			{field:"createTime",title:"创建时间",width:150},
 			{field:"state",title:"审核状态",width:100,formatter:function(value,row){
-				var stateName;
-            	switch (value) {
-				case 1:
-					stateName="待审核";
-					break;
-				case 2:
-					stateName="审核通过";
-					break;
-				case 3:
-					stateName="编辑中";
-					break;
-				}
-            	return stateName;
+				return getStateNameById(value);
 			}},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
             	var str="<a class=\"edit_a\" href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
@@ -107,6 +113,22 @@ function initTab1(){
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 		}
 	});
+}
+
+function getStateNameById(stateId){
+	var str;
+	switch (stateId) {
+	case noCheckState:
+		str=noCheckStateName;//待审核
+		break;
+	case checkedState:
+		str=checkedStateName;//审核通过
+		break;
+	case editingState:
+		str=editingStateName;//编辑中
+		break;
+	}
+	return str;
 }
 
 function setFitWidthInParent(parent,self){

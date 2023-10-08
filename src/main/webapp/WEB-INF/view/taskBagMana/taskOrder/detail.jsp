@@ -167,9 +167,9 @@ function setFitWidthInParent(parent,self){
 				<td class="td2">
 					<!-- https://blog.csdn.net/u012730333/article/details/42081827 -->
 					<c:choose>
-						<c:when test="${requestScope.taskOrder.state eq 1 }">未完成</c:when>
-						<c:when test="${requestScope.taskOrder.state eq 2 }">已完成</c:when>
-						<c:when test="${requestScope.taskOrder.state eq 3 }">已废弃</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unFinishState }">${requestScope.unFinishStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.finishedState }">${requestScope.finishedStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.discardedState }">${requestScope.discardedStateName}</c:when>
 					</c:choose>
 				</td>
 			  </tr>

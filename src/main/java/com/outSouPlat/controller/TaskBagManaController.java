@@ -100,6 +100,8 @@ public class TaskBagManaController {
 		String id = request.getParameter("id");
 		TaskOrder taskOrder=taskOrderService.selectById(id);
 		request.setAttribute("taskOrder", taskOrder);
+		
+		Constant.setTaskOrderStateInRequest(request);
 			
 		return MODULE_NAME+"/taskOrder/detail";
 	}

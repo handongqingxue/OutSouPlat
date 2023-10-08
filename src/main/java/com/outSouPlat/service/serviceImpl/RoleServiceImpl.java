@@ -14,6 +14,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleDao;
+	@Autowired
+	private PermissionMapper permissionDao;
 
 	@Override
 	public int add(Role role) {
@@ -48,6 +50,22 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role selectById(String id) {
 		// TODO Auto-generated method stub
-		return roleDao.selectById(id);
+		Role role = roleDao.selectById(id);
+		List<Permission> permissionList = permissionDao.queryCBBList();
+		String permissionIds = role.getPermissionIds();
+		String[] permissionIdArr = permissionIds.split(",");
+		String permissionNames = "";
+		for (String permissionIdStr : permissionIdArr) {
+			int permissionId = Integer.valueOf(permissionIdStr);
+			for (int i = 0; i < permissionList.size(); i++) {
+				Permission permission = permissionList.get(i);
+				if(permissionId==permission.getId()) {
+					permissionNames+=","+permission.getName();
+					break;
+				}
+			}
+		}
+		role.setPermissionNames(permissionNames.substring(1));
+		return role;
 	}
 }

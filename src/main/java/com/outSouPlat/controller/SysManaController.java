@@ -61,6 +61,8 @@ public class SysManaController {
 		User user=userService.selectById(id);
 		request.setAttribute("user", user);
 		
+		Constant.setUserStateInRequest(request);
+		
 		return MODULE_NAME+"/user/edit";
 	}
 	
@@ -68,6 +70,7 @@ public class SysManaController {
 	public String goUserList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setUserStateInRequest(request);
 		
 		return MODULE_NAME+"/user/list";
 	}
@@ -84,6 +87,8 @@ public class SysManaController {
 		String id = request.getParameter("id");
 		User user=userService.selectById(id);
 		request.setAttribute("user", user);
+		
+		Constant.setUserStateInRequest(request);
 		
 		return MODULE_NAME+"/user/detail";
 	}
