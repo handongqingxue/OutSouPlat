@@ -300,4 +300,57 @@ public class TaskBagManaController {
 		}
 		return json;
 	}
+	
+	@RequestMapping(value="/uploadTaskOrderCodeFile")
+	@ResponseBody
+	public Map<String, Object> uploadTaskOrderCodeFile(TaskOrder taskOrder,
+			@RequestParam(value="code_file",required=false) MultipartFile code_file) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			MultipartFile[] fileArr=new MultipartFile[1];
+			fileArr[0]=code_file;
+			for (int i = 0; i < fileArr.length; i++) {
+				String jsonStr = null;
+				if(fileArr[i]!=null) {
+					if(fileArr[i].getSize()>0) {
+						String folder="TaskOrder/";
+						switch (i) {
+						case 0:
+							folder+="CodeFile";//代码文件
+							break;
+						}
+						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						JSONObject fileJson = JSONObject.fromObject(jsonStr);
+						if("成功".equals(fileJson.get("msg"))) {
+							JSONObject dataJO = (JSONObject)fileJson.get("data");
+							switch (i) {
+							case 0:
+								taskOrder.setCodeFileSize(code_file.getSize());
+								taskOrder.setCodeFileUrl(dataJO.get("src").toString());
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			int count=taskOrderService.uploadCodeFile(taskOrder);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "上传代码文件成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "上传代码文件失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "创建任务包失败！");
+		}
+		return jsonMap;
+	}
 }

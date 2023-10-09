@@ -18,4 +18,6 @@ public interface TaskOrderMapper {
 			@Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
 
 	TaskOrder selectById(@Param("id") String id);
+
+	int uploadCodeFile(TaskOrder taskOrder);
 }

@@ -16,4 +16,6 @@ public interface TaskOrderService {
 			int page, int rows, String sort, String order);
 
 	TaskOrder selectById(String id);
+
+	int uploadCodeFile(TaskOrder taskOrder);
 }

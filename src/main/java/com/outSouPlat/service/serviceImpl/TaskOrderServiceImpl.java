@@ -54,4 +54,10 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 		// TODO Auto-generated method stub
 		return taskOrderDao.selectById(id);
 	}
+
+	@Override
+	public int uploadCodeFile(TaskOrder taskOrder) {
+		// TODO Auto-generated method stub
+		return taskOrderDao.uploadCodeFile(taskOrder);
+	}
 }
