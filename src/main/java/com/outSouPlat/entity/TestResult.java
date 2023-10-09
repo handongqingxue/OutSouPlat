@@ -2,6 +2,48 @@ package com.outSouPlat.entity;
 
 public class TestResult {
 
+	/**
+	 * 待测试
+	 */
+	public static final int UN_TEST=1;
+	/**
+	 * 测试中
+	 */
+	public static final int TESTING=2;
+	/**
+	 * 不合格
+	 */
+	public static final int UN_PASS=3;
+	/**
+	 * 待支付佣金
+	 */
+	public static final int UN_PAY=4;
+	/**
+	 * 已支付佣金
+	 */
+	public static final int PAID=5;
+	
+	/**
+	 * 待测试
+	 */
+	public static final String UN_TEST_NAME="待测试";
+	/**
+	 * 测试中
+	 */
+	public static final String TESTING_NAME="测试中";
+	/**
+	 * 不合格
+	 */
+	public static final String UN_PASS_NAME="不合格";
+	/**
+	 * 待支付佣金
+	 */
+	public static final String UN_PAY_NAME="待支付佣金";
+	/**
+	 * 已支付佣金
+	 */
+	public static final String PAID_NAME="已支付佣金";
+	
 	private Integer id;
 	public Integer getId() {
 		return id;
@@ -15,11 +57,29 @@ public class TestResult {
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public String getTaskBagName() {
+		return taskBagName;
+	}
+	public void setTaskBagName(String taskBagName) {
+		this.taskBagName = taskBagName;
+	}
 	public Integer getTestUserId() {
 		return testUserId;
 	}
 	public void setTestUserId(Integer testUserId) {
 		this.testUserId = testUserId;
+	}
+	public String getTestUserName() {
+		return testUserName;
+	}
+	public void setTestUserName(String testUserName) {
+		this.testUserName = testUserName;
 	}
 	public String getCreateTime() {
 		return createTime;
@@ -27,35 +87,17 @@ public class TestResult {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public Boolean getResult() {
-		return result;
+	public String getPhone() {
+		return phone;
 	}
-	public void setResult(Boolean result) {
-		this.result = result;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getDesc() {
 		return desc;
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
-	}
-	public String getImgUrl1() {
-		return imgUrl1;
-	}
-	public void setImgUrl1(String imgUrl1) {
-		this.imgUrl1 = imgUrl1;
-	}
-	public String getImgUrl2() {
-		return imgUrl2;
-	}
-	public void setImgUrl2(String imgUrl2) {
-		this.imgUrl2 = imgUrl2;
-	}
-	public String getImgUrl3() {
-		return imgUrl3;
-	}
-	public void setImgUrl3(String imgUrl3) {
-		this.imgUrl3 = imgUrl3;
 	}
 	public Integer getState() {
 		return state;
@@ -64,12 +106,12 @@ public class TestResult {
 		this.state = state;
 	}
 	private Integer orderId;
+	private String orderNo;
+	private String taskBagName;
 	private Integer testUserId;
+	private String testUserName;
 	private String createTime;
-	private Boolean result;
+	private String phone;
 	private String desc;
-	private String imgUrl1;
-	private String imgUrl2;
-	private String imgUrl3;
 	private Integer state;
 }

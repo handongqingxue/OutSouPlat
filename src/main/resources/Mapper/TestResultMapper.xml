@@ -3,6 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.outSouPlat.dao.TestResultMapper">
+	<insert id="add" parameterType="com.outSouPlat.entity.TestResult">
+		insert into test_result
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId!=null">
+				orderId,
+			</if>
+			<if test="testUserId!=null">
+				testUserId,
+			</if>
+				createTime,
+			<if test="phone!=null">
+				phone,
+			</if>
+			<if test="desc!=null">
+				`desc`,
+			</if>
+				state
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId!=null">
+				#{orderId},
+			</if>
+			<if test="testUserId!=null">
+				#{testUserId},
+			</if>
+				now(),
+			<if test="phone!=null">
+				#{phone},
+			</if>
+			<if test="desc!=null">
+				#{desc},
+			</if>
+				${@com.outSouPlat.entity.TestResult@UN_TEST}
+		</trim>
+	</insert>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id
 		<if test="orderNo!=''&amp;orderNo!=null">
@@ -14,6 +50,9 @@
 		<if test="testUserName!=''&amp;testUserName!=null">
 			and u.username like CONCAT('%',#{testUserName},'%')
 		</if>
+		<if test="phone!=''&amp;phone!=null">
+			and tr.phone like CONCAT('%',#{phone},'%')
+		</if>
 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
 			and tr.createTime between #{createTimeStart} and #{createTimeEnd}
 		</if>
@@ -22,7 +61,7 @@
 		</if>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.TestResult">
-		select tr.* from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id
+		select tr.*,`to`.no orderNo,tb.name taskBagName,u.username testUserName from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id
 		<if test="orderNo!=''&amp;orderNo!=null">
 			and `to`.no like CONCAT('%',#{orderNo},'%')
 		</if>
@@ -31,6 +70,9 @@
 		</if>
 		<if test="testUserName!=''&amp;testUserName!=null">
 			and u.username like CONCAT('%',#{testUserName},'%')
+		</if>
+		<if test="phone!=''&amp;phone!=null">
+			and tr.phone like CONCAT('%',#{phone},'%')
 		</if>
 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
 			and tr.createTime between #{createTimeStart} and #{createTimeEnd}

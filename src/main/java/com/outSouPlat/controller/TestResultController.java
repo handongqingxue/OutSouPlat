@@ -31,16 +31,43 @@ public class TestResultController {
 		return MODULE_NAME+"/synthetic/list";
 	}
 	
+	@RequestMapping(value="/add")
+	@ResponseBody
+	public Map<String, Object> add(TestResult testResult) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count=testResultService.add(testResult);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "添加测试结果成功！");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "添加测试结果失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "添加测试结果失败！");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
 	@RequestMapping(value="/querySyntheticList")
 	@ResponseBody
-	public Map<String, Object> querySyntheticList(String orderNo,String taskBagName,String testUserName,String createTimeStart,String createTimeEnd,
+	public Map<String, Object> querySyntheticList(String orderNo,String taskBagName,String testUserName,String phone,String createTimeStart,String createTimeEnd,
 			Integer state,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = testResultService.queryForInt(orderNo,taskBagName,testUserName,createTimeStart,createTimeEnd,state);
-			List<TestResult> testResultList=testResultService.queryList(orderNo,taskBagName,testUserName,createTimeStart,createTimeEnd,state, page, rows, sort, order);
+			int count = testResultService.queryForInt(orderNo,taskBagName,testUserName,phone,createTimeStart,createTimeEnd,state);
+			List<TestResult> testResultList=testResultService.queryList(orderNo,taskBagName,testUserName,phone,createTimeStart,createTimeEnd,state, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", testResultList);

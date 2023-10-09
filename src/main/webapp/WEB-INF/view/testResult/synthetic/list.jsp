@@ -21,13 +21,15 @@
 .tab1_div .toolbar .row_div .state_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
 .tab1_div .toolbar .row_div .testUserName_span,
+.tab1_div .toolbar .row_div .phone_span,
 .tab1_div .toolbar .row_div .createTime_span,
 .tab1_div .toolbar .row_div .search_but{
 	margin-left: 13px;
 }
 .tab1_div .toolbar .row_div .orderNo_inp,
 .tab1_div .toolbar .row_div .taskBagName_inp,
-.tab1_div .toolbar .row_div .testUserName_inp{
+.tab1_div .toolbar .row_div .testUserName_inp,
+.tab1_div .toolbar .row_div .phone_inp{
 	width: 120px;
 	height: 25px;
 }
@@ -98,11 +100,12 @@ function initSearchLB(){
 			var orderNo=$("#toolbar #orderNo").val();
 			var taskBagName=$("#toolbar #taskBagName").val();
 			var testUserName=$("#toolbar #testUserName").val();
+			var phone=$("#toolbar #phone").val();
 			var createTimeStart=createTimeStartDTB.datetimebox("getValue");
 			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
 			var state=stateCBB.combobox("getValue");
 			
-			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,testUserName:testUserName,
+			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,testUserName:testUserName,phone:phone,
 				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,state:state});
 		}
 	});
@@ -129,6 +132,7 @@ function initTab1(){
 			{field:"orderNo",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
 			{field:"testUserName",title:"测试人",width:150},
+			{field:"phone",title:"测试人电话",width:150},
 			{field:"createTime",title:"测试时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
             	return getStateNameById(value);
@@ -141,7 +145,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{orderNo:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"orderNo",colspan:6});
+				$(this).datagrid("mergeCells",{index:0,field:"orderNo",colspan:7});
 				data.total=0;
 			}
 			
@@ -196,11 +200,13 @@ function setFitWidthInParent(parent,self){
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
 				<span class="testUserName_span">测试人：</span>
 				<input type="text" class="testUserName_inp" id="testUserName" placeholder="请输入测试人"/>
+				<span class="phone_span">测试人电话：</span>
+				<input type="text" class="phone_inp" id="phone" placeholder="请输入测试人电话"/>
+			</div>
+			<div class="row_div">
 				<span class="createTime_span">测试时间：</span>
 				<input id="createTimeStart_dtb"/>-
 				<input id="createTimeEnd_dtb"/>
-			</div>
-			<div class="row_div">
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>

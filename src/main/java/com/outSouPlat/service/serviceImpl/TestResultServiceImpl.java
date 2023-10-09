@@ -16,17 +16,23 @@ public class TestResultServiceImpl implements TestResultService {
 	private TestResultMapper testResultDao;
 
 	@Override
-	public int queryForInt(String orderNo, String taskBagName, String testUserName, String createTimeStart, String createTimeEnd,
-			Integer state) {
+	public int add(TestResult testResult) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryForInt(orderNo, taskBagName, testUserName, createTimeStart, createTimeEnd, state);
+		return testResultDao.add(testResult);
 	}
 
 	@Override
-	public List<TestResult> queryList(String orderNo, String taskBagName, String testUserName, String createTimeStart,
+	public int queryForInt(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
+			Integer state) {
+		// TODO Auto-generated method stub
+		return testResultDao.queryForInt(orderNo, taskBagName, testUserName, phone, createTimeStart, createTimeEnd, state);
+	}
+
+	@Override
+	public List<TestResult> queryList(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart,
 			String createTimeEnd, Integer state, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryList(orderNo, taskBagName, testUserName, createTimeStart, createTimeEnd, 
+		return testResultDao.queryList(orderNo, taskBagName, testUserName, phone, createTimeStart, createTimeEnd, 
 				state, (page-1)*rows, rows, sort, order);
 	}
 }

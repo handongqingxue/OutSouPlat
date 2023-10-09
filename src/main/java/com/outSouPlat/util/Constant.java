@@ -75,4 +75,23 @@ public class Constant {
 		request.setAttribute("finishedStateName", TaskOrder.FINISHED_NAME);
 		request.setAttribute("discardedStateName", TaskOrder.DISCARDED_NAME);
 	}
+	
+	/**
+	 * 存放测试结果状态常量
+	 * @param request
+	 */
+	public static void setTestResultStateInRequest(HttpServletRequest request) {
+		
+		request.setAttribute("unTestState", TestResult.UN_TEST);
+		request.setAttribute("testingState", TestResult.TESTING);
+		request.setAttribute("unPassState", TestResult.UN_PASS);
+		request.setAttribute("unPayState", TestResult.UN_PAY);
+		request.setAttribute("paidState", TestResult.PAID);
+		
+		request.setAttribute("unTestStateName", TestResult.UN_TEST_NAME);
+		request.setAttribute("testingStateName", TestResult.TESTING_NAME);
+		request.setAttribute("unPassStateName", TestResult.UN_PASS_NAME);
+		request.setAttribute("unPayStateName", TestResult.UN_PAY_NAME);
+		request.setAttribute("paidStateName", TestResult.PAID_NAME);
+	}
 }

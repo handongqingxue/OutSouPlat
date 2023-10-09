@@ -19,6 +19,26 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+
+.upload_code_bg_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.45);
+	position: fixed;
+	z-index: 9016;
+	display:none;
+}
+
+.upload_code_div{
+	width: 500px;
+	height: 210px;
+	margin: 250px auto 0;
+	background-color: #fff;
+	border-radius:5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -27,21 +47,30 @@ var taskBagManaPath=path+'taskBagMana/';
 var dialogTop=70;
 var dialogLeft=20;
 var ddNum=0;
+var ucdNum=1;
 $(function(){
 	initDetailDialog();//0
+	initUploadCodeDialog();//1
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
 });
 
 function initDialogPosition(){
 	//基本属性组
-	var edpw=$("body").find(".panel.window").eq(ddNum);
-	var edws=$("body").find(".window-shadow").eq(ddNum);
+	var ddpw=$("body").find(".panel.window").eq(ddNum);
+	var ddws=$("body").find(".window-shadow").eq(ddNum);
+	
+	var ucdpw=$("body").find(".panel.window").eq(ucdNum);
+	var ucdws=$("body").find(".window-shadow").eq(ucdNum);
 
 	var ccDiv=$("#center_con_div");
-	ccDiv.append(edpw);
-	ccDiv.append(edws);
+	ccDiv.append(ddpw);
+	ccDiv.append(ddws);
 	ccDiv.css("width",setFitWidthInParent("body","center_con_div")+"px");
+
+	var ucdDiv=$("#upload_code_div");
+	ucdDiv.append(ucdpw);
+	ucdDiv.append(ucdws);
 }
 
 function initDetailDialog(){
@@ -51,7 +80,13 @@ function initDetailDialog(){
 		width:setFitWidthInParent("body","detail_div"),
 		height:500,
 		top:dialogTop,
-		left:dialogLeft
+		left:dialogLeft,
+		buttons:[
+           {text:"上传代码",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   var id=$("#detail_div #id").val();
+        	   openUploadCodeDialog(true,id);
+           }}
+        ]
 	});
 
 	$("#detail_div table").css("width",(setFitWidthInParent("body","detail_div_table"))+"px");
@@ -82,6 +117,85 @@ function initDetailDialog(){
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 }
 
+function initUploadCodeDialog(){
+	$("#upload_code_dialog_div").dialog({
+		title:"上传代码文件",
+		width:setFitWidthInParent("#upload_code_div","upload_code_dialog_div"),
+		height:150,
+		top:5,
+		left:dialogLeft,
+		buttons:[
+           {text:"确定",id:"ok_but",iconCls:"icon-ok",handler:function(){
+        	   uploadCode();
+           }},
+           {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
+        	   openUploadCodeDialog(false,"");
+           }}
+        ]
+	});
+
+	$("#upload_code_dialog_div table").css("width",(setFitWidthInParent("#upload_code_div","upload_code_dialog_table"))+"px");
+	$("#upload_code_dialog_div table").css("magin","-100px");
+	$("#upload_code_dialog_div table td").css("padding-left","0px");
+	$("#upload_code_dialog_div table td").css("padding-right","20px");
+	$("#upload_code_dialog_div table td").css("font-size","15px");
+	$("#upload_code_dialog_div table .td1").css("width","50%");
+	$("#upload_code_dialog_div table .td2").css("width","50%");
+	$("#upload_code_dialog_div table tr").css("height","45px");
+
+	$(".panel.window").eq(ucdNum).css("margin-top","20px");
+	$(".panel.window .panel-title").eq(ucdNum).css("color","#000");
+	$(".panel.window .panel-title").eq(ucdNum).css("font-size","15px");
+	$(".panel.window .panel-title").eq(ucdNum).css("padding-left","10px");
+	
+	$(".panel-header, .panel-body").css("border-color","#ddd");
+	
+	//以下的是表格下面的面板
+	$(".window-shadow").eq(ucdNum).css("margin-top","20px");
+	$(".window,.window .window-body").eq(ucdNum).css("border-color","#ddd");
+
+	$("#upload_code_dialog_div #ok_but").css("left","30%");
+	$("#upload_code_dialog_div #ok_but").css("position","absolute");
+
+	$("#upload_code_dialog_div #cancel_but").css("left","50%");
+	$("#upload_code_dialog_div #cancel_but").css("position","absolute");
+	
+	$(".dialog-button").css("background-color","#fff");
+	$(".dialog-button .l-btn-text").css("font-size","20px");
+}
+
+function openUploadCodeDialog(flag,id){
+	if(flag){
+		$("#upload_code_bg_div").css("display","block");
+	}
+	else{
+		$("#upload_code_bg_div").css("display","none");
+	}
+	$("#upload_code_div #id").val(id);
+}
+
+function uploadCode(){
+	var formData = new FormData($("#form1")[0]);
+	$.ajax({
+		type:"post",
+		url:taskBagManaPath+"uploadTaskOrderCodeFile",
+		dataType: "json",
+		data:formData,
+		cache: false,
+		processData: false,
+		contentType: false,
+		success: function (data){
+			if(data.message=="ok"){
+				alert(data.info);
+				history.go(-1);
+			}
+			else{
+				alert(data.info);
+			}
+		}
+	});
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -94,6 +208,12 @@ function setFitWidthInParent(parent,self){
 	case "detail_div_table":
 	case "panel_window":
 		space=355;
+		break;
+	case "upload_code_dialog_div":
+		space=50;
+		break;
+	case "upload_code_dialog_table":
+		space=68;
 		break;
 	}
 	var width=$(parent).css("width");
@@ -108,8 +228,7 @@ function setFitWidthInParent(parent,self){
 		<div class="page_location_div">任务单查询-任务单详情</div>
 		
 		<div id="detail_div">
-			<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
-			<input type="hidden" id="id" name="id" value="${requestScope.taskBag.id }"/>
+			<input type="hidden" id="id" name="id" value="${requestScope.taskOrder.id }"/>
 			<input type="hidden" id="uploadUserId" name="uploadUserId" value="${sessionScope.user.id }"/>
 			<table>
 			  <tr>
@@ -174,10 +293,29 @@ function setFitWidthInParent(parent,self){
 				</td>
 			  </tr>
 			</table>
-			</form>
 		</div>
 
 		<%@include file="../../inc/foot.jsp"%>
+	</div>
+	
+	<div class="upload_code_bg_div" id="upload_code_bg_div">
+		<div class="upload_code_div" id="upload_code_div">
+			<div class="upload_code_dialog_div" id="upload_code_dialog_div">
+			<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
+				<input type="hidden" id="id" name="id"/>
+				<table>
+				  <tr>
+					<td class="td1" align="right">
+						选择代码文件
+					</td>
+					<td class="td2">
+						<input type="file" id="code_file" name="code_file"/>
+					</td>
+				  </tr>
+				</table>
+			</form>
+			</div>
+		</div>
 	</div>
 </div>
 </body>
