@@ -1,6 +1,55 @@
 package com.outSouPlat.entity;
 
 public class Permission {
+	
+	/**
+	 * 项目添加
+	 */
+	public static final int PROJ_ADD=1;
+	/**
+	 * 项目删除
+	 */
+	public static final int PROJ_DEL=2;
+	/**
+	 * 项目编辑
+	 */
+	public static final int PROJ_EDIT=3;
+	/**
+	 * 项目查询
+	 */
+	public static final int PROJ_SEAR=4;
+	/**
+	 * 任务包添加
+	 */
+	public static final int TASK_BAG_ADD=5;
+	/**
+	 * 任务包删除
+	 */
+	public static final int TASK_BAG_DEL=6;
+	/**
+	 * 任务包编辑
+	 */
+	public static final int TASK_BAG_EDIT=7;
+	/**
+	 * 任务包查询
+	 */
+	public static final int TASK_BAG_SEAR=8;
+	/**
+	 * 任务单添加
+	 */
+	public static final int TASK_ORDER_ADD=9;
+	/**
+	 * 任务单删除
+	 */
+	public static final int TASK_ORDER_DEL=10;
+	/**
+	 * 任务单编辑
+	 */
+	public static final int TASK_ORDER_EDIT=11;
+	/**
+	 * 任务单查询
+	 */
+	public static final int TASK_ORDER_SEAR=12;
 
 	private Integer id;
 	public Integer getId() {

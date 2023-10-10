@@ -1,5 +1,7 @@
 package com.outSouPlat.service.serviceImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,43 @@ public class RoleServiceImpl implements RoleService {
 		}
 		role.setPermissionNames(permissionNames.substring(1));
 		return role;
+	}
+
+	@Override
+	public String getPermissionIdsByIds(String ids) {
+		// TODO Auto-generated method stub
+		String[] roleIdArr = ids.split(",");
+		List<String> permissionIdList=new ArrayList<String>();
+		List<String> roleIdList = Arrays.asList(roleIdArr);
+		List<String> permissionIdsList=roleDao.getPermissionIdsListByIdList(roleIdList);
+		for (int i = 0; i < permissionIdsList.size(); i++) {
+			String permissionIds = permissionIdsList.get(i);
+			String[] permissionIdArr = permissionIds.split(",");
+			for (int j = 0; j < permissionIdArr.length; j++) {
+				String permissionId=permissionIdArr[j];
+				boolean exist=checkPermissionIdExistInList(permissionId,permissionIdList);
+				if(!exist)
+					permissionIdList.add(permissionId);
+			}
+		}
+		String permissionIds="";
+		for (int i = 0; i < permissionIdList.size(); i++) {
+			String permissionId = permissionIdList.get(i);
+			permissionIds+=","+permissionId;
+		}
+		return permissionIds.substring(1);
+	}
+
+	private boolean checkPermissionIdExistInList(String checkPermissionId, List<String> permissionIdList) {
+		// TODO Auto-generated method stub
+		boolean exist=false;
+		for (int i = 0; i < permissionIdList.size(); i++) {
+			String permissionId = permissionIdList.get(i);
+			if(checkPermissionId.equals(permissionId)) {
+				exist=true;
+				break;
+			}
+		}
+		return exist;
 	}
 }

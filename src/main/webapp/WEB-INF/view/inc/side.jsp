@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<!-- el表达式拼接字符串:https://zhidao.baidu.com/question/1996959905346141947.html -->
+<c:set var="usernameStr" value="admin"></c:set>
+<c:set var="permissionIdsStr" value="${sessionScope.user.permissionIds},"></c:set>
+<c:set var="projSearPermStr" value="${requestScope.projSearPerm},"></c:set>
+<c:set var="taskBagSearPermStr" value="${requestScope.taskBagSearPerm},"></c:set>
+<c:set var="taskOrderSearPermStr" value="${requestScope.taskOrderSearPerm},"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -74,71 +80,75 @@
 </style>
 <script type="text/javascript">
 var username='${sessionScope.user.username}';
-var qxIds='${sessionScope.yongHu.qxIds}';
+var permissionIds='${sessionScope.user.permissionIds}';
 $(function(){
-	showLeftMenuByQx();
+	//showLeftMenuByPermission();
 });
 
-function showLeftMenuByQx(){
-	$(".xmgl_first_div").css("display","none");
-	$(".xmlb_item_li").css("display","none");
+function showLeftMenuByPermission(){
+	/*
+	$(".projMana_first_div").css("display","none");
+	$(".projList_item_li").css("display","none");
 
-	$(".rwbgl_first_div").css("display","none");
-	$(".rwblb_item_li").css("display","none");
+	$(".taskBagMana_first_div").css("display","none");
+	$(".taskBagList_item_li").css("display","none");
+	$(".taskOrder_item_li").css("display","none");
 	
-	$(".csjg_first_div").css("display","none");
-	$(".csjg_first_div .zhcx_item_li").css("display","none");
+	$(".testResult_first_div").css("display","none");
+	$(".testResult_first_div .synthetic_item_li").css("display","none");
 	
-	$(".lsrw_first_div").css("display","none");
-	$(".rwdlb_item_li").css("display","none");
-
-	$(".xtgl_first_div").css("display","none");
-	$(".yhcx_item_li").css("display","none");
-	$(".dshyh_item_li").css("display","none");
-	$(".qxcx_item_li").css("display","none");
+	$(".sysMana_first_div").css("display","none");
+	$(".perInfo_item_li").css("display","none");
+	$(".user_item_li").css("display","none");
+	$(".unCheckUser_item_li").css("display","none");
+	$(".role_item_li").css("display","none");
+	$(".permission_item_li").css("display","none");
+	*/
 	
 	if(username=="admin"){
-		$(".xmgl_first_div").css("display","block");
-		$(".xmlb_item_li").css("display","block");
+		$(".projMana_first_div").css("display","block");
+		$(".projList_item_li").css("display","block");
 
-		$(".rwbgl_first_div").css("display","block");
-		$(".rwblb_item_li").css("display","block");
+		$(".taskBagMana_first_div").css("display","block");
+		$(".taskBagList_item_li").css("display","block");
+		$(".taskOrder_item_li").css("display","block");
 
-		$(".csjg_first_div").css("display","block");
-		$(".csjg_first_div .zhcx_item_li").css("display","block");
+		$(".testResult_first_div").css("display","block");
+		$(".testResult_first_div .synthetic_item_li").css("display","block");
 		
-		$(".lsrw_first_div").css("display","block");
-		$(".rwdlb_item_li").css("display","block");
-		
-		$(".xtgl_first_div").css("display","block");
-		$(".yhcx_item_li").css("display","block");
-		$(".dshyh_item_li").css("display","block");
-		$(".qxcx_item_li").css("display","block");
+		$(".sysMana_first_div").css("display","block");
+		$(".perInfo_item_li").css("display","block");
+		$(".user_item_li").css("display","block");
+		$(".unCheckUser_item_li").css("display","block");
+		$(".role_item_li").css("display","block");
+		$(".permission_item_li").css("display","block");
 	}
 	else{
-		var qxIdsArr=qxIds.split(",");
-		for(var i=0;i<qxIdsArr.length;i++){
+		var permIdsArr=permissionIds.split(",");
+		for(var i=0;i<permIdsArr.length;i++){
+			/*
 			if(qxIdsArr[i]==1){
-				$(".xmgl_first_div").css("display","block");
-				$(".zhcx_item_li").css("display","block");
+				$(".projMana_first_div").css("display","block");
+				$(".synthetic_item_li").css("display","block");
 			}
 			if(qxIdsArr[i]==2){
-				$(".xmgl_first_div").css("display","block");
+				$(".projMana_first_div").css("display","block");
 				$(".shjl_item_li").css("display","block");
 				
-				$(".csjg_first_div").css("display","block");
-				$(".csjg_first_div .zhcx_item_li").css("display","block");
+				$(".testResult_first_div").css("display","block");
+				$(".testResult_first_div .synthetic_item_li").css("display","block");
 
 				$(".lsrw_first_div").css("display","block");
-				$(".rwdlb_item_li").css("display","block");
+				$(".taskOrder_item_li").css("display","block");
 			}
 			if(qxIdsArr[i]==3){
-				$(".rwbgl_first_div").css("display","block");
-				$(".rwblb_item_li").css("display","block");
+				$(".taskBagMana_first_div").css("display","block");
+				$(".taskBagList_item_li").css("display","block");
 			}
 			if(qxIdsArr[i]==6){
-				$(".xmgl_first_div").css("display","block");
+				$(".projMana_first_div").css("display","block");
 			}
+			*/
 		}
 	}
 }
@@ -163,91 +173,99 @@ function showLeftMenuByQx(){
 	<div class="layui-side ">
 		<div class="layui-side-scroll">
 			<ul class="layui-nav layui-nav-tree layui-inline level-ul" lay-filter="demo">
-				<div class="first-level-div xmgl_first_div">
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,projSearPermStr)}">
+				<div class="first-level-div projMana_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
 							项目管理
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item xmlb_item_li">
+					<li class="layui-nav-item projList_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>projMana/projList/list">
 							&nbsp;&nbsp;&nbsp;项目列表
 						</a>
 					</li>
 				</div>
-				<div class="first-level-div rwbgl_first_div">
+				</c:if>
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskBagSearPermStr)}">
+				<div class="first-level-div taskBagMana_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
 							任务包管理
 						</a>
 					</li>
+					<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskBagSearPermStr)}">
 					<div class="line_div"></div>
-					<li class="layui-nav-item rwblb_item_li">
+					<li class="layui-nav-item taskBagList_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>taskBagMana/taskBagList/list">
 							&nbsp;&nbsp;&nbsp;任务包列表
 						</a>
 					</li>
+					</c:if>
+					<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskOrderSearPermStr)}">
 					<div class="line_div"></div>
-					<li class="layui-nav-item rwdlb_item_li">
+					<li class="layui-nav-item taskOrder_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>taskBagMana/taskOrder/list">
 							&nbsp;&nbsp;&nbsp;任务单查询
 						</a>
 					</li>
+					</c:if>
 				</div>
-				<div class="first-level-div csjg_first_div">
+				</c:if>
+				<div class="first-level-div testResult_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
 							测试结果
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item zhcx_item_li">
+					<li class="layui-nav-item synthetic_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>testResult/synthetic/list">
 							&nbsp;&nbsp;&nbsp;综合查询
 						</a>
 					</li>
 				</div>
-				<div class="first-level-div xtgl_first_div">
+				<div class="first-level-div sysMana_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
 							系统管理
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item yhcx_item_li">
+					<li class="layui-nav-item perInfo_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>sysMana/perInfo">
 							&nbsp;&nbsp;&nbsp;个人信息
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item yhcx_item_li">
+					<li class="layui-nav-item user_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>sysMana/user/list">
 							&nbsp;&nbsp;&nbsp;用户查询
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item dshyh_item_li">
+					<li class="layui-nav-item unCheckUser_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>sysMana/unCheckUser/list">
 							&nbsp;&nbsp;&nbsp;待审核用户
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item jscx_item_li">
+					<li class="layui-nav-item role_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>sysMana/role/list">
 							&nbsp;&nbsp;&nbsp;角色查询
 						</a>
 					</li>
 					<div class="line_div"></div>
-					<li class="layui-nav-item qxcx_item_li">
+					<li class="layui-nav-item permission_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
 						<a href="<%=basePath%>sysMana/permission/list">
 							&nbsp;&nbsp;&nbsp;权限查询

@@ -49,6 +49,7 @@ public class ProjManaController {
 	public String goProjListList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setUserPermissionInRequest(request);
 		Constant.setProjectStateInRequest(request);
 		
 		return MODULE_NAME+"/projList/list";

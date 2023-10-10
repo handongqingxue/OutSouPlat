@@ -17,4 +17,6 @@ public interface RoleService {
 	List<Role> queryCBBList();
 
 	Role selectById(String id);
+
+	String getPermissionIdsByIds(String ids);
 }

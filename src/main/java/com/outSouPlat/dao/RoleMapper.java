@@ -19,4 +19,6 @@ public interface RoleMapper {
 	List<Role> queryCBBList();
 
 	Role selectById(@Param("id") String id);
+
+	List<String> getPermissionIdsListByIdList(@Param("idList") List<String> idList);
 }

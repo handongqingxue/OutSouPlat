@@ -63,4 +63,10 @@
 	<select id="selectById" resultType="com.outSouPlat.entity.Role">
 		select * from role where id=#{id}
 	</select>
+	<select id="getPermissionIdsListByIdList" resultType="java.lang.String">
+		select permissionIds from role where 1=1
+		<foreach collection="idList" item="id" open=" and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</select>
 </mapper>

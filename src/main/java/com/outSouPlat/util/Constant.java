@@ -94,4 +94,91 @@ public class Constant {
 		request.setAttribute("unPayStateName", TestResult.UN_PAY_NAME);
 		request.setAttribute("paidStateName", TestResult.PAID_NAME);
 	}
+	
+	/**
+	 * 存放用户权限常量
+	 * @param request
+	 */
+	public static void setUserPermissionInRequest(HttpServletRequest request) {
+
+		request.setAttribute("projAddPerm", Permission.PROJ_ADD);//1
+		request.setAttribute("projDelPerm", Permission.PROJ_DEL);//2
+		request.setAttribute("projEditPerm", Permission.PROJ_EDIT);//3
+		request.setAttribute("projSearPerm", Permission.PROJ_SEAR);//4
+		request.setAttribute("taskBagAddPerm", Permission.TASK_BAG_ADD);//5
+		request.setAttribute("taskBagDelPerm", Permission.TASK_BAG_DEL);//6
+		request.setAttribute("taskBagEditPerm", Permission.TASK_BAG_EDIT);//7
+		request.setAttribute("taskBagSearPerm", Permission.TASK_BAG_SEAR);//8
+		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
+		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10
+		request.setAttribute("taskOrderEditPerm", Permission.TASK_ORDER_EDIT);//11
+		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12
+		/*
+		request.setAttribute("xgwzlxQx", QuanXian.XIU_GAI_WU_ZI_LEI_XING);//13
+		request.setAttribute("scwzlxQx", QuanXian.SHAN_CHU_WU_ZI_LEI_XING);//14
+		request.setAttribute("tjwzQx", QuanXian.TIAN_JIA_WU_ZI);//15
+		request.setAttribute("xgwzQx", QuanXian.XIU_GAI_WU_ZI);//16
+		request.setAttribute("scwzQx", QuanXian.SHAN_CHU_WU_ZI);//17
+		request.setAttribute("tjyssQx", QuanXian.TIAN_JIA_YUN_SHU_SHANG);//18
+		request.setAttribute("xgyssQx", QuanXian.XIU_GAI_YUN_SHU_SHANG);//19
+		request.setAttribute("scyssQx", QuanXian.SHAN_CHU_YUN_SHU_SHANG);//20
+		request.setAttribute("tjfhdwQx", QuanXian.TIAN_JIA_FA_HUO_DAN_WEI);//21
+		request.setAttribute("xgfhdwQx", QuanXian.XIU_GAI_FA_HUO_DAN_WEI);//22
+		request.setAttribute("scfhdwQx", QuanXian.SHAN_CHU_FA_HUO_DAN_WEI);//23
+		request.setAttribute("tjshdwQx", QuanXian.TIAN_JIA_SHOU_HUO_DAN_WEI);//24
+		request.setAttribute("xgshdwQx", QuanXian.XIU_GAI_SHOU_HUO_DAN_WEI);//25
+		request.setAttribute("scshdwQx", QuanXian.SHAN_CHU_SHOU_HUO_DAN_WEI);//26
+		request.setAttribute("tjckQx", QuanXian.TIAN_JIA_CANG_KU);//27
+		request.setAttribute("ddztcxQx", QuanXian.DING_DAN_ZHUANG_TAI_CHA_XUN);//28
+		request.setAttribute("cxbdjlQx", QuanXian.CHA_XUN_BANG_DAN_JI_LU);//29
+		request.setAttribute("cxgbjlQx", QuanXian.CHA_XUN_GUO_BANG_JI_LU);//30
+		request.setAttribute("cxwzlxQx", QuanXian.CHA_XUN_WU_ZI_LEI_XING);//31
+		request.setAttribute("cxwzQx", QuanXian.CHA_XUN_WU_ZI);//32
+		request.setAttribute("cxyssQx", QuanXian.CHA_XUN_YUN_SHU_SHANG);//33
+		request.setAttribute("cxfhdwQx", QuanXian.CHA_XUN_FA_HUO_DAN_WEI);//34
+		request.setAttribute("cxshdwQx", QuanXian.CHA_XUN_SHOU_HUO_DAN_WEI);//35
+		request.setAttribute("cxckQx", QuanXian.CHA_XUN_CANG_KU);//36
+		request.setAttribute("tjclQx", QuanXian.TIAN_JIA_CHE_LIANG);//37
+		request.setAttribute("xgclQx", QuanXian.XIU_GAI_CHE_LIANG);//38
+		request.setAttribute("scclQx", QuanXian.SHAN_CHU_CHE_LIANG);//39
+		request.setAttribute("cxclQx", QuanXian.CHA_XUN_CHE_LIANG);//40
+		request.setAttribute("shclQx", QuanXian.SHEN_HE_CHE_LIANG);//41
+		request.setAttribute("cxcltzQx", QuanXian.CHA_XUN_CHE_LIANG_TAI_ZHANG);//42
+		request.setAttribute("cxclshjlQx", QuanXian.CHA_XUN_CHE_LIANG_SHEN_HE_JI_LU);//43
+		request.setAttribute("tjsjQx", QuanXian.TIAN_JIA_SI_JI);//44
+		request.setAttribute("xgsjQx", QuanXian.XIU_GAI_SI_JI);//45
+		request.setAttribute("scsjQx", QuanXian.SHAN_CHU_SI_JI);//46
+		request.setAttribute("cxsjQx", QuanXian.CHA_XUN_SI_JI);//47
+		request.setAttribute("shsjQx", QuanXian.SHEN_HE_SI_JI);//48
+		request.setAttribute("cxsjshjlQx", QuanXian.CHA_XUN_SI_JI_SHEN_HE_JI_LU);//49
+		request.setAttribute("cxpdhmQx", QuanXian.CHA_XUN_PAI_DUI_HAO_MA);//50
+		request.setAttribute("scpdhmQx", QuanXian.SHAN_CHU_PAI_DUI_HAO_MA);//51
+		request.setAttribute("tjdlQx", QuanXian.TIAN_JIA_DUI_LIE);//52
+		request.setAttribute("xgdlQx", QuanXian.XIU_GAI_DUI_LIE);//53
+		request.setAttribute("scdlQx", QuanXian.SHAN_CHU_DUI_LIE);//54
+		request.setAttribute("cxdlQx", QuanXian.CHA_XUN_DUI_LIE);//55
+		request.setAttribute("cxyhQx", QuanXian.CHA_XUN_YONG_HU);//56
+		request.setAttribute("xgyhQx", QuanXian.XIU_GAI_YONG_HU);//57
+		request.setAttribute("shyhQx", QuanXian.SHEN_HE_YONG_HU);//58
+		request.setAttribute("cxyhshjlQx", QuanXian.CHA_XUN_YONG_HU_SHEN_HE_JI_LU);//59
+		request.setAttribute("tjjsQx", QuanXian.TIAN_JIA_JUE_SE);//60
+		request.setAttribute("xgjsQx", QuanXian.XIU_GAI_JUE_SE);//61
+		request.setAttribute("scjsQx", QuanXian.SHAN_CHU_JUE_SE);//62
+		request.setAttribute("cxjsQx", QuanXian.CHA_XUN_JUE_SE);//63
+		request.setAttribute("rgsbsfzQx", QuanXian.REN_GONG_SHI_BIE_SHEN_FEN_ZHENG);//64
+		request.setAttribute("rgsbcpQx", QuanXian.REN_GONG_SHI_BIE_CHE_PAI);//65
+		request.setAttribute("rgsbewmQx", QuanXian.REN_GONG_SHI_BIE_ER_WEI_MA);//66
+		request.setAttribute("ddfwQx", QuanXian.DING_DAN_FU_WEI);//67
+		request.setAttribute("bddyQx", QuanXian.BANG_DAN_DA_YIN);//68
+		request.setAttribute("cxddshjlQx", QuanXian.CHA_XUN_DING_DAN_SHEN_HE_JI_LU);//69
+		request.setAttribute("scddshjlQx", QuanXian.SHAN_CHU_DING_DAN_SHEN_HE_JI_LU);//70
+		request.setAttribute("xgckQx", QuanXian.XIU_GAI_CANG_KU);//71
+		request.setAttribute("scckQx", QuanXian.SHAN_CHU_CANG_KU);//72
+		request.setAttribute("scclshjlQx", QuanXian.SHAN_CHU_CHE_LIANG_SHEN_HE_JI_LU);//73
+		request.setAttribute("sccltzQx", QuanXian.SHAN_CHU_CHE_LIANG_TAI_ZHANG);//74
+		request.setAttribute("pdhmztcxQx", QuanXian.PAI_DUI_HAO_MA_ZHUANG_TAI_CHA_XUN);//75
+		request.setAttribute("scyhshjlQx", QuanXian.SHAN_CHU_YONG_HU_SHEN_HE_JI_LU);//76
+		request.setAttribute("qxcxQx", QuanXian.QUAN_XIAN_CHA_XUN);//77
+		*/
+	}
 }

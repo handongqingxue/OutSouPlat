@@ -83,6 +83,12 @@ public class User {
 	public void setRoleNames(String roleNames) {
 		this.roleNames = roleNames;
 	}
+	public String getPermissionIds() {
+		return permissionIds;
+	}
+	public void setPermissionIds(String permissionIds) {
+		this.permissionIds = permissionIds;
+	}
 	public Integer getState() {
 		return state;
 	}
@@ -97,5 +103,6 @@ public class User {
 	private String createTime;
 	private String roleIds;
 	private String roleNames;
+	private String permissionIds;
 	private Integer state;//1.待审核 2.审核通过 3.编辑中
 }

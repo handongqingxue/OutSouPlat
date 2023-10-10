@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -25,6 +26,8 @@ public class MainController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private RoleService roleService;
 
 	/**
 	 * 跳转到登录页
@@ -99,6 +102,12 @@ public class MainController {
 			return JsonUtil.getJsonFromObject(plan);
 		}
 		User user=(User)SecurityUtils.getSubject().getPrincipal();
+		String roleIds = user.getRoleIds();
+		if(!StringUtils.isEmpty(roleIds)) {
+			String permissionIds=roleService.getPermissionIdsByIds(roleIds);
+			System.out.println("permissionIds==="+permissionIds);
+			user.setPermissionIds(permissionIds);
+		}
 		session.setAttribute("user", user);
 		
 		plan.setStatus(0);
