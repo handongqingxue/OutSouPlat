@@ -113,13 +113,15 @@ public class Constant {
 		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10
 		request.setAttribute("taskOrderEditPerm", Permission.TASK_ORDER_EDIT);//11
 		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12
+		request.setAttribute("testResultAddPerm", Permission.TEST_RESULT_ADD);//13
+		request.setAttribute("testResultDelPerm", Permission.TEST_RESULT_DEL);//14
+		request.setAttribute("testResultEditPerm", Permission.TEST_RESULT_EDIT);//15
+		request.setAttribute("testResultSearPerm", Permission.TEST_RESULT_SEAR);//16
+		request.setAttribute("userSearPerm", Permission.USER_SEAR);//17
+		request.setAttribute("userEditPerm", Permission.USER_EDIT);//18
+		request.setAttribute("userCheckPerm", Permission.USER_CHECK);//19
+		request.setAttribute("unCheckUserSearPerm", Permission.UN_CHECK_USER_SEAR);//20
 		/*
-		request.setAttribute("xgwzlxQx", QuanXian.XIU_GAI_WU_ZI_LEI_XING);//13
-		request.setAttribute("scwzlxQx", QuanXian.SHAN_CHU_WU_ZI_LEI_XING);//14
-		request.setAttribute("tjwzQx", QuanXian.TIAN_JIA_WU_ZI);//15
-		request.setAttribute("xgwzQx", QuanXian.XIU_GAI_WU_ZI);//16
-		request.setAttribute("scwzQx", QuanXian.SHAN_CHU_WU_ZI);//17
-		request.setAttribute("tjyssQx", QuanXian.TIAN_JIA_YUN_SHU_SHANG);//18
 		request.setAttribute("xgyssQx", QuanXian.XIU_GAI_YUN_SHU_SHANG);//19
 		request.setAttribute("scyssQx", QuanXian.SHAN_CHU_YUN_SHU_SHANG);//20
 		request.setAttribute("tjfhdwQx", QuanXian.TIAN_JIA_FA_HUO_DAN_WEI);//21

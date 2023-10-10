@@ -50,6 +50,38 @@ public class Permission {
 	 * 任务单查询
 	 */
 	public static final int TASK_ORDER_SEAR=12;
+	/**
+	 * 测试结果添加
+	 */
+	public static final int TEST_RESULT_ADD=13;
+	/**
+	 * 测试结果删除
+	 */
+	public static final int TEST_RESULT_DEL=14;
+	/**
+	 * 测试结果编辑
+	 */
+	public static final int TEST_RESULT_EDIT=15;
+	/**
+	 * 测试结果查询
+	 */
+	public static final int TEST_RESULT_SEAR=16;
+	/**
+	 * 用户查询
+	 */
+	public static final int USER_SEAR=17;
+	/**
+	 * 用户编辑
+	 */
+	public static final int USER_EDIT=18;
+	/**
+	 * 用户审核
+	 */
+	public static final int USER_CHECK=19;
+	/**
+	 * 待审核用户查询
+	 */
+	public static final int UN_CHECK_USER_SEAR=20;
 
 	private Integer id;
 	public Integer getId() {
