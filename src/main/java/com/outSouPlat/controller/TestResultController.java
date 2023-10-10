@@ -54,6 +54,24 @@ public class TestResultController {
 		
 		return MODULE_NAME+"/synthetic/list";
 	}
+
+	/**
+	 * 跳转到测试结果-综合查询-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/synthetic/detail")
+	public String goSyntheticDetail(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		String id = request.getParameter("id");
+		TestResult testResult=testResultService.selectById(id);
+		request.setAttribute("testResult", testResult);
+		
+		Constant.setTestResultStateInRequest(request);
+		
+		return MODULE_NAME+"/synthetic/detail";
+	}
 	
 	@RequestMapping(value="/add")
 	@ResponseBody
