@@ -22,6 +22,12 @@ public class TestResultServiceImpl implements TestResultService {
 	}
 
 	@Override
+	public int edit(TestResult testResult) {
+		// TODO Auto-generated method stub
+		return testResultDao.edit(testResult);
+	}
+
+	@Override
 	public int queryForInt(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
 			Integer state) {
 		// TODO Auto-generated method stub
@@ -34,5 +40,11 @@ public class TestResultServiceImpl implements TestResultService {
 		// TODO Auto-generated method stub
 		return testResultDao.queryList(orderNo, taskBagName, testUserName, phone, createTimeStart, createTimeEnd, 
 				state, (page-1)*rows, rows, sort, order);
+	}
+
+	@Override
+	public TestResult selectById(String id) {
+		// TODO Auto-generated method stub
+		return testResultDao.selectById(id);
 	}
 }

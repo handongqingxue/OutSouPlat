@@ -39,13 +39,17 @@
 var path='<%=basePath %>';
 var testResultPath=path+'testResult/';
 
-var unFinishState;
-var finishedState;
-var discardedState;
+var unTestState;
+var testingState;
+var unPassState;
+var unPayState;
+var paidState;
 
-var unFinishStateName;
-var finishedStateName;
-var discardedStateName;
+var unTestStateName;
+var testingStateName;
+var unPassStateName;
+var unPayStateName;
+var paidStateName;
 $(function(){
 	initStateVar();
 	initCreateTimeStartDTB();
@@ -57,13 +61,17 @@ $(function(){
 });
 
 function initStateVar(){
-	unFinishState=parseInt('${requestScope.unFinishState}');
-	finishedState=parseInt('${requestScope.finishedState}');
-	discardedState=parseInt('${requestScope.discardedState}');
+	unTestState=parseInt('${requestScope.unTestState}');
+	testingState=parseInt('${requestScope.testingState}');
+	unPassState=parseInt('${requestScope.unPassState}');
+	unPayState=parseInt('${requestScope.unPayState}');
+	paidState=parseInt('${requestScope.paidState}');
 
-	unFinishStateName='${requestScope.unFinishStateName}';
-	finishedStateName='${requestScope.finishedStateName}';
-	discardedStateName='${requestScope.discardedStateName}';
+	unTestStateName='${requestScope.unTestStateName}';
+	testingStateName='${requestScope.testingStateName}';
+	unPassStateName='${requestScope.unPassStateName}';
+	unPayStateName='${requestScope.unPayStateName}';
+	paidStateName='${requestScope.paidStateName}';
 }
 
 function initCreateTimeStartDTB(){
@@ -81,9 +89,11 @@ function initCreateTimeEndDTB(){
 function initStateCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":unFinishState,"text":unFinishStateName});
-	data.push({"value":finishedState,"text":finishedStateName});
-	data.push({"value":discardedState,"text":discardedStateName});
+	data.push({"value":unTestState,"text":unTestStateName});
+	data.push({"value":testingState,"text":testingStateName});
+	data.push({"value":unPassState,"text":unPassStateName});
+	data.push({"value":unPayState,"text":unPayStateName});
+	data.push({"value":paidState,"text":paidStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
 		valueField:"value",
@@ -138,7 +148,8 @@ function initTab1(){
             	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"detail?id="+value+"\">详情</a>";
+            	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+            		str+="<a href=\"detail?id="+value+"\">详情</a>";
             	return str;
             }}
 	    ]],
@@ -160,14 +171,20 @@ function initTab1(){
 function getStateNameById(stateId){
 	var str;
 	switch (stateId) {
-	case unFinishState:
-		str=unFinishStateName;//未完成
+	case unTestState:
+		str=unTestStateName;//待测试
 		break;
-	case finishedState:
-		str=finishedStateName;//已完成
+	case testingState:
+		str=testingStateName;//测试中
 		break;
-	case discardedState:
-		str=discardedStateName;//已废弃
+	case unPassState:
+		str=unPassStateName;//不合格
+		break;
+	case unPayState:
+		str=unPayStateName;//待支付佣金
+		break;
+	case paidState:
+		str=paidStateName;//已支付佣金
 		break;
 	}
 	return str;

@@ -39,6 +39,24 @@
 				${@com.outSouPlat.entity.TestResult@UN_TEST}
 		</trim>
 	</insert>
+	<update id="edit" parameterType="com.outSouPlat.entity.TestResult">
+		update test_result set 
+		<trim suffixOverrides=",">
+			<if test="testUserId!=null">
+				testUserId=#{testUserId},
+			</if>
+			<if test="phone!=null">
+				phone=#{phone},
+			</if>
+			<if test="desc!=null">
+				`desc`=#{desc},
+			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+		</trim>
+		 where id=#{id}
+	</update>
 	<select id="queryForInt" resultType="java.lang.Integer">
 		select count(*) from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id
 		<if test="orderNo!=''&amp;orderNo!=null">
@@ -82,5 +100,8 @@
 		</if>
 		order by tr.createTime desc
 		limit #{rowNum},#{rows}
+	</select>
+	<select id="selectById" resultType="com.outSouPlat.entity.TestResult">
+		select tr.*,`to`.no orderNo,tb.name taskBagName,u.username testUserName from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id and tr.id=#{id}
 	</select>
 </mapper>
