@@ -1,10 +1,13 @@
 package com.outSouPlat.controller;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -360,5 +363,36 @@ public class TaskBagManaController {
 			jsonMap.put("info", "创建任务包失败！");
 		}
 		return jsonMap;
+	}
+
+	//https://blog.csdn.net/m0_59800431/article/details/129662276
+	//192.168.1.100:8080/OutSouPlat/taskBagMana/download
+	@RequestMapping(value="/download")
+	public void download(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			//1.要获取下载文件的路径
+			String realPath = "http://192.168.1.100:8080\\OutSouPlat\\upload\\TaskBag\\annex\\我都不洗说你了.txt";
+			System.out.println("下载文件的路径："+realPath);
+			//2.下载的文件名是什么？
+			String filename = realPath.substring(realPath.lastIndexOf("\\") + 1);
+			//3.设置想办法让浏览器能够支持下载我们需要的东西
+			response.setHeader("Content-Disposition","attachment;filename="+filename);
+			//4.获取下载文件的输入流
+			FileInputStream in = new FileInputStream(realPath);
+			//5.创建缓冲区
+			int len=0;
+			byte[] buffer = new byte[1024];
+			//6.获取OutputStream对象
+			ServletOutputStream out = response.getOutputStream();
+			//7.将FileOutputStream流写入到buffer缓冲区,使用OutputStream将缓冲区中的数据输出到客户端
+			while((len=in.read(buffer))>0) {
+			    out.write(buffer,0,len);
+			}
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
