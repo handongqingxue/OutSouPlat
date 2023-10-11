@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="testResultDelPermStr" value=",${requestScope.testResultDelPerm},"></c:set>
+<c:set var="testResultEditPermStr" value=",${requestScope.testResultEditPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +37,17 @@
 	height: 25px;
 }
 </style>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var testResultPath=path+'testResult/';
+
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var testResultDelPermStr='${testResultDelPermStr}';
+var testResultEditPermStr='${testResultEditPermStr}';
+
+var showEditOptionBut=false;
 
 var unTestState;
 var testingState;
@@ -52,13 +62,25 @@ var unPayStateName;
 var paidStateName;
 $(function(){
 	initStateVar();
+	showCompontByPermission();
+	showOptionByPermission();
+	
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initStateCBB();
 	initSearchLB();
-	initRemoveLB();
 	initTab1();
 });
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testResultDelPermStr)!=-1)
+		initRemoveLB();
+}
+
+function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testResultEditPermStr)!=-1)
+		showEditOptionBut=true;
+}
 
 function initStateVar(){
 	unTestState=parseInt('${requestScope.unTestState}');
@@ -148,7 +170,9 @@ function initTab1(){
             	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+            	var str="";
+	            	if(showEditOptionBut)
+	            		str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
             		str+="<a href=\"detail?id="+value+"\">详情</a>";
             	return str;
             }}
@@ -227,7 +251,9 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
+				<c:if test="${sessionUsername eq usernameStr||fn:contains(permissionIdsStr,testResultDelPermStr)}">
 				<a id="remove_but">删除</a>
+				</c:if>
 			</div>
 		</div>
 		<table id="tab1">

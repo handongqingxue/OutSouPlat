@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="userEditPermStr" value=",${requestScope.userEditPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,10 +31,16 @@
 }
 </style>
 <title>Insert title here</title>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var sysManaPath=path+'sysMana/';
+
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var userEditPermStr='${userEditPermStr}';
+
+var showEditOptionBut=false;
 
 var noCheckState;
 var checkedState;
@@ -43,9 +51,16 @@ var checkedStateName;
 var editingStateName;
 $(function(){
 	initStateVar();
+	showOptionByPermission();
+	
 	initSearchLB();
 	initTab1();
 });
+
+function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(userEditPermStr)!=-1)
+		showEditOptionBut=true;
+}
 
 function initStateVar(){
 	noCheckState=parseInt('${requestScope.noCheckState}');
@@ -95,8 +110,10 @@ function initTab1(){
 				return getStateNameById(value);
 			}},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
-            	var str="<a class=\"edit_a\" href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
-            		+"<a href=\"detail?id="+value+"\">详情</a>";
+            	var str="";
+	            	if(showEditOptionBut)
+		            	str+="<a class=\"edit_a\" href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+	            	str+="<a href=\"detail?id="+value+"\">详情</a>";
             	return str;
             }}
 	    ]],

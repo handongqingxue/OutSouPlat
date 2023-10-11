@@ -115,12 +115,11 @@ public class Constant {
 		
 		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
 		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10
-		request.setAttribute("taskOrderEditPerm", Permission.TASK_ORDER_EDIT);//11
+		request.setAttribute("downloadCodePerm", Permission.DOWNLOAD_CODE);//11
 		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12
 		request.setAttribute("uploadCodePerm", Permission.UPLOAD_CODE);//23
-		request.setAttribute("uploadTestResultPerm", Permission.UPLOAD_TEST_RESULT);//24
 		
-		request.setAttribute("testResultAddPerm", Permission.TEST_RESULT_ADD);//13
+		request.setAttribute("testResultUplPerm", Permission.TEST_RESULT_UPL);//13
 		request.setAttribute("testResultDelPerm", Permission.TEST_RESULT_DEL);//14
 		request.setAttribute("testResultEditPerm", Permission.TEST_RESULT_EDIT);//15
 		request.setAttribute("testResultSearPerm", Permission.TEST_RESULT_SEAR);//16

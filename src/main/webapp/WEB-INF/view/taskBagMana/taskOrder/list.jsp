@@ -2,9 +2,9 @@
     pageEncoding="utf-8"%>
 <%@include file="../../inc/js.jsp"%>
 <c:set var="taskOrderDelPermStr" value=",${requestScope.taskOrderDelPerm},"></c:set>
-<c:set var="taskOrderEditPermStr" value=",${requestScope.taskOrderEditPerm},"></c:set>
+<c:set var="downloadCodePermStr" value=",${requestScope.downloadCodePerm},"></c:set>
 <c:set var="uploadCodePermStr" value=",${requestScope.uploadCodePerm},"></c:set>
-<c:set var="uploadTestResultPermStr" value=",${requestScope.uploadTestResultPerm},"></c:set>
+<c:set var="testResultUplPermStr" value=",${requestScope.testResultUplPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,13 +83,13 @@ var sessionUsernameStr='${sessionUsernameStr}';
 var usernameStr='${usernameStr}';
 var permissionIdsStr='${permissionIdsStr}';
 var taskOrderDelPermStr='${taskOrderDelPermStr}';
-var taskOrderEditPermStr='${taskOrderEditPermStr}';
+var downloadCodePermStr='${downloadCodePermStr}';
 var uploadCodePermStr='${uploadCodePermStr}';
-var uploadTestResultPermStr='${uploadTestResultPermStr}';
+var testResultUplPermStr='${testResultUplPermStr}';
 
-var showEditOptionBut=false;
+var showDownloadCodeBut=false;
 var showUploadCodeOptionBut=false;
-var showUploadTestResultOptionBut=false;
+var showTestResultUplOptionBut=false;
 
 var dialogTop=10;
 var dialogLeft=20;
@@ -157,12 +157,12 @@ function showCompontByPermission(){
 }
 
 function showOptionByPermission(){
-	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskOrderEditPermStr)!=-1)
-		showEditOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(downloadCodePermStr)!=-1)
+		showDownloadCodeBut=true;
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(uploadCodePermStr)!=-1)
 		showUploadCodeOptionBut=true;
-	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(uploadTestResultPermStr)!=-1)
-		showUploadTestResultOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testResultUplPermStr)!=-1)
+		showTestResultUplOptionBut=true;
 }
 
 function initTOStateVar(){
@@ -397,7 +397,7 @@ function initTab1(){
             	str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
             	if(showUploadCodeOptionBut)
             		str+="<a onclick=\"openUploadCodeDialog(true,"+value+")\">上传代码</a>&nbsp;&nbsp;";
-            	if(showUploadTestResultOptionBut)
+            	if(showTestResultUplOptionBut)
             		str+="<a onclick=\"openUploadTestResultDialog(true,"+value+")\">上传测试结果</a>&nbsp;&nbsp;";
             	return str;
             }}

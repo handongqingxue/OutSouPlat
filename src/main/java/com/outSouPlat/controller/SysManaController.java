@@ -45,6 +45,8 @@ public class SysManaController {
 		User user=(User)SecurityUtils.getSubject().getPrincipal();
 		request.setAttribute("user", user);
 		
+		Constant.setUserPermissionInRequest(request);
+		
 		return MODULE_NAME+"/perInfo";
 	}
 
@@ -60,7 +62,8 @@ public class SysManaController {
 		String id = request.getParameter("id");
 		User user=userService.selectById(id);
 		request.setAttribute("user", user);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setUserStateInRequest(request);
 		
 		return MODULE_NAME+"/user/edit";
@@ -70,6 +73,7 @@ public class SysManaController {
 	public String goUserList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setUserPermissionInRequest(request);
 		Constant.setUserStateInRequest(request);
 		
 		return MODULE_NAME+"/user/list";
@@ -87,7 +91,8 @@ public class SysManaController {
 		String id = request.getParameter("id");
 		User user=userService.selectById(id);
 		request.setAttribute("user", user);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setUserStateInRequest(request);
 		
 		return MODULE_NAME+"/user/detail";
@@ -97,6 +102,7 @@ public class SysManaController {
 	public String goUnCheckUserList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setUserPermissionInRequest(request);
 		
 		return MODULE_NAME+"/unCheckUser/list";
 	}

@@ -39,7 +39,8 @@ public class TestResultController {
 		String id = request.getParameter("id");
 		TestResult testResult=testResultService.selectById(id);
 		request.setAttribute("testResult", testResult);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setTestResultStateInRequest(request);
 		
 		return MODULE_NAME+"/synthetic/edit";
@@ -49,7 +50,8 @@ public class TestResultController {
 	public String goSyntheticList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setTestResultStateInRequest(request);
 		
 		return MODULE_NAME+"/synthetic/list";
@@ -67,7 +69,8 @@ public class TestResultController {
 		String id = request.getParameter("id");
 		TestResult testResult=testResultService.selectById(id);
 		request.setAttribute("testResult", testResult);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setTestResultStateInRequest(request);
 		
 		return MODULE_NAME+"/synthetic/detail";

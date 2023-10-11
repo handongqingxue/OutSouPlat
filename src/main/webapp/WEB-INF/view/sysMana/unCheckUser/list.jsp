@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="userCheckPermStr" value=",${requestScope.userCheckPerm},"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,41 +24,32 @@
 .tab1_div .toolbar .search_but{
 	margin-left: 13px;
 }
-
-.output_excel_bg_div{
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,.45);
-	position: fixed;
-	z-index: 9016;
-	display:none;
-}
-
-.output_excel_div{
-	width: 500px;
-	height: 210px;
-	margin: 250px auto 0;
-	background-color: #fff;
-	border-radius:5px;
-	position: absolute;
-	left: 0;
-	right: 0;
-}
 </style>
 <title>Insert title here</title>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var sysManaPath=path+'sysMana/';
 
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var userCheckPermStr='${userCheckPermStr}';
+
 var defaultState=1;//'${requestScope.dshShzt}';
 
 $(function(){
+	showCompontByPermission();
+	
 	initSearchLB();
-	initPassLB();
-	initReturnLB();
 	initTab1();
 });
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(userCheckPermStr)!=-1){
+		initPassLB();
+		initReturnLB();
+	}
+}
 
 function initSearchLB(){
 	$("#search_but").linkbutton({
@@ -182,8 +175,10 @@ function setFitWidthInParent(parent,self){
 			<span class="username_span">用户名：</span>
 			<input type="text" class="username_inp" id="username" placeholder="请输入用户名"/>
 			<a class="search_but" id="search_but">查询</a>
+			<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,userCheckPermStr)}">
 			<a id="pass_but">审核通过</a>
 			<a id="back_but">退回</a>
+			</c:if>
 		</div>
 		<table id="tab1">
 		</table>

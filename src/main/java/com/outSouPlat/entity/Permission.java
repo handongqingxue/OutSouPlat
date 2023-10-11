@@ -43,17 +43,17 @@ public class Permission {
 	 */
 	public static final int TASK_ORDER_DEL=10;
 	/**
-	 * 任务单编辑
+	 * 下载代码
 	 */
-	public static final int TASK_ORDER_EDIT=11;
+	public static final int DOWNLOAD_CODE=11;
 	/**
 	 * 任务单查询
 	 */
 	public static final int TASK_ORDER_SEAR=12;
 	/**
-	 * 测试结果添加
+	 * 测试结果上传
 	 */
-	public static final int TEST_RESULT_ADD=13;
+	public static final int TEST_RESULT_UPL=13;
 	/**
 	 * 测试结果删除
 	 */
@@ -94,10 +94,6 @@ public class Permission {
 	 * 上传代码
 	 */
 	public static final int UPLOAD_CODE=23;
-	/**
-	 * 上传测试结果
-	 */
-	public static final int UPLOAD_TEST_RESULT=24;
 
 	private Integer id;
 	public Integer getId() {

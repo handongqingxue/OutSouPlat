@@ -126,8 +126,11 @@ function checkEdit(){
 }
 
 function editRole(){
-	var permissionIds=permissionCBB.combobox("getValues");
-	$("#permissionIds").val(String(permissionIds));
+	var permissionIdsArr=permissionCBB.combobox("getValues");
+	var permissionIds=permissionIdsArr.sort().toString();
+	if(permissionIds.substring(0,1)==",")
+		permissionIds=permissionIds.substring(1);
+	$("#edit_div #permissionIds").val(String(permissionIds));
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({

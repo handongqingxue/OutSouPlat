@@ -79,84 +79,9 @@
 	background-color: #CAD9EA;
 }
 </style>
-<script type="text/javascript">
-var username='${sessionScope.user.username}';
-var permissionIds='${sessionScope.user.permissionIds}';
-$(function(){
-	//showLeftMenuByPermission();
-});
-
-function showLeftMenuByPermission(){
-	/*
-	$(".projMana_first_div").css("display","none");
-	$(".projList_item_li").css("display","none");
-
-	$(".taskBagMana_first_div").css("display","none");
-	$(".taskBagList_item_li").css("display","none");
-	$(".taskOrder_item_li").css("display","none");
-	
-	$(".testResult_first_div").css("display","none");
-	$(".testResult_first_div .synthetic_item_li").css("display","none");
-	
-	$(".sysMana_first_div").css("display","none");
-	$(".perInfo_item_li").css("display","none");
-	$(".user_item_li").css("display","none");
-	$(".unCheckUser_item_li").css("display","none");
-	$(".role_item_li").css("display","none");
-	$(".permission_item_li").css("display","none");
-	*/
-	
-	if(username=="admin"){
-		$(".projMana_first_div").css("display","block");
-		$(".projList_item_li").css("display","block");
-
-		$(".taskBagMana_first_div").css("display","block");
-		$(".taskBagList_item_li").css("display","block");
-		$(".taskOrder_item_li").css("display","block");
-
-		$(".testResult_first_div").css("display","block");
-		$(".testResult_first_div .synthetic_item_li").css("display","block");
-		
-		$(".sysMana_first_div").css("display","block");
-		$(".perInfo_item_li").css("display","block");
-		$(".user_item_li").css("display","block");
-		$(".unCheckUser_item_li").css("display","block");
-		$(".role_item_li").css("display","block");
-		$(".permission_item_li").css("display","block");
-	}
-	else{
-		var permIdsArr=permissionIds.split(",");
-		for(var i=0;i<permIdsArr.length;i++){
-			/*
-			if(qxIdsArr[i]==1){
-				$(".projMana_first_div").css("display","block");
-				$(".synthetic_item_li").css("display","block");
-			}
-			if(qxIdsArr[i]==2){
-				$(".projMana_first_div").css("display","block");
-				$(".shjl_item_li").css("display","block");
-				
-				$(".testResult_first_div").css("display","block");
-				$(".testResult_first_div .synthetic_item_li").css("display","block");
-
-				$(".lsrw_first_div").css("display","block");
-				$(".taskOrder_item_li").css("display","block");
-			}
-			if(qxIdsArr[i]==3){
-				$(".taskBagMana_first_div").css("display","block");
-				$(".taskBagList_item_li").css("display","block");
-			}
-			if(qxIdsArr[i]==6){
-				$(".projMana_first_div").css("display","block");
-			}
-			*/
-		}
-	}
-}
-</script>
 </head>
 <body>
-<div class="layui-header header_div">
+	<div class="layui-header header_div">
 		<div class="layui-logo">
 			<a>外包平台</a>
 		</div>

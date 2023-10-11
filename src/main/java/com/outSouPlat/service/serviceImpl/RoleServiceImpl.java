@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,19 +56,21 @@ public class RoleServiceImpl implements RoleService {
 		Role role = roleDao.selectById(id);
 		List<Permission> permissionList = permissionDao.queryCBBList();
 		String permissionIds = role.getPermissionIds();
-		String[] permissionIdArr = permissionIds.split(",");
-		String permissionNames = "";
-		for (String permissionIdStr : permissionIdArr) {
-			int permissionId = Integer.valueOf(permissionIdStr);
-			for (int i = 0; i < permissionList.size(); i++) {
-				Permission permission = permissionList.get(i);
-				if(permissionId==permission.getId()) {
-					permissionNames+=","+permission.getName();
-					break;
+		if(!StringUtils.isEmpty(permissionIds)) {
+			String[] permissionIdArr = permissionIds.split(",");
+			String permissionNames = "";
+			for (String permissionIdStr : permissionIdArr) {
+				int permissionId = Integer.valueOf(permissionIdStr);
+				for (int i = 0; i < permissionList.size(); i++) {
+					Permission permission = permissionList.get(i);
+					if(permissionId==permission.getId()) {
+						permissionNames+=","+permission.getName();
+						break;
+					}
 				}
 			}
+			role.setPermissionNames(permissionNames.substring(1));
 		}
-		role.setPermissionNames(permissionNames.substring(1));
 		return role;
 	}
 

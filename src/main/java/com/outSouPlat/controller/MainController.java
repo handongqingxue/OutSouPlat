@@ -112,7 +112,7 @@ public class MainController {
 		
 		plan.setStatus(0);
 		plan.setMsg("验证通过");
-		plan.setUrl("projMana/projList/list");
+		plan.setUrl("sysMana/perInfo");
 		return JsonUtil.getJsonFromObject(plan);
 	}
 
