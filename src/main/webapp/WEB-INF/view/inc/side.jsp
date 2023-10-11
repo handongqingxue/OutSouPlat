@@ -13,9 +13,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>边框导航栏</title>
 <style type="text/css">
+/*
+这块代码会导致弹框跑到最顶上看不到,暂时先屏蔽掉
 .layui-layout-admin{
 	padding: 1px;
 }
+*/
 .header_div{
 	position: fixed;
 }

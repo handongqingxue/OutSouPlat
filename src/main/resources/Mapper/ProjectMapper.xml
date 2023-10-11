@@ -52,7 +52,7 @@
 				0,
 				0,
 				now(),
-				${@com.outSouPlat.entity.Project@DAI_FA_BU}
+				${@com.outSouPlat.entity.Project@UN_CONTRACT}
 		</trim>
 	</insert>
 	<delete id="deleteByIds">

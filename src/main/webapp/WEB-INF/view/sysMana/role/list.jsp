@@ -45,7 +45,7 @@ $(function(){
 	initAddLB();
 	initTab1();
 	
-	showCompontByQx();
+	//showCompontByQx();
 });
 
 function showCompontByQx(){
@@ -133,7 +133,7 @@ function initTab1(){
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
 			
-			showOptionButByQx();
+			//showOptionButByQx();
 		}
 	});
 }
