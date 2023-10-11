@@ -36,6 +36,7 @@ public class TaskBagManaController {
 	public String goTaskBagListNew(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setUserPermissionInRequest(request);
 		
 		return MODULE_NAME+"/taskBagList/new";
 	}
@@ -52,6 +53,8 @@ public class TaskBagManaController {
 		String id = request.getParameter("id");
 		TaskBag taskBag=taskBagService.selectById(id);
 		request.setAttribute("taskBag", taskBag);
+		
+		Constant.setUserPermissionInRequest(request);
 		
 		return MODULE_NAME+"/taskBagList/edit";
 	}
@@ -77,6 +80,8 @@ public class TaskBagManaController {
 		String id = request.getParameter("id");
 		TaskBag taskBag=taskBagService.selectById(id);
 		request.setAttribute("taskBag", taskBag);
+		
+		Constant.setUserPermissionInRequest(request);
 			
 		return MODULE_NAME+"/taskBagList/detail";
 	}
@@ -85,7 +90,8 @@ public class TaskBagManaController {
 	public String goTaskOrderList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setTaskOrderStateInRequest(request);
 		Constant.setTestResultStateInRequest(request);
 		
@@ -103,7 +109,8 @@ public class TaskBagManaController {
 		String id = request.getParameter("id");
 		TaskOrder taskOrder=taskOrderService.selectById(id);
 		request.setAttribute("taskOrder", taskOrder);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setTaskOrderStateInRequest(request);
 			
 		return MODULE_NAME+"/taskOrder/detail";

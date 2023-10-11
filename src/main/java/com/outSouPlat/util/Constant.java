@@ -117,6 +117,8 @@ public class Constant {
 		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10
 		request.setAttribute("taskOrderEditPerm", Permission.TASK_ORDER_EDIT);//11
 		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12
+		request.setAttribute("uploadCodePerm", Permission.UPLOAD_CODE);//23
+		request.setAttribute("uploadTestResultPerm", Permission.UPLOAD_TEST_RESULT);//24
 		
 		request.setAttribute("testResultAddPerm", Permission.TEST_RESULT_ADD);//13
 		request.setAttribute("testResultDelPerm", Permission.TEST_RESULT_DEL);//14
@@ -127,9 +129,8 @@ public class Constant {
 		request.setAttribute("userEditPerm", Permission.USER_EDIT);//18
 		request.setAttribute("userCheckPerm", Permission.USER_CHECK);//19
 		request.setAttribute("unCheckUserSearPerm", Permission.UN_CHECK_USER_SEAR);//20
+		
 		/*
-		request.setAttribute("scfhdwQx", QuanXian.SHAN_CHU_FA_HUO_DAN_WEI);//23
-		request.setAttribute("tjshdwQx", QuanXian.TIAN_JIA_SHOU_HUO_DAN_WEI);//24
 		request.setAttribute("xgshdwQx", QuanXian.XIU_GAI_SHOU_HUO_DAN_WEI);//25
 		request.setAttribute("scshdwQx", QuanXian.SHAN_CHU_SHOU_HUO_DAN_WEI);//26
 		request.setAttribute("tjckQx", QuanXian.TIAN_JIA_CANG_KU);//27

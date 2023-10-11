@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="taskOrderDelPermStr" value=",${requestScope.taskOrderDelPerm},"></c:set>
+<c:set var="taskOrderEditPermStr" value=",${requestScope.taskOrderEditPerm},"></c:set>
+<c:set var="uploadCodePermStr" value=",${requestScope.uploadCodePerm},"></c:set>
+<c:set var="uploadTestResultPermStr" value=",${requestScope.uploadTestResultPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,11 +74,22 @@
 	height:30px;
 }
 </style>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var taskBagManaPath=path+'taskBagMana/';
 var testResultPath=path+'testResult/';
+
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var taskOrderDelPermStr='${taskOrderDelPermStr}';
+var taskOrderEditPermStr='${taskOrderEditPermStr}';
+var uploadCodePermStr='${uploadCodePermStr}';
+var uploadTestResultPermStr='${uploadTestResultPermStr}';
+
+var showEditOptionBut=false;
+var showUploadCodeOptionBut=false;
+var showUploadTestResultOptionBut=false;
 
 var dialogTop=10;
 var dialogLeft=20;
@@ -102,13 +118,15 @@ var paidStateName;
 $(function(){
 	initTOStateVar();
 	initUTRStateVar();
+	showCompontByPermission();
+	showOptionByPermission();
+	
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initFinishTimeStartDTB();
 	initFinishTimeEndDTB();
 	initTOStateCBB();
 	initSearchLB();
-	initRemoveLB();
 	initTab1();
 	
 	initUploadCodeDialog();//0
@@ -131,6 +149,20 @@ function initDialogPosition(){
 	var utrdDiv=$("#upload_test_result_div");
 	utrdDiv.append(utrdpw);
 	utrdDiv.append(utrdws);
+}
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskOrderDelPermStr)!=-1)
+		initRemoveLB();
+}
+
+function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskOrderEditPermStr)!=-1)
+		showEditOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(uploadCodePermStr)!=-1)
+		showUploadCodeOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(uploadTestResultPermStr)!=-1)
+		showUploadTestResultOptionBut=true;
 }
 
 function initTOStateVar(){
@@ -361,9 +393,12 @@ function initTab1(){
             	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:250,formatter:function(value,row){
-            	var str="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
-            	str+="<a onclick=\"openUploadCodeDialog(true,"+value+")\">上传代码</a>&nbsp;&nbsp;";
-            	str+="<a onclick=\"openUploadTestResultDialog(true,"+value+")\">上传测试结果</a>&nbsp;&nbsp;";
+            	var str="";
+            	str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
+            	if(showUploadCodeOptionBut)
+            		str+="<a onclick=\"openUploadCodeDialog(true,"+value+")\">上传代码</a>&nbsp;&nbsp;";
+            	if(showUploadTestResultOptionBut)
+            		str+="<a onclick=\"openUploadTestResultDialog(true,"+value+")\">上传测试结果</a>&nbsp;&nbsp;";
             	return str;
             }}
 	    ]],
@@ -551,7 +586,9 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskOrderDelPermStr)}">
 				<a id="remove_but">删除</a>
+				</c:if>
 			</div>
 		</div>
 		<table id="tab1">

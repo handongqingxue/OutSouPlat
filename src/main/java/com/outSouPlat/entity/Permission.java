@@ -90,6 +90,14 @@ public class Permission {
 	 * 任务包接单
 	 */
 	public static final int TASK_BAG_ORDER=22;
+	/**
+	 * 上传代码
+	 */
+	public static final int UPLOAD_CODE=23;
+	/**
+	 * 上传测试结果
+	 */
+	public static final int UPLOAD_TEST_RESULT=24;
 
 	private Integer id;
 	public Integer getId() {

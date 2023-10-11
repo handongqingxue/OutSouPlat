@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="uploadCodePermStr" value=",${requestScope.uploadCodePerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<%@include file="../../inc/js.jsp"%>
 <style type="text/css">
 .center_con_div{
 	height: 90vh;
@@ -44,11 +45,21 @@
 var path='<%=basePath %>';
 var projManaPath=path+'projMana/';
 var taskBagManaPath=path+'taskBagMana/';
+
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var uploadCodePermStr='${uploadCodePermStr}';
+
+var showUploadCodeOptionBut=false;
+
 var dialogTop=70;
 var dialogLeft=20;
 var ddNum=0;
 var ucdNum=1;
 $(function(){
+	showCompontByPermission();
+	
 	initDetailDialog();//0
 	initUploadCodeDialog();//1
 
@@ -71,6 +82,11 @@ function initDialogPosition(){
 	var ucdDiv=$("#upload_code_div");
 	ucdDiv.append(ucdpw);
 	ucdDiv.append(ucdws);
+}
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(uploadCodePermStr)!=-1)
+		showUploadCodeOptionBut=true;
 }
 
 function initDetailDialog(){
@@ -110,8 +126,15 @@ function initDetailDialog(){
 	$(".window-shadow").eq(ddNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ddNum).css("border-color","#ddd");
 
-	$("#detail_div #ok_but").css("left","45%");
-	$("#detail_div #ok_but").css("position","absolute");
+	var okBut=$("#detail_div #ok_but");
+	okBut.css("left","45%");
+	okBut.css("position","absolute");
+	if(showUploadCodeOptionBut){
+		okBut.show();
+	}
+	else{
+		okBut.hide();
+	}
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
