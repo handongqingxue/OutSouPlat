@@ -82,6 +82,14 @@ public class Permission {
 	 * 待审核用户查询
 	 */
 	public static final int UN_CHECK_USER_SEAR=20;
+	/**
+	 * 任务包发布
+	 */
+	public static final int TASK_BAG_SUBMIT=21;
+	/**
+	 * 任务包接单
+	 */
+	public static final int TASK_BAG_ORDER=22;
 
 	private Integer id;
 	public Integer getId() {

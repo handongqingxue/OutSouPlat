@@ -60,7 +60,7 @@ public class TaskBagManaController {
 	public String goTaskBagListList(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
-		
+		Constant.setUserPermissionInRequest(request);
 		Constant.setTaskBagStateInRequest(request);
 		
 		return MODULE_NAME+"/taskBagList/list";

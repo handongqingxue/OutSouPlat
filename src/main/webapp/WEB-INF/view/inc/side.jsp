@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!-- el表达式拼接字符串:https://zhidao.baidu.com/question/1996959905346141947.html -->
-<c:set var="usernameStr" value="admin"></c:set>
-<c:set var="permissionIdsStr" value="${sessionScope.user.permissionIds},"></c:set>
-<c:set var="projSearPermStr" value="${requestScope.projSearPerm},"></c:set>
-<c:set var="taskBagSearPermStr" value="${requestScope.taskBagSearPerm},"></c:set>
-<c:set var="taskOrderSearPermStr" value="${requestScope.taskOrderSearPerm},"></c:set>
-<c:set var="testResultSearPermStr" value="${requestScope.testResultSearPerm},"></c:set>
-<c:set var="userSearPermStr" value="${requestScope.userSearPerm},"></c:set>
-<c:set var="unCheckUserSearPermStr" value="${requestScope.unCheckUserSearPerm},"></c:set>
+<c:set var="projSearPermStr" value=",${requestScope.projSearPerm},"></c:set>
+<c:set var="taskBagSearPermStr" value=",${requestScope.taskBagSearPerm},"></c:set>
+<c:set var="taskOrderSearPermStr" value=",${requestScope.taskOrderSearPerm},"></c:set>
+<c:set var="testResultSearPermStr" value=",${requestScope.testResultSearPerm},"></c:set>
+<c:set var="userSearPermStr" value=",${requestScope.userSearPerm},"></c:set>
+<c:set var="unCheckUserSearPermStr" value=",${requestScope.unCheckUserSearPerm},"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -165,7 +163,7 @@ function showLeftMenuByPermission(){
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;"> 
-					${sessionScope.user.username }
+					${sessionUsernameStr }
 				</a>
 			</li>
 			<li class="layui-nav-item"><a href="<%=basePath%>main/exit">退出</a>
@@ -176,7 +174,7 @@ function showLeftMenuByPermission(){
 	<div class="layui-side ">
 		<div class="layui-side-scroll">
 			<ul class="layui-nav layui-nav-tree layui-inline level-ul" lay-filter="demo">
-				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,projSearPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,projSearPermStr)}">
 				<div class="first-level-div projMana_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
@@ -192,14 +190,14 @@ function showLeftMenuByPermission(){
 					</li>
 				</div>
 				</c:if>
-				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskBagSearPermStr)||fn:contains(permissionIdsStr,taskOrderSearPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,taskBagSearPermStr)||fn:contains(permissionIdsStr,taskOrderSearPermStr)}">
 				<div class="first-level-div taskBagMana_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
 							任务包管理
 						</a>
 					</li>
-					<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskBagSearPermStr)}">
+					<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,taskBagSearPermStr)}">
 					<div class="line_div"></div>
 					<li class="layui-nav-item taskBagList_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
@@ -208,7 +206,7 @@ function showLeftMenuByPermission(){
 						</a>
 					</li>
 					</c:if>
-					<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskOrderSearPermStr)}">
+					<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,taskOrderSearPermStr)}">
 					<div class="line_div"></div>
 					<li class="layui-nav-item taskOrder_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
@@ -219,7 +217,7 @@ function showLeftMenuByPermission(){
 					</c:if>
 				</div>
 				</c:if>
-				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,testResultSearPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,testResultSearPermStr)}">
 				<div class="first-level-div testResult_first_div">
 					<li class="layui-nav-item first-level">
 						<a>
@@ -248,7 +246,7 @@ function showLeftMenuByPermission(){
 							&nbsp;&nbsp;&nbsp;个人信息
 						</a>
 					</li>
-					<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,userSearPermStr)}">
+					<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,userSearPermStr)}">
 					<div class="line_div"></div>
 					<li class="layui-nav-item user_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
@@ -257,7 +255,7 @@ function showLeftMenuByPermission(){
 						</a>
 					</li>
 					</c:if>
-					<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,unCheckUserSearPermStr)}">
+					<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,unCheckUserSearPermStr)}">
 					<div class="line_div"></div>
 					<li class="layui-nav-item unCheckUser_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
@@ -266,7 +264,7 @@ function showLeftMenuByPermission(){
 						</a>
 					</li>
 					</c:if>
-					<c:if test="${sessionScope.user.username eq usernameStr}">
+					<c:if test="${sessionUsernameStr eq usernameStr}">
 					<div class="line_div"></div>
 					<li class="layui-nav-item role_item_li">
 						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />

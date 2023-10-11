@@ -105,27 +105,29 @@ public class Constant {
 		request.setAttribute("projDelPerm", Permission.PROJ_DEL);//2
 		request.setAttribute("projEditPerm", Permission.PROJ_EDIT);//3
 		request.setAttribute("projSearPerm", Permission.PROJ_SEAR);//4
+		
 		request.setAttribute("taskBagAddPerm", Permission.TASK_BAG_ADD);//5
 		request.setAttribute("taskBagDelPerm", Permission.TASK_BAG_DEL);//6
 		request.setAttribute("taskBagEditPerm", Permission.TASK_BAG_EDIT);//7
 		request.setAttribute("taskBagSearPerm", Permission.TASK_BAG_SEAR);//8
+		request.setAttribute("taskBagSubmitPerm", Permission.TASK_BAG_SUBMIT);//21
+		request.setAttribute("taskBagOrderPerm", Permission.TASK_BAG_ORDER);//22
+		
 		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
 		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10
 		request.setAttribute("taskOrderEditPerm", Permission.TASK_ORDER_EDIT);//11
 		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12
+		
 		request.setAttribute("testResultAddPerm", Permission.TEST_RESULT_ADD);//13
 		request.setAttribute("testResultDelPerm", Permission.TEST_RESULT_DEL);//14
 		request.setAttribute("testResultEditPerm", Permission.TEST_RESULT_EDIT);//15
 		request.setAttribute("testResultSearPerm", Permission.TEST_RESULT_SEAR);//16
+		
 		request.setAttribute("userSearPerm", Permission.USER_SEAR);//17
 		request.setAttribute("userEditPerm", Permission.USER_EDIT);//18
 		request.setAttribute("userCheckPerm", Permission.USER_CHECK);//19
 		request.setAttribute("unCheckUserSearPerm", Permission.UN_CHECK_USER_SEAR);//20
 		/*
-		request.setAttribute("xgyssQx", QuanXian.XIU_GAI_YUN_SHU_SHANG);//19
-		request.setAttribute("scyssQx", QuanXian.SHAN_CHU_YUN_SHU_SHANG);//20
-		request.setAttribute("tjfhdwQx", QuanXian.TIAN_JIA_FA_HUO_DAN_WEI);//21
-		request.setAttribute("xgfhdwQx", QuanXian.XIU_GAI_FA_HUO_DAN_WEI);//22
 		request.setAttribute("scfhdwQx", QuanXian.SHAN_CHU_FA_HUO_DAN_WEI);//23
 		request.setAttribute("tjshdwQx", QuanXian.TIAN_JIA_SHOU_HUO_DAN_WEI);//24
 		request.setAttribute("xgshdwQx", QuanXian.XIU_GAI_SHOU_HUO_DAN_WEI);//25

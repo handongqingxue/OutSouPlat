@@ -31,6 +31,7 @@ public class ProjManaController {
 	public String goProjListNew(HttpServletRequest request) {
 		
 		//publicService.selectNav(request);
+		Constant.setUserPermissionInRequest(request);
 		
 		return MODULE_NAME+"/projList/new";
 	}
@@ -41,6 +42,8 @@ public class ProjManaController {
 		String id = request.getParameter("id");
 		Project project=projectService.selectById(id);
 		request.setAttribute("project", project);
+		
+		Constant.setUserPermissionInRequest(request);
 			
 		return MODULE_NAME+"/projList/edit";
 	}
@@ -61,7 +64,8 @@ public class ProjManaController {
 		String id = request.getParameter("id");
 		Project project=projectService.selectById(id);
 		request.setAttribute("project", project);
-		
+
+		Constant.setUserPermissionInRequest(request);
 		Constant.setProjectStateInRequest(request);
 			
 		return MODULE_NAME+"/projList/detail";

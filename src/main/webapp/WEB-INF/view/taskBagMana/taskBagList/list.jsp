@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="taskBagAddPermStr" value=",${requestScope.taskBagAddPerm},"></c:set>
+<c:set var="taskBagDelPermStr" value=",${requestScope.taskBagDelPerm},"></c:set>
+<c:set var="taskBagEditPermStr" value=",${requestScope.taskBagEditPerm},"></c:set>
+<c:set var="taskBagSubmitPermStr" value=",${requestScope.taskBagSubmitPerm},"></c:set>
+<c:set var="taskBagOrderPermStr" value=",${requestScope.taskBagOrderPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,10 +38,22 @@
 	height: 25px;
 }
 </style>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var taskBagManaPath=path+'taskBagMana/';
+
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var taskBagAddPermStr='${taskBagAddPermStr}';
+var taskBagDelPermStr='${taskBagDelPermStr}';
+var taskBagEditPermStr='${taskBagEditPermStr}';
+var taskBagSubmitPermStr='${taskBagSubmitPermStr}';
+var taskBagOrderPermStr='${taskBagOrderPermStr}';
+
+var showEditOptionBut=false;
+var showSubmitOptionBut=false;
+var showOrderOptionBut=false;
 
 var unSubmitState;
 var unOrderState;
@@ -50,14 +68,31 @@ var testingStateName;
 var finishStateName;
 $(function(){
 	initStateVar();
+	showCompontByPermission();
+	showOptionByPermission();
+	
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initStateCBB();
 	initSearchLB();
-	initAddLB();
-	initRemoveLB();
 	initTab1();
 });
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskBagAddPermStr)!=-1)
+		initAddLB();
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskBagDelPermStr)!=-1)
+		initRemoveLB();
+}
+
+function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskBagEditPermStr)!=-1)
+		showEditOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskBagSubmitPermStr)!=-1)
+		showSubmitOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskBagOrderPermStr)!=-1)
+		showOrderOptionBut=true;
+}
 
 function initStateVar(){
 	unSubmitState=parseInt('${requestScope.unSubmitState}');
@@ -155,12 +190,18 @@ function initTab1(){
             	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
-	            	   +"<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
-   	            if(row.state==unSubmitState)
-	            	str+="<a onclick=\"submitById("+value+")\">发布</a>&nbsp;&nbsp;";
-	            if(row.state==unOrderState)
-	            	str+="<a onclick=\"receiveOrder("+value+")\">接单</a>&nbsp;&nbsp;";
+            	var str="";
+	            	if(showEditOptionBut)
+	            		str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+	            	str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
+	            	if(showSubmitOptionBut){
+		   	            if(row.state==unSubmitState)
+			            	str+="<a onclick=\"submitById("+value+")\">发布</a>&nbsp;&nbsp;";
+	            	}
+	            	if(showOrderOptionBut){
+			            if(row.state==unOrderState)
+			            	str+="<a onclick=\"receiveOrder("+value+")\">接单</a>&nbsp;&nbsp;";
+	            	}
             	return str;
             }}
 	    ]],
@@ -267,8 +308,12 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskBagAddPermStr)}">
 				<a id="add_but">添加</a>
+				</c:if>
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskBagDelPermStr)}">
 				<a id="remove_but">删除</a>
+				</c:if>
 			</div>
 		</div>
 		<table id="tab1">

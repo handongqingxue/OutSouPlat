@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
+<c:set var="projAddPermStr" value=",${requestScope.projAddPerm},"></c:set>
+<c:set var="projDelPermStr" value=",${requestScope.projDelPerm},"></c:set>
+<c:set var="projEditPermStr" value=",${requestScope.projEditPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +38,18 @@
 }
 </style>
 <title>Insert title here</title>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var projManaPath=path+'projMana/';
+
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var permissionIdsStr='${permissionIdsStr}';
+var projAddPermStr='${projAddPermStr}';
+var projDelPermStr='${projDelPermStr}';
+var projEditPermStr='${projEditPermStr}';
+
+var showEditOptionBut=false;
 
 var unContractState;
 var contractedState;
@@ -50,14 +62,27 @@ var developingStateName;
 var finishStateName;
 $(function(){
 	initStateVar();
+	showCompontByPermission();
+	showOptionByPermission();
+	
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initStateCBB();
 	initSearchLB();
-	initAddLB();
-	initRemoveLB();
 	initTab1();
 });
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(projAddPermStr)!=-1)
+		initAddLB();
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(projDelPermStr)!=-1)
+		initRemoveLB();
+}
+
+function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(projEditPermStr)!=-1)
+		showEditOptionBut=true;
+}
 
 function initStateVar(){
 	unContractState=parseInt('${requestScope.unContractState}');
@@ -155,8 +180,10 @@ function initTab1(){
             	return getStateNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
-            	var str="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
-	            	   +"<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
+            	var str="";
+	            	if(showEditOptionBut)
+	            		str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
+            		str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
             	return str;
             }}
 	    ]],
@@ -231,8 +258,12 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,projAddPermStr)}">
 				<a id="add_but">添加</a>
+				</c:if>
+				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,projDelPermStr)}">
 				<a id="remove_but">删除</a>
+				</c:if>
 			</div>
 		</div>
 		<table id="tab1">
