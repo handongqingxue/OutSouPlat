@@ -8,6 +8,7 @@
 .tab1_div{
 	margin-top:80px;
 	margin-left: 220px;
+	position: fixed;
 }
 .tab1_div .toolbar{
 	height:32px;
