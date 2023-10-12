@@ -19,6 +19,19 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+.downloadBut_div{
+	line-height:30px;
+	text-align:center;
+	color:#fff;
+	background-color: #1777FF;
+	border-radius:5px;
+	cursor: pointer;
+}
+.dlAnnexBut_div{
+	width: 80px;
+	height: 30px;
+	margin-top: 10px;
+}
 </style>
 <script type="text/javascript">
 var scheme='<%=scheme %>';
@@ -66,7 +79,14 @@ function initDetailDialog(){
 	$("#detail_div table .td2").css("width","30%");
 	$("#detail_div table tr").css("border-bottom","#CAD9EA solid 1px");
 	$("#detail_div table tr").each(function(i){
-		$(this).css("height",(i==4?250:45)+"px");
+		var height;
+		if(i==3)
+			height=100;
+		else if(i==4)
+			height=250;
+		else
+			height=45;
+		$(this).css("height",height+"px");
 	});
 
 	$(".panel.window").eq(ddNum).css("margin-top","20px");
@@ -177,7 +197,8 @@ function setFitWidthInParent(parent,self){
 					附件
 				</td>
 				<td class="td2">
-					${requestScope.taskBag.annexFileUrl }<input type="button" onclick="download()" value="下载"/>
+					${requestScope.taskBag.annexFileUrl }
+					<div class="downloadBut_div dlAnnexBut_div" onclick="download()">下载</div>
 				</td>
 			  </tr>
 			  <tr>
