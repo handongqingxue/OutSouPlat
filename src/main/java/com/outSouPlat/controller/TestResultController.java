@@ -34,27 +34,41 @@ public class TestResultController {
 	 */
 	@RequestMapping(value="/synthetic/edit")
 	public String goSyntheticEdit(HttpServletRequest request) {
-		
-		//publicService.selectNav(request);
-		String id = request.getParameter("id");
-		TestResult testResult=testResultService.selectById(id);
-		request.setAttribute("testResult", testResult);
 
-		Constant.setUserPermissionInRequest(request);
-		Constant.setTestResultStateInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TEST_RESULT_EDIT,request)) {
+			//publicService.selectNav(request);
+			String id = request.getParameter("id");
+			TestResult testResult=testResultService.selectById(id);
+			request.setAttribute("testResult", testResult);
+	
+			Constant.setUserPermissionInRequest(request);
+			Constant.setTestResultStateInRequest(request);
+			
+			url=MODULE_NAME+"/synthetic/edit";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/synthetic/edit";
+		return url;
 	}
 	
 	@RequestMapping(value="/synthetic/list")
 	public String goSyntheticList(HttpServletRequest request) {
-		
-		//publicService.selectNav(request);
 
-		Constant.setUserPermissionInRequest(request);
-		Constant.setTestResultStateInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TEST_RESULT_SEAR,request)) {
+			//publicService.selectNav(request);
+	
+			Constant.setUserPermissionInRequest(request);
+			Constant.setTestResultStateInRequest(request);
+			
+			url=MODULE_NAME+"/synthetic/list";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/synthetic/list";
+		return url;
 	}
 
 	/**
@@ -64,16 +78,23 @@ public class TestResultController {
 	 */
 	@RequestMapping(value="/synthetic/detail")
 	public String goSyntheticDetail(HttpServletRequest request) {
-		
-		//publicService.selectNav(request);
-		String id = request.getParameter("id");
-		TestResult testResult=testResultService.selectById(id);
-		request.setAttribute("testResult", testResult);
 
-		Constant.setUserPermissionInRequest(request);
-		Constant.setTestResultStateInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TEST_RESULT_SEAR,request)) {
+			//publicService.selectNav(request);
+			String id = request.getParameter("id");
+			TestResult testResult=testResultService.selectById(id);
+			request.setAttribute("testResult", testResult);
+	
+			Constant.setUserPermissionInRequest(request);
+			Constant.setTestResultStateInRequest(request);
+			
+			url=MODULE_NAME+"/synthetic/detail";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/synthetic/detail";
+		return url;
 	}
 	
 	@RequestMapping(value="/add")

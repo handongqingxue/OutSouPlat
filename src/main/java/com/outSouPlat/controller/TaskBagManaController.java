@@ -30,11 +30,18 @@ public class TaskBagManaController {
 	
 	@RequestMapping(value="/taskBagList/new")
 	public String goTaskBagListNew(HttpServletRequest request) {
+
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TASK_BAG_ADD,request)) {
+			//publicService.selectNav(request);
+			Constant.setUserPermissionInRequest(request);
+			
+			url=MODULE_NAME+"/taskBagList/new";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		//publicService.selectNav(request);
-		Constant.setUserPermissionInRequest(request);
-		
-		return MODULE_NAME+"/taskBagList/new";
+		return url;
 	}
 
 	/**
@@ -44,25 +51,39 @@ public class TaskBagManaController {
 	 */
 	@RequestMapping(value="/taskBagList/edit")
 	public String goTaskBagListEdit(HttpServletRequest request) {
+
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TASK_BAG_EDIT,request)) {
+			//publicService.selectNav(request);
+			String id = request.getParameter("id");
+			TaskBag taskBag=taskBagService.selectById(id);
+			request.setAttribute("taskBag", taskBag);
+			
+			Constant.setUserPermissionInRequest(request);
+			
+			url=MODULE_NAME+"/taskBagList/edit";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		//publicService.selectNav(request);
-		String id = request.getParameter("id");
-		TaskBag taskBag=taskBagService.selectById(id);
-		request.setAttribute("taskBag", taskBag);
-		
-		Constant.setUserPermissionInRequest(request);
-		
-		return MODULE_NAME+"/taskBagList/edit";
+		return url;
 	}
 	
 	@RequestMapping(value="/taskBagList/list")
 	public String goTaskBagListList(HttpServletRequest request) {
+
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TASK_BAG_SEAR,request)) {
+			//publicService.selectNav(request);
+			Constant.setUserPermissionInRequest(request);
+			Constant.setTaskBagStateInRequest(request);
+			
+			url=MODULE_NAME+"/taskBagList/list";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		//publicService.selectNav(request);
-		Constant.setUserPermissionInRequest(request);
-		Constant.setTaskBagStateInRequest(request);
-		
-		return MODULE_NAME+"/taskBagList/list";
+		return url;
 	}
 
 	/**
@@ -73,25 +94,39 @@ public class TaskBagManaController {
 	@RequestMapping(value="/taskBagList/detail")
 	public String goTaskBagListDetail(HttpServletRequest request) {
 
-		String id = request.getParameter("id");
-		TaskBag taskBag=taskBagService.selectById(id);
-		request.setAttribute("taskBag", taskBag);
-		
-		Constant.setUserPermissionInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TASK_BAG_SEAR,request)) {
+			String id = request.getParameter("id");
+			TaskBag taskBag=taskBagService.selectById(id);
+			request.setAttribute("taskBag", taskBag);
 			
-		return MODULE_NAME+"/taskBagList/detail";
+			Constant.setUserPermissionInRequest(request);
+			
+			url=MODULE_NAME+"/taskBagList/detail";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
+		
+		return url;
 	}
 	
 	@RequestMapping(value="/taskOrder/list")
 	public String goTaskOrderList(HttpServletRequest request) {
-		
-		//publicService.selectNav(request);
 
-		Constant.setUserPermissionInRequest(request);
-		Constant.setTaskOrderStateInRequest(request);
-		Constant.setTestResultStateInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TASK_ORDER_SEAR,request)) {
+			//publicService.selectNav(request);
+	
+			Constant.setUserPermissionInRequest(request);
+			Constant.setTaskOrderStateInRequest(request);
+			Constant.setTestResultStateInRequest(request);
+			
+			url=MODULE_NAME+"/taskOrder/list";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/taskOrder/list";
+		return url;
 	}
 
 	/**
@@ -102,16 +137,23 @@ public class TaskBagManaController {
 	@RequestMapping(value="/taskOrder/detail")
 	public String goTaskOrderDetail(HttpServletRequest request) {
 
-		String id = request.getParameter("id");
-		TaskOrder taskOrder=taskOrderService.selectById(id);
-		request.setAttribute("taskOrder", taskOrder);
-
-		Constant.setUserPermissionInRequest(request);
-		Constant.setTaskOrderStateInRequest(request);
-		Constant.setFilePlaceInRequest(request);
-		Constant.setFileTypeInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.TASK_ORDER_SEAR,request)) {
+			String id = request.getParameter("id");
+			TaskOrder taskOrder=taskOrderService.selectById(id);
+			request.setAttribute("taskOrder", taskOrder);
+	
+			Constant.setUserPermissionInRequest(request);
+			Constant.setTaskOrderStateInRequest(request);
+			Constant.setFilePlaceInRequest(request);
+			Constant.setFileTypeInRequest(request);
 			
-		return MODULE_NAME+"/taskOrder/detail";
+			url=MODULE_NAME+"/taskOrder/detail";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
+		
+		return url;
 	}
 	
 	@RequestMapping(value="/newTaskBag")

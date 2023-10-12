@@ -29,46 +29,74 @@ public class ProjManaController {
 	
 	@RequestMapping(value="/projList/new")
 	public String goProjListNew(HttpServletRequest request) {
+
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.PROJ_ADD,request)) {
+			//publicService.selectNav(request);
+			Constant.setUserPermissionInRequest(request);
+			
+			url=MODULE_NAME+"/projList/new";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		//publicService.selectNav(request);
-		Constant.setUserPermissionInRequest(request);
-		
-		return MODULE_NAME+"/projList/new";
+		return url;
 	}
 
 	@RequestMapping(value="/projList/edit")
 	public String goProjListEdit(HttpServletRequest request) {
 
-		String id = request.getParameter("id");
-		Project project=projectService.selectById(id);
-		request.setAttribute("project", project);
-		
-		Constant.setUserPermissionInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.PROJ_EDIT,request)) {
+			String id = request.getParameter("id");
+			Project project=projectService.selectById(id);
+			request.setAttribute("project", project);
 			
-		return MODULE_NAME+"/projList/edit";
+			Constant.setUserPermissionInRequest(request);
+			
+			url=MODULE_NAME+"/projList/edit";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
+		
+		return url;
 	}
 	
 	@RequestMapping(value="/projList/list")
 	public String goProjListList(HttpServletRequest request) {
+
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.PROJ_SEAR,request)) {
+			//publicService.selectNav(request);
+			Constant.setUserPermissionInRequest(request);
+			Constant.setProjectStateInRequest(request);
+			
+			url=MODULE_NAME+"/projList/list";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		//publicService.selectNav(request);
-		Constant.setUserPermissionInRequest(request);
-		Constant.setProjectStateInRequest(request);
-		
-		return MODULE_NAME+"/projList/list";
+		return url;
 	}
 
 	@RequestMapping(value="/projList/detail")
 	public String goProjListDetail(HttpServletRequest request) {
 
-		String id = request.getParameter("id");
-		Project project=projectService.selectById(id);
-		request.setAttribute("project", project);
-
-		Constant.setUserPermissionInRequest(request);
-		Constant.setProjectStateInRequest(request);
+		String url=null;
+		if(Constant.checkIfExistPerm(Permission.PROJ_SEAR,request)) {
+			String id = request.getParameter("id");
+			Project project=projectService.selectById(id);
+			request.setAttribute("project", project);
+	
+			Constant.setUserPermissionInRequest(request);
+			Constant.setProjectStateInRequest(request);
 			
-		return MODULE_NAME+"/projList/detail";
+			url=MODULE_NAME+"/projList/detail";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
+		
+		return url;
 	}
 	
 	@RequestMapping(value="/newProject")
