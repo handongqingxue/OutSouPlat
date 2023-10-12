@@ -96,6 +96,26 @@ public class Constant {
 	}
 	
 	/**
+	 * 存放文件地方常量
+	 * @param request
+	 */
+	public static void setFilePlaceInRequest(HttpServletRequest request) {
+
+		request.setAttribute("localPlace", FileUtil.LOCAL);//1
+		request.setAttribute("remotePlace", FileUtil.REMOTE);//2
+	}
+	
+	/**
+	 * 存放文件类型常量
+	 * @param request
+	 */
+	public static void setFileTypeInRequest(HttpServletRequest request) {
+
+		request.setAttribute("codeType", FileUtil.CODE);//1
+		request.setAttribute("annexType", FileUtil.ANNEX);//2
+	}
+	
+	/**
 	 * 存放用户权限常量
 	 * @param request
 	 */

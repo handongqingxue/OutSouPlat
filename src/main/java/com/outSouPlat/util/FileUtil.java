@@ -29,6 +29,15 @@ public class FileUtil {
 	 * 网络
 	 */
 	public static final int REMOTE=2;
+	
+	/**
+	 * 代码
+	 */
+	public static final int CODE=1;
+	/**
+	 * 附件
+	 */
+	public static final int ANNEX=2;
 
 	//资讯内容上传的文件(by 石超)
 	public static String appUploadContentImg(MultipartFile myFile, String folder) throws Exception {

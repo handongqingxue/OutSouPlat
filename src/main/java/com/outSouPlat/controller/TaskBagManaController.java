@@ -108,6 +108,8 @@ public class TaskBagManaController {
 
 		Constant.setUserPermissionInRequest(request);
 		Constant.setTaskOrderStateInRequest(request);
+		Constant.setFilePlaceInRequest(request);
+		Constant.setFileTypeInRequest(request);
 			
 		return MODULE_NAME+"/taskOrder/detail";
 	}

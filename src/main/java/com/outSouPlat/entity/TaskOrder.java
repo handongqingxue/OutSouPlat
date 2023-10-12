@@ -36,6 +36,8 @@ public class TaskOrder {
 	private String userName;
 	private String createTime;
 	private String finishTime;
+	private Long annexFileSize;
+	private String annexFileUrl;
 	private Long codeFileSize;
 	private String codeFileUrl;
 	private Integer state;
@@ -86,6 +88,18 @@ public class TaskOrder {
 	}
 	public void setFinishTime(String finishTime) {
 		this.finishTime = finishTime;
+	}
+	public Long getAnnexFileSize() {
+		return annexFileSize;
+	}
+	public void setAnnexFileSize(Long annexFileSize) {
+		this.annexFileSize = annexFileSize;
+	}
+	public String getAnnexFileUrl() {
+		return annexFileUrl;
+	}
+	public void setAnnexFileUrl(String annexFileUrl) {
+		this.annexFileUrl = annexFileUrl;
 	}
 	public Long getCodeFileSize() {
 		return codeFileSize;

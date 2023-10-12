@@ -20,6 +20,19 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+.downloadBut_div{
+	line-height:30px;
+	text-align:center;
+	color:#fff;
+	background-color: #1777FF;
+	border-radius:5px;
+	cursor: pointer;
+}
+.dlCodeBut_div,.dlAnnexBut_div{
+	width: 80px;
+	height: 30px;
+	margin-top: 10px;
+}
 
 .upload_code_bg_div{
 	width: 100%;
@@ -42,6 +55,9 @@
 }
 </style>
 <script type="text/javascript">
+var scheme='<%=scheme %>';
+var serverName='<%=serverName %>';
+var serverPort='<%=serverPort %>';
 var path='<%=basePath %>';
 var projManaPath=path+'projMana/';
 var taskBagManaPath=path+'taskBagMana/';
@@ -53,11 +69,19 @@ var uploadCodePermStr='${uploadCodePermStr}';
 
 var showUploadCodeOptionBut=false;
 
+var localPlace;
+var remotePlace;
+
+var codeType;
+var annexType;
+
 var dialogTop=70;
 var dialogLeft=20;
 var ddNum=0;
 var ucdNum=1;
 $(function(){
+	initFilePlaceVar();
+	initFileTypeVar();
 	showCompontByPermission();
 	
 	initDetailDialog();//0
@@ -89,6 +113,16 @@ function showCompontByPermission(){
 		showUploadCodeOptionBut=true;
 }
 
+function initFilePlaceVar(){
+	localPlace=parseInt('${requestScope.localPlace}');
+	remotePlace=parseInt('${requestScope.remotePlace}');
+}
+
+function initFileTypeVar(){
+	codeType=parseInt('${requestScope.codeType}');
+	annexType=parseInt('${requestScope.annexType}');
+}
+
 function initDetailDialog(){
 	dialogTop+=20;
 	$("#detail_div").dialog({
@@ -113,7 +147,14 @@ function initDetailDialog(){
 	$("#detail_div table .td1").css("width","15%");
 	$("#detail_div table .td2").css("width","30%");
 	$("#detail_div table tr").css("border-bottom","#CAD9EA solid 1px");
-	$("#detail_div table tr").css("height","45px");
+	$("#detail_div table tr").each(function(i){
+		var height;
+		if(i==3||i==4)
+			height=100;
+		else
+			height=45;
+		$(this).css("height",height+"px");
+	});
 
 	$(".panel.window").eq(ddNum).css("margin-top","20px");
 	$(".panel.window .panel-title").eq(ddNum).css("color","#000");
@@ -219,6 +260,16 @@ function uploadCode(){
 	});
 }
 
+function download(filePlace,fileType){
+	var realPath=scheme+":/"+serverName+":"+serverPort;
+	if(fileType==codeType)
+		realPath+='${requestScope.taskOrder.codeFileUrl }';
+	else if(fileType==annexType)
+		realPath+='${requestScope.taskOrder.annexFileUrl }';
+	//location.href=taskBagManaPath+"download?place=2&realPath=http://192.168.1.102:8080//OutSouPlat//upload//TaskBag//annex//3H3fcrenzheshengui3wudiban.rar"
+	location.href=taskBagManaPath+"download?place="+filePlace+"&realPath="+realPath;
+}
+
 function setFitWidthInParent(parent,self){
 	var space=0;
 	switch (self) {
@@ -290,20 +341,6 @@ function setFitWidthInParent(parent,self){
 					${requestScope.taskOrder.finishTime }
 				</td>
 				<td class="td1" align="right">
-					代码文件大小
-				</td>
-				<td class="td2">
-					${requestScope.taskOrder.codeFileSize }
-				</td>
-			  </tr>
-			  <tr>
-				<td class="td1" align="right">
-					代码文件路径
-				</td>
-				<td class="td2">
-					${requestScope.taskOrder.codeFileUrl }
-				</td>
-				<td class="td1" align="right">
 					状态
 				</td>
 				<td class="td2">
@@ -312,6 +349,46 @@ function setFitWidthInParent(parent,self){
 						<c:when test="${requestScope.taskOrder.state eq requestScope.unFinishState }">${requestScope.unFinishStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.finishedState }">${requestScope.finishedStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.discardedState }">${requestScope.discardedStateName}</c:when>
+					</c:choose>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					代码文件大小
+				</td>
+				<td class="td2">
+					${requestScope.taskOrder.codeFileSize }
+				</td>
+				<td class="td1" align="right">
+					代码文件路径
+				</td>
+				<td class="td2">
+					<c:choose>
+						<c:when test="${requestScope.taskOrder.codeFileUrl eq null }">未上传</c:when>
+						<c:otherwise>
+							${requestScope.taskOrder.codeFileUrl }
+							<div class="downloadBut_div dlCodeBut_div" onclick="download(${requestScope.remotePlace},${requestScope.codeType})">下载</div>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					附件文件大小
+				</td>
+				<td class="td2">
+					${requestScope.taskOrder.annexFileSize }
+				</td>
+				<td class="td1" align="right">
+					附件文件路径
+				</td>
+				<td class="td2">
+					<c:choose>
+						<c:when test="${requestScope.taskOrder.annexFileUrl eq null }">未上传</c:when>
+						<c:otherwise>
+							${requestScope.taskOrder.annexFileUrl }
+							<div class="downloadBut_div dlAnnexBut_div" onclick="download(${requestScope.remotePlace},${requestScope.annexType})">下载</div>
+						</c:otherwise>
 					</c:choose>
 				</td>
 			  </tr>

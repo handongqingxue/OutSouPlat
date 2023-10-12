@@ -78,7 +78,7 @@
 		limit #{rowNum},#{rows}
 	</select>
 	<select id="selectById" resultType="com.outSouPlat.entity.TaskOrder">
-		select `to`.*,tb.name taskBagName,u.userName from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id and `to`.id=#{id}
+		select `to`.*,tb.name taskBagName,tb.annexFileSize,tb.annexFileUrl,u.userName from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id and `to`.id=#{id}
 	</select>
 	<update id="uploadCodeFile">
 		update task_order set codeFileSize=#{codeFileSize},codeFileUrl=#{codeFileUrl} where id=#{id}
