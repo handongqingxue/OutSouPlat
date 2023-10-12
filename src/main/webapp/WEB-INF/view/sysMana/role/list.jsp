@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@include file="../../inc/js.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,77 +14,43 @@
 .tab1_div .toolbar{
 	height:32px;
 }
-.tab1_div .toolbar .mc_span{
+.tab1_div .toolbar .name_span{
 	margin-left: 13px;
 }
-.tab1_div .toolbar .mc_inp{
+.tab1_div .toolbar .name_inp{
 	width: 120px;height: 25px;
 }
 .tab1_div .toolbar .search_but{
 	margin-left: 13px;
 }
-.tab1_div .edit_a{
-	visibility: hidden;
-}
 </style>
 <title>Insert title here</title>
-<%@include file="../../inc/js.jsp"%>
 <script type="text/javascript">
 var path='<%=basePath %>';
 var sysManaPath=path+'sysMana/';
 
-var xzZt;
-var zcsyZt;
-var fqZt;
-var ywZt;
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
 
-var xzZtMc;
-var zcsyZtMc;
-var fqZtMc;
-var ywZtMc;
+var showEditOptionBut=false;
+
 $(function(){
+	showCompontByPermission();
+	showOptionByPermission();
+	
 	initSearchLB();
-	initAddLB();
 	initTab1();
 	
-	//showCompontByQx();
 });
 
-function showCompontByQx(){
-	addLB.hide();
-	//removeLB.hide();
-	if(username=="admin"){
-		addLB.show();
-		//removeLB.show();
-	}
-	else{
-		var tjjsQx='${requestScope.tjjsQx}';
-		var scjsQx='${requestScope.scjsQx}';
-		var qxIdsArr=qxIds.split(",");
-		for(var i=0;i<qxIdsArr.length;i++){
-			if(qxIdsArr[i]==tjjsQx){
-				addLB.show();
-			}
-			if(qxIdsArr[i]==scjsQx){
-				//removeLB.show();
-			}
-		}
-	}
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr)
+		initAddLB();
 }
 
-function showOptionButByQx(){
-	if(username=="admin"){
-		$(".tab1_div .edit_a").css("visibility","visible");
-	}
-	else{
-		var xgjsQx='${requestScope.xgjsQx}';
-		var qxIdsArr=qxIds.split(",");
-		for(var i=0;i<qxIdsArr.length;i++){
-			if(qxIdsArr[i]==xgjsQx){
-				$(".tab1_div .edit_a").css("visibility","visible");
-			}
-		}
-	}
+function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr)
+		showEditOptionBut=true;
 }
 
 function initSearchLB(){
@@ -117,8 +84,10 @@ function initTab1(){
 			{field:"name",title:"名称",width:150},
 			{field:"describe",title:"描述",width:300},
             {field:"id",title:"操作",width:110,formatter:function(value,row){
-            	var str="<a class=\"edit_a\" href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
-        			+"<a href=\"detail?id="+value+"\">详情</a>";
+            	var str="";
+	            	if(showEditOptionBut)
+		            	str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+	            	str+="<a href=\"detail?id="+value+"\">详情</a>";
             	return str;
             }}
 	    ]],
@@ -133,8 +102,6 @@ function initTab1(){
 			$(".panel-header .panel-title").css("font-size","15px");
 			$(".panel-header .panel-title").css("padding-left","10px");
 			$(".panel-header, .panel-body").css("border-color","#ddd");
-			
-			//showOptionButByQx();
 		}
 	});
 }
@@ -150,10 +117,12 @@ function setFitWidthInParent(o){
 	<%@include file="../../inc/side.jsp"%>
 	<div class="tab1_div" id="tab1_div">
 		<div class="toolbar" id="toolbar">
-			<span class="mc_span">名称：</span>
-			<input type="text" class="mc_inp" id="mc" placeholder="请输入名称"/>
+			<span class="name_span">名称：</span>
+			<input type="text" class="name_inp" id="name" placeholder="请输入名称"/>
 			<a class="search_but" id="search_but">查询</a>
+			<c:if test="${sessionUsernameStr eq usernameStr}">
 			<a id="add_but">添加</a>
+			</c:if>
 		</div>
 		<table id="tab1">
 		</table>

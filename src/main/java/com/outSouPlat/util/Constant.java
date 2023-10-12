@@ -9,6 +9,53 @@ import javax.servlet.http.HttpSession;
 import com.outSouPlat.entity.*;
 
 public class Constant {
+	
+	public static final String NO_PERM_RETURN_URL="login";
+	
+	/**
+	 * 验证用户是否拥有权限
+	 * @param request
+	 * @return
+	 */
+	public static boolean checkIfExistPerm(HttpServletRequest request) {
+		boolean flag=false;
+		HttpSession session = request.getSession();
+		User user=(User)session.getAttribute("user");
+		String username = user.getUsername();
+		if("admin".equals(username)) {
+			flag=true;
+		}
+		return flag;
+	}
+	
+	/**
+	 * 验证用户是否拥有权限
+	 * @param checkPermId
+	 * @param request
+	 * @return
+	 */
+	public static boolean checkIfExistPerm(int checkPermId,HttpServletRequest request) {
+		boolean flag=false;
+		HttpSession session = request.getSession();
+		User user=(User)session.getAttribute("user");
+		String username = user.getUsername();
+		if("admin".equals(username)) {
+			flag=true;
+		}
+		else {
+			String permIds = user.getPermissionIds();
+			String[] permIdArr = permIds.split(",");
+			for (int i = 0; i < permIdArr.length; i++) {
+				String permId = permIdArr[i];
+				int permIdInt = Integer.valueOf(permId);
+				if(permIdInt==checkPermId) {
+					flag=true;
+					break;
+				}
+			}
+		}
+		return flag;
+	}
 
 	/**
 	 * 存放用户审核状态常量

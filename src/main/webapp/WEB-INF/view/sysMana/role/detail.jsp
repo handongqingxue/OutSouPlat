@@ -47,7 +47,7 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"角色信息",
 		width:setFitWidthInParent("body","detail_div"),
-		height:200,
+		height:400,
 		top:dialogTop,
 		left:dialogLeft
 	});
@@ -61,7 +61,14 @@ function initDetailDialog(){
 	$("#detail_div table .td2").css("width","30%");
 	$("#detail_div table tr").css("border-bottom","#CAD9EA solid 1px");
 	$("#detail_div table tr").each(function(i){
-		$(this).css("height",(i==1?90:45)+"px");
+		var height;
+		if(i==0)
+			height=200;
+		else if(i==1)
+			height=90;
+		else
+			height=45;
+		$(this).css("height",height+"px");
 	});
 
 	$(".panel.window").eq(ddNum).css("margin-top","20px");

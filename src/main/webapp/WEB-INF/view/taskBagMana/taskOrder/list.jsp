@@ -586,7 +586,7 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
-				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,taskOrderDelPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,taskOrderDelPermStr)}">
 				<a id="remove_but">删除</a>
 				</c:if>
 			</div>

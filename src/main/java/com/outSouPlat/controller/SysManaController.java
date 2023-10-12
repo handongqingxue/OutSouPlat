@@ -114,8 +114,15 @@ public class SysManaController {
 	 */
 	@RequestMapping(value="/role/new")
 	public String goRoleNew(HttpServletRequest request) {
+		
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			url=MODULE_NAME+"/role/new";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 
-		return MODULE_NAME+"/role/new";
+		return url;
 	}
 
 	/**
@@ -126,12 +133,19 @@ public class SysManaController {
 	@RequestMapping(value="/role/edit")
 	public String goRoleEdit(HttpServletRequest request) {
 
-		//publicService.selectNav(request);
-		String id = request.getParameter("id");
-		Role role=roleService.selectById(id);
-		request.setAttribute("role", role);
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			//publicService.selectNav(request);
+			String id = request.getParameter("id");
+			Role role=roleService.selectById(id);
+			request.setAttribute("role", role);
+			
+			url=MODULE_NAME+"/role/edit";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/role/edit";
+		return url;
 	}
 	
 	/**
@@ -142,7 +156,14 @@ public class SysManaController {
 	@RequestMapping(value="/role/list")
 	public String goRoleList(HttpServletRequest request) {
 
-		return MODULE_NAME+"/role/list";
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			url=MODULE_NAME+"/role/list";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
+		
+		return url;
 	}
 
 	/**
@@ -153,12 +174,19 @@ public class SysManaController {
 	@RequestMapping(value="/role/detail")
 	public String goRoleDetail(HttpServletRequest request) {
 
-		//publicService.selectNav(request);
-		String id = request.getParameter("id");
-		Role role=roleService.selectById(id);
-		request.setAttribute("role", role);
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			//publicService.selectNav(request);
+			String id = request.getParameter("id");
+			Role role=roleService.selectById(id);
+			request.setAttribute("role", role);
+			
+			url=MODULE_NAME+"/role/detail";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/role/detail";
+		return url;
 	}
 
 	/**
@@ -169,12 +197,19 @@ public class SysManaController {
 	@RequestMapping(value="/permission/edit")
 	public String goPermissionEdit(HttpServletRequest request) {
 
-		//publicService.selectNav(request);
-		String id = request.getParameter("id");
-		Permission permission=permissionService.selectById(id);
-		request.setAttribute("permission", permission);
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			//publicService.selectNav(request);
+			String id = request.getParameter("id");
+			Permission permission=permissionService.selectById(id);
+			request.setAttribute("permission", permission);
+			
+			url=MODULE_NAME+"/permission/edit";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 		
-		return MODULE_NAME+"/permission/edit";
+		return url;
 	}
 	
 	/**
@@ -184,8 +219,15 @@ public class SysManaController {
 	 */
 	@RequestMapping(value="/permission/list")
 	public String goPermissionList(HttpServletRequest request) {
+		
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			url=MODULE_NAME+"/permission/list";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
 
-		return MODULE_NAME+"/permission/list";
+		return url;
 	}
 	
 	/**
@@ -196,7 +238,14 @@ public class SysManaController {
 	@RequestMapping(value="/permission/new")
 	public String goPermissionNew(HttpServletRequest request) {
 
-		return MODULE_NAME+"/permission/new";
+		String url=null;
+		if(Constant.checkIfExistPerm(request)) {
+			url=MODULE_NAME+"/permission/new";
+		}
+		else
+			url=Constant.NO_PERM_RETURN_URL;
+		
+		return url;
 	}
 	
 	/**
