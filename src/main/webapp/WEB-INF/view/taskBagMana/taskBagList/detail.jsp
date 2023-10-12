@@ -21,6 +21,9 @@
 }
 </style>
 <script type="text/javascript">
+var scheme='<%=scheme %>';
+var serverName='<%=serverName %>';
+var serverPort='<%=serverPort %>';
 var path='<%=basePath %>';
 var projManaPath=path+'projMana/';
 var taskBagManaPath=path+'taskBagMana/';
@@ -82,6 +85,12 @@ function initDetailDialog(){
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
+}
+
+function download(){
+	var realPath=scheme+":/"+serverName+":"+serverPort+'${requestScope.taskBag.annexFileUrl }';
+	//location.href=taskBagManaPath+"download?place=2&realPath=http://192.168.1.102:8080//OutSouPlat//upload//TaskBag//annex//3H3fcrenzheshengui3wudiban.rar"
+	location.href=taskBagManaPath+"download?place=2&realPath="+realPath;
 }
 
 function setFitWidthInParent(parent,self){
@@ -168,7 +177,7 @@ function setFitWidthInParent(parent,self){
 					附件
 				</td>
 				<td class="td2">
-					${requestScope.taskBag.annexFileUrl }
+					${requestScope.taskBag.annexFileUrl }<input type="button" onclick="download()" value="下载"/>
 				</td>
 			  </tr>
 			  <tr>

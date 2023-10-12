@@ -1,24 +1,34 @@
 package com.outSouPlat.util;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
+import org.apache.commons.net.ftp.*;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
 import java.io.*;
-import java.net.SocketException;
+import java.net.*;
 
 /**
  * 文件上传工具�?
  *
  * @author lenovo
  */
-public class FileUploadUtil {
+public class FileUtil {
 
-	private static Class<? extends Object> cls = FileUploadUtil.class;
+	private static Class<? extends Object> cls = FileUtil.class;
+	
+	/**
+	 * 本地
+	 */
+	public static final int LOCAL=1;
+	/**
+	 * 网络
+	 */
+	public static final int REMOTE=2;
 
 	//资讯内容上传的文件(by 石超)
 	public static String appUploadContentImg(MultipartFile myFile, String folder) throws Exception {
@@ -146,6 +156,69 @@ public class FileUploadUtil {
 			}
 		}
 	}
+
+	//https://blog.csdn.net/m0_59800431/article/details/129662276
+	@RequestMapping(value="/downloadLocal")
+	public static void downloadLocal(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			//1.要获取下载文件的路径
+			String realPath = "D:/resource/OutSouPlat/TaskBag/annex/1695712914708.txt";
+			System.out.println("下载文件的路径："+realPath);
+			//2.下载的文件名是什么？
+			String filename = realPath.substring(realPath.lastIndexOf("/") + 1);
+			//3.设置想办法让浏览器能够支持下载我们需要的东西
+			response.setHeader("Content-Disposition","attachment;filename="+filename);
+			//4.获取下载文件的输入流
+			FileInputStream in = new FileInputStream(realPath);
+			//5.创建缓冲区
+			int len=0;
+			byte[] buffer = new byte[1024];
+			//6.获取OutputStream对象
+			ServletOutputStream out = response.getOutputStream();
+			//7.将FileOutputStream流写入到buffer缓冲区,使用OutputStream将缓冲区中的数据输出到客户端
+			while((len=in.read(buffer))>0) {
+			    out.write(buffer,0,len);
+			}
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value="/downloadRemote")
+	public static void downloadRemote(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			//1.要获取下载文件的路径
+			//String realPath = "http://192.168.1.102:8080//OutSouPlat//upload//TaskBag//annex//3H3fcrenzheshengui3wudiban.rar";
+			String realPath = request.getParameter("realPath").replaceAll("/", "//");
+			System.out.println("下载文件的路径："+realPath);
+			//2.下载的文件名是什么？
+			String filename = realPath.substring(realPath.lastIndexOf("//") + 2);
+			//3.设置想办法让浏览器能够支持下载我们需要的东西
+			response.setHeader("Content-Disposition","attachment;filename="+filename);
+			//4.获取下载文件的输入流
+			URL url = new URL(realPath);
+			URLConnection conn = url.openConnection();
+			InputStream in = conn.getInputStream();
+			//5.创建缓冲区
+			int len=0;
+			byte[] buffer = new byte[1024];
+			//6.获取OutputStream对象
+			ServletOutputStream out = response.getOutputStream();
+			//7.将FileOutputStream流写入到buffer缓冲区,使用OutputStream将缓冲区中的数据输出到客户端
+			while((len=in.read(buffer))>0) {
+			    out.write(buffer,0,len);
+			}
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static String getRootDirectory() {
 		return "http://120.27.5.36:8500/";
 	}

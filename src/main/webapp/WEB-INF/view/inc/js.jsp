@@ -4,8 +4,12 @@
 <c:set var="sessionUsernameStr" value="${sessionScope.user.username}"></c:set>
 <c:set var="usernameStr" value="admin"></c:set>
 <c:set var="permissionIdsStr" value=",${sessionScope.user.permissionIds},"></c:set>
-<%String basePath=request.getScheme()+"://"+request.getServerName()+":"
-	+request.getServerPort()+request.getContextPath()+"/";
+<%
+	String scheme=request.getScheme();
+	String serverName=request.getServerName();
+	int serverPort=request.getServerPort();
+	String contextPath=request.getContextPath();
+	String basePath=scheme+"://"+serverName+":"+serverPort+contextPath+"/";
 %>
 <script type="text/javascript"
 	src="<%=basePath %>resource/js/jquery-3.3.1.js"></script>

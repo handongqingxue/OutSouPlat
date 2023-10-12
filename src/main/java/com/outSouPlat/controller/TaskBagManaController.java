@@ -1,16 +1,8 @@
 package com.outSouPlat.controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,11 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.outSouPlat.entity.*;
 import com.outSouPlat.service.*;
-import com.outSouPlat.util.Constant;
-import com.outSouPlat.util.FileUploadUtil;
-import com.outSouPlat.util.JsonUtil;
-import com.outSouPlat.util.PlanResult;
+import com.outSouPlat.util.*;
 
+import javax.servlet.http.*;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -142,7 +132,7 @@ public class TaskBagManaController {
 							folder+="annex";//附件
 							break;
 						}
-						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						jsonStr = FileUtil.appUploadContentImg(fileArr[i],folder);
 						JSONObject fileJson = JSONObject.fromObject(jsonStr);
 						if("成功".equals(fileJson.get("msg"))) {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
@@ -194,7 +184,7 @@ public class TaskBagManaController {
 							folder+="annex";//附件
 							break;
 						}
-						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						jsonStr = FileUtil.appUploadContentImg(fileArr[i],folder);
 						JSONObject fileJson = JSONObject.fromObject(jsonStr);
 						if("成功".equals(fileJson.get("msg"))) {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
@@ -335,7 +325,7 @@ public class TaskBagManaController {
 							folder+="CodeFile";//代码文件
 							break;
 						}
-						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						jsonStr = FileUtil.appUploadContentImg(fileArr[i],folder);
 						JSONObject fileJson = JSONObject.fromObject(jsonStr);
 						if("成功".equals(fileJson.get("msg"))) {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
@@ -368,66 +358,14 @@ public class TaskBagManaController {
 		return jsonMap;
 	}
 
-	//https://blog.csdn.net/m0_59800431/article/details/129662276
-	//http://192.168.1.102:8080/OutSouPlat/taskBagMana/downloadLocal
-	@RequestMapping(value="/downloadLocal")
-	public void downloadLocal(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//1.要获取下载文件的路径
-			String realPath = "D:/resource/OutSouPlat/TaskBag/annex/1695712914708.txt";
-			System.out.println("下载文件的路径："+realPath);
-			//2.下载的文件名是什么？
-			String filename = realPath.substring(realPath.lastIndexOf("/") + 1);
-			//3.设置想办法让浏览器能够支持下载我们需要的东西
-			response.setHeader("Content-Disposition","attachment;filename="+filename);
-			//4.获取下载文件的输入流
-			FileInputStream in = new FileInputStream(realPath);
-			//5.创建缓冲区
-			int len=0;
-			byte[] buffer = new byte[1024];
-			//6.获取OutputStream对象
-			ServletOutputStream out = response.getOutputStream();
-			//7.将FileOutputStream流写入到buffer缓冲区,使用OutputStream将缓冲区中的数据输出到客户端
-			while((len=in.read(buffer))>0) {
-			    out.write(buffer,0,len);
-			}
-			in.close();
-			out.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	//http://192.168.1.102:8080/OutSouPlat/taskBagMana/downloadRemote
-	@RequestMapping(value="/downloadRemote")
-	public void downloadRemote(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			//1.要获取下载文件的路径
-			String realPath = "http://192.168.1.102:8080//OutSouPlat//upload//TaskBag//annex//3H3fcrenzheshengui3wudiban.rar";
-			System.out.println("下载文件的路径："+realPath);
-			//2.下载的文件名是什么？
-			String filename = realPath.substring(realPath.lastIndexOf("//") + 2);
-			//3.设置想办法让浏览器能够支持下载我们需要的东西
-			response.setHeader("Content-Disposition","attachment;filename="+filename);
-			//4.获取下载文件的输入流
-			URL url = new URL(realPath);
-			URLConnection conn = url.openConnection();
-			InputStream in = conn.getInputStream();
-			//5.创建缓冲区
-			int len=0;
-			byte[] buffer = new byte[1024];
-			//6.获取OutputStream对象
-			ServletOutputStream out = response.getOutputStream();
-			//7.将FileOutputStream流写入到buffer缓冲区,使用OutputStream将缓冲区中的数据输出到客户端
-			while((len=in.read(buffer))>0) {
-			    out.write(buffer,0,len);
-			}
-			in.close();
-			out.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	//http://192.168.1.102:8080/OutSouPlat/taskBagMana/download
+	@RequestMapping(value="/download")
+	public void download(HttpServletRequest request, HttpServletResponse response) {
+		
+		Integer place = Integer.valueOf(request.getParameter("place"));
+		if(place==FileUtil.LOCAL)
+			FileUtil.downloadLocal(request, response);
+		else if(place==FileUtil.REMOTE)
+			FileUtil.downloadRemote(request, response);
 	}
 }

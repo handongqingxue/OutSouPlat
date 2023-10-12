@@ -91,7 +91,7 @@ public class ProjManaController {
 							folder+="Illus";//插图
 							break;
 						}
-						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						jsonStr = FileUtil.appUploadContentImg(fileArr[i],folder);
 						JSONObject fileJson = JSONObject.fromObject(jsonStr);
 						if("成功".equals(fileJson.get("msg"))) {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
@@ -140,7 +140,7 @@ public class ProjManaController {
 							folder+="Illus";//插图
 							break;
 						}
-						jsonStr = FileUploadUtil.appUploadContentImg(fileArr[i],folder);
+						jsonStr = FileUtil.appUploadContentImg(fileArr[i],folder);
 						JSONObject fileJson = JSONObject.fromObject(jsonStr);
 						if("成功".equals(fileJson.get("msg"))) {
 							JSONObject dataJO = (JSONObject)fileJson.get("data");
