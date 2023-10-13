@@ -175,8 +175,8 @@ function checkName(){
 
 //验证权限
 function checkPermissionIds(){
-	var qxIdArr=permissionCBB.combobox("getValues");
-	var permissionIds=String(qxIdArr);
+	var permissionIdArr=permissionCBB.combobox("getValues");
+	var permissionIds=String(permissionIdArr);
 	if(permissionIds==null||permissionIds==""){
 	  	alert("请选择权限");
 	  	return false;

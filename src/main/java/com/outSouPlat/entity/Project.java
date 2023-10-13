@@ -35,6 +35,15 @@ public class Project {
 	 * 已完成
 	 */
 	public static final String FINISH_NAME="已完成";
+	
+	/**
+	 * 添加任务包
+	 */
+	public static final boolean ADD_TASK_BAG=true;
+	/**
+	 * 删除任务包
+	 */
+	public static final boolean DEL_TASK_BAG=false;
 
 	private Integer id;
 	public Integer getId() {

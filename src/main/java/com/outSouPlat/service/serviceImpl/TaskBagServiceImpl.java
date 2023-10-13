@@ -14,6 +14,8 @@ import com.outSouPlat.service.*;
 public class TaskBagServiceImpl implements TaskBagService {
 
 	@Autowired
+	private ProjectMapper projectDao;
+	@Autowired
 	private TaskBagMapper taskBagDao;
 
 	@Override
@@ -34,7 +36,11 @@ public class TaskBagServiceImpl implements TaskBagService {
 	@Override
 	public int add(TaskBag taskBag) {
 		// TODO Auto-generated method stub
-		return taskBagDao.add(taskBag);
+		int count=0;
+		count=taskBagDao.add(taskBag);
+		if(count>0)
+			count=projectDao.updateTaskBagCountById(Project.ADD_TASK_BAG,taskBag.getProjectId());
+		return count;
 	}
 
 	@Override

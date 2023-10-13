@@ -53,6 +53,7 @@ public class ProjManaController {
 			request.setAttribute("project", project);
 			
 			Constant.setUserPermissionInRequest(request);
+			Constant.setProjectStateInRequest(request);
 			
 			url=MODULE_NAME+"/projList/edit";
 		}

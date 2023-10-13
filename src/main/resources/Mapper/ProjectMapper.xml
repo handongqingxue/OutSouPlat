@@ -82,6 +82,9 @@
 			<if test="deveTool!=null">
 				deveTool=#{deveTool},
 			</if>
+			<if test="state!=null">
+				state=#{state},
+			</if>
 		</trim>
 		 where id=#{id}
 	</update>
@@ -135,4 +138,14 @@
 	<select id="queryCBBList" resultType="com.outSouPlat.entity.Project">
 		select id,name from project order by createTime
 	</select>
+	<update id="updateTaskBagCountById">
+		update project set taskBagCount=
+		<if test="addFlag==@com.outSouPlat.entity.Project@ADD_TASK_BAG">
+			taskBagCount+1
+		</if>
+		<if test="addFlag==@com.outSouPlat.entity.Project@DEL_TASK_BAG">
+			taskBagCount-1
+		</if>
+		where id=#{id}
+	</update>
 </mapper>

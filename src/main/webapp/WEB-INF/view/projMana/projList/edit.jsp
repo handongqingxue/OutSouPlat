@@ -58,7 +58,19 @@ var projManaPath=path+'projMana/';
 var dialogTop=70;
 var dialogLeft=20;
 var edNum=0;
+
+var unContractState;
+var contractedState;
+var developingState;
+var finishState;
+
+var unContractStateName;
+var contractedStateName;
+var developingStateName;
+var finishStateName;
 $(function(){
+	initStateVar();
+	
 	initEditDialog();//0
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
@@ -73,6 +85,18 @@ function initDialogPosition(){
 	ccDiv.append(edpw);
 	ccDiv.append(edws);
 	ccDiv.css("width",setFitWidthInParent("body","center_con_div")+"px");
+}
+
+function initStateVar(){
+	unContractState=parseInt('${requestScope.unContractState}');
+	contractedState=parseInt('${requestScope.contractedState}');
+	developingState=parseInt('${requestScope.developingState}');
+	finishState=parseInt('${requestScope.finishState}');
+
+	unContractStateName='${requestScope.unContractStateName}';
+	contractedStateName='${requestScope.contractedStateName}';
+	developingStateName='${requestScope.developingStateName}';
+	finishStateName='${requestScope.finishStateName}';
 }
 
 function initEditDialog(){
@@ -118,6 +142,27 @@ function initEditDialog(){
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
+	
+	initStateCBB();
+}
+
+function initStateCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择"});
+	data.push({"value":unContractState,"text":unContractStateName});
+	data.push({"value":contractedState,"text":contractedStateName});
+	data.push({"value":developingState,"text":developingStateName});
+	data.push({"value":finishState,"text":finishStateName});
+	
+	stateCBB=$("#state_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		//multiple:true,
+		data:data,
+		onLoadSuccess:function(){
+			$(this).combobox("setValue",'${requestScope.project.state }');
+		}
+	});
 }
 
 function checkEdit(){
@@ -125,7 +170,9 @@ function checkEdit(){
 		if(checkDeveLang()){
 			if(checkDatabase()){
 				if(checkDeveTool()){
-					editProject();
+					if(checkState()){
+						editProject();
+					}
 				}
 			}
 		}
@@ -133,6 +180,9 @@ function checkEdit(){
 }
 
 function editProject(){
+	var state=stateCBB.combobox("getValue");
+	$("#edit_div #state").val(state);
+	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
@@ -229,6 +279,17 @@ function checkDeveTool(){
 		$("#deveTool").css("color","#E15748");
     	$("#deveTool").val("开发工具不能为空");
     	return false;
+	}
+	else
+		return true;
+}
+
+//验证状态
+function checkState(){
+	var state=stateCBB.combobox("getValue");
+	if(state==null||state==""){
+	  	alert("请选择状态");
+	  	return false;
 	}
 	else
 		return true;
@@ -331,6 +392,19 @@ function setFitWidthInParent(parent,self){
 					<div class="uploadBut_div upIllusBut_div" onclick="uploadIllus()">选择插图</div>
 					<input type="file" class="illus_file" id="illus_file" name="illus_file" onchange="showIllus(this)"/>
 					<img class="illus_img" id="illus_img" alt="" src="${requestScope.project.illusUrl }"/>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					状态
+				</td>
+				<td class="td2">
+					<input id="state_cbb"/>
+					<input type="hidden" id="state" name="state" value="${requestScope.project.state }"/>
+				</td>
+				<td class="td1" align="right">
+				</td>
+				<td class="td2">
 				</td>
 			  </tr>
 			</table>
