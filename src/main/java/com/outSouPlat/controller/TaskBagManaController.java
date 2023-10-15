@@ -211,9 +211,9 @@ public class TaskBagManaController {
 
 	@RequestMapping(value="/deleteTaskBagByIds",produces="plain/text; charset=UTF-8")
 	@ResponseBody
-	public String deleteTaskBagByIds(String ids) {
+	public String deleteTaskBagByIds(String ids, String annexFileUrls, String projectIds) {
 		//TODO 针对分类的动态进行实时调整更新
-		int count=taskBagService.deleteByIds(ids);
+		int count=taskBagService.deleteByIds(ids,annexFileUrls,projectIds);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {

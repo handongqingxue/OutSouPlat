@@ -180,18 +180,26 @@ function deleteByIds() {
 	}
 
 	var confirmStr="";
-	var orderedNames = "";
-	var unOrderIds = "";
+	var orderedNames="";
+	var unOrderIds="";
+	var unOrderAnnexFileUrls="";
+	var unOrderProjectIds="";
 	for (var i = 0; i < rows.length; i++) {
 		if(rows[i].state==developingState||rows[i].state==testingState)
 			orderedNames += "、" + rows[i].name;
-		else
+		else{
 			unOrderIds += "," + rows[i].id;
+			unOrderAnnexFileUrls += "," + rows[i].annexFileUrl;
+			unOrderProjectIds += "," + rows[i].projectId;
+		}
 	}
 	if(orderedNames!="")
 		orderedNames=orderedNames.substring(1);
-	if(unOrderIds!="")
+	if(unOrderIds!=""){
 		unOrderIds=unOrderIds.substring(1);
+		unOrderAnnexFileUrls=unOrderAnnexFileUrls.substring(1);
+		unOrderProjectIds=unOrderProjectIds.substring(1);
+	}
 	
 	if(orderedNames!=""&unOrderIds==""){
 		confirmStr="任务包"+orderedNames+"已接单，无法删除";
@@ -204,11 +212,8 @@ function deleteByIds() {
 		confirmStr="确实要删除选中的任务包吗？";
 	
 	if(confirm(confirmStr)){
-		var ddztMc='${requestScope.checkDdztMc}';
-		var shlx='${requestScope.shlx}';
-		var shrId='${sessionScope.yongHu.id}';
-		$.post(ddglPath + "checkDingDanByIds",
-			{ids:unOrderIds,ddztMc:ddztMc,shlx:shlx,shjg:true,shrId:shrId},
+		$.post(taskBagManaPath + "deleteTaskBagByIds",
+			{ids:unOrderIds,annexFileUrls:unOrderAnnexFileUrls,projectIds:unOrderProjectIds},
 			function(result){
 				if(result.status==1){
 					alert(result.msg);

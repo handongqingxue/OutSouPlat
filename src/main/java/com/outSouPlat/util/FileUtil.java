@@ -66,6 +66,17 @@ public class FileUtil {
 		}
 	}
 	
+	public static void delete(String fileUrls) {
+		String[] fileUrlArr = fileUrls.split(",");
+		for (int i = 0; i < fileUrlArr.length; i++) {
+			String fileUrl = fileUrlArr[i];
+			File file = new File("D:\\resource"+fileUrl.replaceAll("OutSouPlat/upload", "OutSouPlat"));
+			if(file.exists()) {
+				file.delete();
+			}
+		}
+	}
+	
 
 	//获取ftp连接成功对象，连接失败则抛出异常
 	public static FTPClient getFTPClient(String ftpHost, Integer ftpPort, String userName, String password) throws Exception {
