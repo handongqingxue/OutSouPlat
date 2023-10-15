@@ -172,6 +172,56 @@ function initRemoveLB(){
 	});
 }
 
+function deleteByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+
+	var confirmStr="";
+	var orderedNames = "";
+	var unOrderIds = "";
+	for (var i = 0; i < rows.length; i++) {
+		if(rows[i].state==developingState||rows[i].state==testingState)
+			orderedNames += "、" + rows[i].name;
+		else
+			unOrderIds += "," + rows[i].id;
+	}
+	if(orderedNames!="")
+		orderedNames=orderedNames.substring(1);
+	if(unOrderIds!="")
+		unOrderIds=unOrderIds.substring(1);
+	
+	if(orderedNames!=""&unOrderIds==""){
+		confirmStr="任务包"+orderedNames+"已接单，无法删除";
+		alert(confirmStr);
+		return false;
+	}
+	else if(orderedNames!=""&unOrderIds!="")
+		confirmStr="任务包"+orderedNames+"已接单，无法删除,要删除其他任务包吗？";
+	else
+		confirmStr="确实要删除选中的任务包吗？";
+	
+	if(confirm(confirmStr)){
+		var ddztMc='${requestScope.checkDdztMc}';
+		var shlx='${requestScope.shlx}';
+		var shrId='${sessionScope.yongHu.id}';
+		$.post(ddglPath + "checkDingDanByIds",
+			{ids:unOrderIds,ddztMc:ddztMc,shlx:shlx,shjg:true,shrId:shrId},
+			function(result){
+				if(result.status==1){
+					alert(result.msg);
+					tab1.datagrid("load");
+				}
+				else{
+					alert(result.msg);
+				}
+			}
+		,"json");
+	}
+}
+
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"任务包列表",

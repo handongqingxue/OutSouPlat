@@ -23,6 +23,6 @@ public interface ProjectMapper {
 
 	List<Project> queryCBBList();
 
-	int updateTaskBagCountById(@Param("addFlag") boolean addFlag, @Param("id") Integer id);
+	int updateTaskBagCountById(@Param("addFlag") boolean addFlag, Integer count, @Param("id") Integer id);
 
 }

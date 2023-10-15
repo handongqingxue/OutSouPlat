@@ -209,6 +209,26 @@ public class TaskBagManaController {
 		return jsonMap;
 	}
 
+	@RequestMapping(value="/deleteTaskBagByIds",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteTaskBagByIds(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=taskBagService.deleteByIds(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("删除任务包失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("删除任务包成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
 	@RequestMapping(value="/editTaskBag")
 	@ResponseBody
 	public Map<String, Object> editTaskBag(TaskBag taskBag,

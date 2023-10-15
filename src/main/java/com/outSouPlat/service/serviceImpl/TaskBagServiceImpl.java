@@ -39,7 +39,7 @@ public class TaskBagServiceImpl implements TaskBagService {
 		int count=0;
 		count=taskBagDao.add(taskBag);
 		if(count>0)
-			count=projectDao.updateTaskBagCountById(Project.ADD_TASK_BAG,taskBag.getProjectId());
+			count=projectDao.updateTaskBagCountById(Project.ADD_TASK_BAG,count,taskBag.getProjectId());
 		return count;
 	}
 

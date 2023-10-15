@@ -141,10 +141,10 @@
 	<update id="updateTaskBagCountById">
 		update project set taskBagCount=
 		<if test="addFlag==@com.outSouPlat.entity.Project@ADD_TASK_BAG">
-			taskBagCount+1
+			taskBagCount+#{count}
 		</if>
 		<if test="addFlag==@com.outSouPlat.entity.Project@DEL_TASK_BAG">
-			taskBagCount-1
+			taskBagCount-#{count}
 		</if>
 		where id=#{id}
 	</update>
