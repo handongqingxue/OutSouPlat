@@ -83,4 +83,10 @@
 	<update id="uploadCodeFile">
 		update task_order set codeFileSize=#{codeFileSize},codeFileUrl=#{codeFileUrl} where id=#{id}
 	</update>
+	<update id="updateStateByIdList">
+		update task_order set state=#{state} where
+		<foreach collection="idList" item="id" open="1=1 and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
 </mapper>

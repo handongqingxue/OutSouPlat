@@ -327,6 +327,26 @@ public class TaskBagManaController {
 			return jsonMap;
 		}
 	}
+
+	@RequestMapping(value="/discardTaskOrderByIds",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String discardTaskOrderByIds(String ids, String nos, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=taskOrderService.discardByIds(ids,nos,codeFileUrls,taskBagIds,sendUserId,sendUsername);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("废弃任务单失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("废弃任务单成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
 	
 	@RequestMapping(value="/queryTaskOrderList")
 	@ResponseBody

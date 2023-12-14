@@ -24,4 +24,6 @@ public interface TaskBagMapper {
 
 	int updateStateById(@Param("state") int state, @Param("id") Integer id);
 
+	int updateStateByIdList(@Param("state") int state, @Param("idList") List<String> idList);
+
 }

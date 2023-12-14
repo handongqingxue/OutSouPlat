@@ -1,6 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<c:set var="sessionUserIdStr" value="${sessionScope.user.id}"></c:set>
 <c:set var="sessionUsernameStr" value="${sessionScope.user.username}"></c:set>
 <c:set var="usernameStr" value="admin"></c:set>
 <c:set var="permissionIdsStr" value=",${sessionScope.user.permissionIds},"></c:set>

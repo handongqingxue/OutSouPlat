@@ -154,4 +154,10 @@
 	<update id="updateStateById">
 		update task_bag set state=#{state} where id=#{id}
 	</update>
+	<update id="updateStateByIdList">
+		update task_bag set state=#{state} where 
+		<foreach collection="idList" item="id" open="1=1 and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
 </mapper>

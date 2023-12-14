@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.outSouPlat.dao.SysNoticeMapper">
+	<insert id="add" parameterType="com.outSouPlat.entity.SysNotice">
+		insert into sys_notice
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sendUserId!=null">
+				sendUserId,
+			</if>
+			<if test="title!=null">
+				title,
+			</if>
+			<if test="content!=null">
+				content,
+			</if>
+				createTime,
+				read
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sendUserId!=null">
+				#{sendUserId},
+			</if>
+			<if test="title!=null">
+				#{title},
+			</if>
+			<if test="content!=null">
+				#{content},
+			</if>
+				now(),
+				${@com.outSouPlat.entity.SysNotice@UN_READ}
+		</trim>
+	</insert>
+</mapper>

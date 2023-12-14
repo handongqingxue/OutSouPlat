@@ -153,7 +153,7 @@ function initDialogPosition(){
 
 function showCompontByPermission(){
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskOrderDelPermStr)!=-1)
-		initRemoveLB();
+		initDiscardedLB();
 }
 
 function showOptionByPermission(){
@@ -247,13 +247,70 @@ function initSearchLB(){
 	});
 }
 
-function initRemoveLB(){
-	removeLB=$("#remove_but").linkbutton({
+function initDiscardedLB(){
+	discardedLB=$("#discarded_but").linkbutton({
 		iconCls:"icon-remove",
 		onClick:function(){
-			deleteByIds();
+			discardedByIds();
 		}
 	});
+}
+
+function discardedByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要废弃的信息！","warning");
+		return false;
+	}
+
+	var confirmStr="";
+	var notAllowNos="";
+	var allowIds="";
+	var allowNos="";
+	var allowCodeFileUrls="";
+	var allowTaskBagIds="";
+	for (var i = 0; i < rows.length; i++) {
+		if(rows[i].state==unFinishState){
+			allowIds += "," + rows[i].id;
+			allowNos += "," + rows[i].no;
+			allowCodeFileUrls += "," + rows[i].codeFileUrl;
+			allowTaskBagIds += "," + rows[i].taskBagId;
+		}
+		else
+			notAllowNos += "、" + rows[i].no;
+	}
+	if(notAllowNos!="")
+		notAllowNos=notAllowNos.substring(1);
+	if(allowIds!=""){
+		allowIds=allowIds.substring(1);
+		allowCodeFileUrls=allowCodeFileUrls.substring(1);
+		allowTaskBagIds=allowTaskBagIds.substring(1);
+	}
+	
+	if(notAllowNos!=""&allowIds==""){
+		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法废弃";
+		alert(confirmStr);
+		return false;
+	}
+	else if(notAllowNos!=""&allowIds!="")
+		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法废弃,要废弃其他任务单吗？";
+	else
+		confirmStr="确实要废弃选中的任务单吗？";
+	
+	if(confirm(confirmStr)){
+		$.post(taskBagManaPath + "discardTaskOrderByIds",
+			{ids:allowIds,nos:allowNos,codeFileUrls:allowCodeFileUrls,taskBagIds:allowTaskBagIds,sendUserId:'${sessionUserIdStr}',sendUsername:'${sessionUsernameStr}'},
+			function(result){
+				if(result.status==1){
+					alert(result.msg);
+					tab1.datagrid("load");
+				}
+				else{
+					alert(result.msg);
+				}
+			}
+		,"json");
+	}
 }
 
 function initUploadCodeDialog(){
@@ -587,7 +644,7 @@ function setFitWidthInParent(parent,self){
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
 				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,taskOrderDelPermStr)}">
-				<a id="remove_but">删除</a>
+				<a id="discarded_but">废弃</a>
 				</c:if>
 			</div>
 		</div>

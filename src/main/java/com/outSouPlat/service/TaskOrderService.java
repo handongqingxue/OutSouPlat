@@ -8,6 +8,8 @@ public interface TaskOrderService {
 
 	int add(TaskOrder taskOrder);
 
+	int discardByIds(String ids, String nos, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername);
+
 	int queryForInt(String no, String taskBagName, String userName, String createTimeStart,
 			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state);
 

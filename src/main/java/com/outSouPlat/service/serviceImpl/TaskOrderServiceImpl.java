@@ -2,6 +2,7 @@ package com.outSouPlat.service.serviceImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.outSouPlat.entity.*;
 import com.outSouPlat.dao.*;
 import com.outSouPlat.service.*;
+import com.outSouPlat.util.FileUtil;
 
 @Service
 public class TaskOrderServiceImpl implements TaskOrderService {
@@ -30,6 +32,25 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 		count=taskOrderDao.add(taskOrder);
 		if(count>0)
 			count=taskBagDao.updateStateById(TaskBag.DEVELOPING,taskBagId);
+		return count;
+	}
+
+	@Override
+	public int discardByIds(String ids, String nos, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList = Arrays.asList(ids.split(","));
+		count=taskOrderDao.updateStateByIdList(TaskOrder.DISCARDED,idList);
+		if(count>0) {
+			FileUtil.delete(codeFileUrls);
+			List<String> taskBagIdList = Arrays.asList(taskBagIds.split(","));
+			count=taskBagDao.updateStateByIdList(TaskBag.UN_ORDER,taskBagIdList);
+			
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setSendUserId(sendUserId);
+			sysNotice.setTitle("任务单废弃");
+			sysNotice.setContent("任务单"+nos+"已废弃，操作用户"+sendUsername);
+		}
 		return count;
 	}
 

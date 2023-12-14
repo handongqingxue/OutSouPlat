@@ -20,4 +20,6 @@ public interface TaskOrderMapper {
 	TaskOrder selectById(@Param("id") String id);
 
 	int uploadCodeFile(TaskOrder taskOrder);
+
+	int updateStateByIdList(@Param("state") int state, @Param("idList")List<String> idList);
 }
