@@ -86,12 +86,6 @@
 			<if test="annexFileUrl!=null">
 				annexFileUrl=#{annexFileUrl},
 			</if>
-			<if test="codeFileSize!=null">
-				codeFileSize=#{codeFileSize},
-			</if>
-			<if test="codeFileUrl!=null">
-				codeFileUrl=#{codeFileUrl},
-			</if>
 			<if test="downloadCount!=null">
 				downloadCount=#{downloadCount},
 			</if>

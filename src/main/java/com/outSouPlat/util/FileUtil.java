@@ -11,6 +11,8 @@ import javax.servlet.http.*;
 
 import java.io.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 文件上传工具�?
@@ -43,10 +45,12 @@ public class FileUtil {
 	public static String appUploadContentImg(MultipartFile myFile, String folder) throws Exception {
 		try {
 			//重置文件名
-			long time = System.currentTimeMillis();
-			String timeStr = String.valueOf(time);
+			//long time = System.currentTimeMillis();
+			//String timeStr = String.valueOf(time);
+			String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			folder+="/"+time.substring(0, 4);
 			String[] originalFileName = myFile.getOriginalFilename().split("\\.");
-			String fileName = timeStr + "." + originalFileName[1];
+			String fileName = time + "." + originalFileName[1];
 			String avaPath ="/OutSouPlat/upload/"+folder+"/"+fileName;
 			String realPath="D:\\resource\\OutSouPlat\\"+folder+"\\";
 			System.out.println(avaPath);

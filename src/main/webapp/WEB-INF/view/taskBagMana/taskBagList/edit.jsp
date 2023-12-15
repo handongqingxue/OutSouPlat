@@ -19,6 +19,9 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+.edit_div .annex_file{
+	margin-top: 10px;
+}
 .name_inp{
 	width: 180px;
 	height:30px;
@@ -80,7 +83,14 @@ function initEditDialog(){
 	$("#edit_div table .td2").css("width","30%");
 	$("#edit_div table tr").css("border-bottom","#CAD9EA solid 1px");
 	$("#edit_div table tr").each(function(i){
-		$(this).css("height",(i==4?300:45)+"px");
+		var height=0;
+		if(i==3)
+			height=80;
+		else if(i==4)
+			height=300;
+		else
+			height=45;
+		$(this).css("height",height+"px");
 	});
 
 	$(".panel.window").eq(edNum).css("margin-top","20px");
@@ -248,7 +258,7 @@ function setFitWidthInParent(parent,self){
 	<div class="center_con_div" id="center_con_div">
 		<div class="page_location_div">任务包列表-编辑任务包</div>
 		
-		<div id="edit_div">
+		<div class="edit_div" id="edit_div">
 			<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
 			<input type="hidden" id="id" name="id" value="${requestScope.taskBag.id }"/>
 			<input type="hidden" id="uploadUserId" name="uploadUserId" value="${sessionScope.user.id }"/>
@@ -308,7 +318,8 @@ function setFitWidthInParent(parent,self){
 					附件
 				</td>
 				<td class="td2">
-					<input type="file" id="annex_file" name="annex_file"/>
+					${requestScope.taskBag.annexFileUrl }
+					<input type="file" class="annex_file" id="annex_file" name="annex_file"/>
 				</td>
 			  </tr>
 			  <tr>
