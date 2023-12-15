@@ -16,7 +16,7 @@
 				content,
 			</if>
 				createTime,
-				read
+				`read`
 		</trim>
 		values
 		<trim prefix="(" suffix=")" suffixOverrides=",">

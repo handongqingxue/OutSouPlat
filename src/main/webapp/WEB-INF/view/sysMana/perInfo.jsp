@@ -145,9 +145,10 @@ function initPerInfoDialog(){
 	$("#perInfo_div table .td1").css("width","10%");
 	$("#perInfo_div table .td2").css("width","15%");
 	$("#perInfo_div table .td3").css("width","60%");
+	$("#perInfo_div table .td4").css("width","85%");
 	$("#perInfo_div table tr").css("border-bottom","#CAD9EA solid 1px");
 	$("#perInfo_div table tr").each(function(i){
-		$(this).css("height",(i==3?400:45)+"px");
+		$(this).css("height",(i==4?400:45)+"px");
 	});
 
 	$(".panel.window").eq(perinfodNum).css("margin-top","20px");
@@ -550,7 +551,7 @@ function setFitWidthInParent(parent,self){
 	<div class="center_con_div" id="center_con_div">
 		<div class="page_location_div">系统管理-用户信息</div>
 		
-		<div id="perInfo_div">
+		<div class="perInfo_div" id="perInfo_div">
 			<form id="form1" name="form1" method="post" action="" enctype="multipart/form-data">
 			<table>
 			  <tr>
@@ -604,9 +605,17 @@ function setFitWidthInParent(parent,self){
 					${requestScope.user.deveLang }
 				</td>
 				<td class="td1" align="right">
-					项目经历
+					角色
 				</td>
 				<td class="td3">
+					${requestScope.user.roleNames }
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					项目经历
+				</td>
+				<td class="td4" colspan="3">
 					<div class="proExp_div">${requestScope.user.proExp }</div>
 				</td>
 			  </tr>

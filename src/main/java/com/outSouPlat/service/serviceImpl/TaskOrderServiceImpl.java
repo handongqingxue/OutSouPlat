@@ -21,6 +21,8 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	private TaskOrderMapper taskOrderDao;
 	@Autowired
 	private TaskBagMapper taskBagDao;
+	@Autowired
+	private SysNoticeMapper sysNoticeDao;
 	private DateFormat yMdHmsSDF=new SimpleDateFormat("yyyyMMddHHmmss");
 
 	@Override
@@ -50,6 +52,7 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 			sysNotice.setSendUserId(sendUserId);
 			sysNotice.setTitle("任务单废弃");
 			sysNotice.setContent("任务单"+nos+"已废弃，操作用户"+sendUsername);
+			sysNoticeDao.add(sysNotice);
 		}
 		return count;
 	}
