@@ -115,6 +115,8 @@ var testingStateName;
 var unPassStateName;
 var unPayStateName;
 var paidStateName;
+
+var userId;
 $(function(){
 	initTOStateVar();
 	initUTRStateVar();
@@ -127,6 +129,7 @@ $(function(){
 	initFinishTimeEndDTB();
 	initTOStateCBB();
 	initSearchLB();
+	initQTOUserId();
 	initTab1();
 	
 	initUploadCodeDialog();//0
@@ -432,10 +435,26 @@ function initUtrStateCBB(){
 	});
 }
 
+function initQTOUserId(){
+	if('${sessionUsernameStr}'=='${usernameStr}'){
+		userId="";
+	}
+	else{
+		var roleNames='${sessionScope.user.roleNames}';
+		if(roleNames.includes("技术人员")){
+			userId="";
+		}
+		else{
+			userId='${sessionUserIdStr}';
+		}
+	}
+}
+
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"任务单查询",
 		url:taskBagManaPath+"queryTaskOrderList",
+		queryParams:{userId:userId},
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body","tab1_div"),
 		pagination:true,

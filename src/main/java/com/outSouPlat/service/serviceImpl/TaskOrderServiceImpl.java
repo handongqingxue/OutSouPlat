@@ -59,18 +59,18 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 
 	@Override
 	public int queryForInt(String no, String taskBagName, String userName, String createTimeStart, String createTimeEnd,
-			String finishTimeStart, String finishTimeEnd, Integer state) {
+			String finishTimeStart, String finishTimeEnd, Integer state, Integer userId) {
 		// TODO Auto-generated method stub
-		return taskOrderDao.queryForInt(no, taskBagName, userName, createTimeStart, createTimeEnd, finishTimeStart, finishTimeEnd, state);
+		return taskOrderDao.queryForInt(no, taskBagName, userName, createTimeStart, createTimeEnd, finishTimeStart, finishTimeEnd, state, userId);
 	}
 
 	@Override
 	public List<TaskOrder> queryList(String no, String taskBagName, String userName, String createTimeStart,
-			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, int page, int rows,
-			String sort, String order) {
+			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, Integer userId, 
+			int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return taskOrderDao.queryList(no, taskBagName, userName, createTimeStart, createTimeEnd, 
-				finishTimeStart, finishTimeEnd, state, (page-1)*rows, rows, sort, order);
+				finishTimeStart, finishTimeEnd, state, userId, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

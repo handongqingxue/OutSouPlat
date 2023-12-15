@@ -13,10 +13,10 @@
 .tab1_div .toolbar{
 	height:32px;
 }
-.tab1_div .toolbar .mc_span{
+.tab1_div .toolbar .name_span{
 	margin-left: 13px;
 }
-.tab1_div .toolbar .mc_inp{
+.tab1_div .toolbar .name_inp{
 	width: 120px;height: 25px;
 }
 .tab1_div .toolbar .search_but{
@@ -38,8 +38,8 @@ function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var mc=$("#toolbar #mc").val();
-			tab1.datagrid("load",{mc:mc});
+			var name=$("#toolbar #name").val();
+			tab1.datagrid("load",{name:name});
 		}
 	});
 }
@@ -96,8 +96,8 @@ function setFitWidthInParent(o){
 	<%@include file="../../inc/side.jsp"%>
 	<div class="tab1_div" id="tab1_div">
 		<div class="toolbar" id="toolbar">
-			<span class="mc_span">名称：</span>
-			<input type="text" class="mc_inp" id="mc" placeholder="请输入名称"/>
+			<span class="name_span">名称：</span>
+			<input type="text" class="name_inp" id="name" placeholder="请输入名称"/>
 			<a class="search_but" id="search_but">查询</a>
 			<a id="add_but">添加</a>
 		</div>

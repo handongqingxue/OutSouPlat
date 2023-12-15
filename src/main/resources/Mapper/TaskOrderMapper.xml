@@ -53,6 +53,9 @@
 		<if test="state!=''&amp;state!=null">
 			and `to`.state=#{state}
 		</if>
+		<if test="userId!=''&amp;userId!=null">
+			and `to`.userId=#{userId}
+		</if>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.TaskOrder">
 		select `to`.*,tb.name taskBagName,u.userName from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id
@@ -73,6 +76,9 @@
 		</if>
 		<if test="state!=''&amp;state!=null">
 			and `to`.state=#{state}
+		</if>
+		<if test="userId!=''&amp;userId!=null">
+			and `to`.userId=#{userId}
 		</if>
 		order by `to`.createTime desc
 		limit #{rowNum},#{rows}

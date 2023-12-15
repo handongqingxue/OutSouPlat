@@ -11,10 +11,10 @@ public interface TaskOrderService {
 	int discardByIds(String ids, String nos, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername);
 
 	int queryForInt(String no, String taskBagName, String userName, String createTimeStart,
-			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state);
+			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, Integer userId);
 
 	List<TaskOrder> queryList(String no, String taskBagName, String userName, String createTimeStart,
-			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, 
+			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, Integer userId, 
 			int page, int rows, String sort, String order);
 
 	TaskOrder selectById(String id);
