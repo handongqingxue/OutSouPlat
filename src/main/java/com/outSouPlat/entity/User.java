@@ -65,6 +65,24 @@ public class User {
 	public void setWeixin(String weixin) {
 		this.weixin = weixin;
 	}
+	public String getEducation() {
+		return education;
+	}
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	public String getDeveLang() {
+		return deveLang;
+	}
+	public void setDeveLang(String deveLang) {
+		this.deveLang = deveLang;
+	}
+	public String getProExp() {
+		return proExp;
+	}
+	public void setProExp(String proExp) {
+		this.proExp = proExp;
+	}
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -100,6 +118,9 @@ public class User {
 	private String phone;
 	private String qq;
 	private String weixin;
+	private String education;//学历
+	private String deveLang;//擅长的开发语言
+	private String proExp;//项目经历
 	private String createTime;
 	private String roleIds;
 	private String roleNames;

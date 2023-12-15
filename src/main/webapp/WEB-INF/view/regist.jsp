@@ -52,7 +52,7 @@ body .beg-login-bg {
 
 .layui-form-item>label {
 	font-size: 14px;
-	width: 90px;
+	width: 100px;
 	font-weight: 600;
 }
 
@@ -62,6 +62,11 @@ body .beg-login-bg {
 
 .layui-form {
 	width: 90%
+}
+.proExp_ta{
+	width: 500px;
+	height: 200px;
+	margin-bottom: 20px;
 }
 </style>
 </head>
@@ -120,6 +125,27 @@ body .beg-login-bg {
 			</div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">学历</label>
+			<div class="layui-input-inline">
+				<input type="text" name="education" required lay-verify="required|education"
+					placeholder="请输入学历" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">擅长的开发语言</label>
+			<div class="layui-input-inline">
+				<input type="text" name="deveLang" required lay-verify="required|deveLang"
+					placeholder="请输入擅长的开发语言" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">项目经历</label>
+			<div class="layui-input-inline">
+				<textarea name="proExp" required lay-verify="required|proExp"
+					placeholder="请输入项目经历" autocomplete="off" class="layui-input proExp_ta"></textarea>
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
 				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -142,13 +168,16 @@ layui.use('form', function() {
     		alert("电话、qq、微信号必须填写其中一个");
     		return false
     	}
-		url=baseUrl+"/main/regist"
-		data.field.password=MD5(data.field.password).toUpperCase();
+    	data.field.username=data.field.username.trim();
+		data.field.password=MD5(data.field.password.trim()).toUpperCase();
+		var url=baseUrl+"/main/regist";
 		$.post(url,data.field,function(result){
 			console.log(result)
 			if(result.status==0){
+				alert(result.msg)
 				window.location.href=baseUrl+result.url
-			}else if(result.status==2){
+			}
+			else if(result.status==2){
 				alert(result.msg)
 			}
 		},"json")

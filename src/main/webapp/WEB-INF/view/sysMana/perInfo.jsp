@@ -57,14 +57,24 @@
 }
 
 .updPerInfo_div{
-	width: 500px;
-	height: 350px;
-	margin: 220px auto 0;
+	width: 800px;
+	height: 610px;
+	margin: 120px auto 0;
 	background-color: #fff;
 	border-radius:5px;
 	position: absolute;
 	left: 0;
 	right: 0;
+}
+
+.perInfo_div .proExp_div{
+	width: 100%;
+	height: 380px;
+	overflow-y:scroll;
+}
+.proExp_ta{
+	width: 500px;
+	height: 200px;
 }
 </style>
 <script type="text/javascript">
@@ -76,8 +86,9 @@ var dialogLeft=20;
 var perinfodNum=0;
 var updpwddNum=1;
 var updperinfodNum=2;
+var phoneFlag,qqFlag,weixinFlag;
 $(function(){
-	initYhxxDialog();//0
+	initPerInfoDialog();//0
 	
 	initUpdPwdDialog();//1
 	
@@ -111,12 +122,12 @@ function initDialogPosition(){
 	updperinfodDiv.append(updperinfodws);
 }
 
-function initYhxxDialog(){
+function initPerInfoDialog(){
 	dialogTop+=20;
 	$("#perInfo_div").dialog({
 		title:"用户信息",
 		width:setFitWidthInParent("body","perInfo_div"),
-		height:280,
+		height:700,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[
@@ -128,13 +139,16 @@ function initYhxxDialog(){
 
 	$("#perInfo_div table").css("width",(setFitWidthInParent("body","perInfo_div_table"))+"px");
 	$("#perInfo_div table").css("magin","-100px");
-	$("#perInfo_div table td").css("padding-left","50px");
+	$("#perInfo_div table td").css("padding-left","20px");
 	$("#perInfo_div table td").css("padding-right","20px");
 	$("#perInfo_div table td").css("font-size","15px");
-	$("#perInfo_div table .td1").css("width","15%");
-	$("#perInfo_div table .td2").css("width","30%");
+	$("#perInfo_div table .td1").css("width","10%");
+	$("#perInfo_div table .td2").css("width","15%");
+	$("#perInfo_div table .td3").css("width","60%");
 	$("#perInfo_div table tr").css("border-bottom","#CAD9EA solid 1px");
-	$("#perInfo_div table tr").css("height","45px");
+	$("#perInfo_div table tr").each(function(i){
+		$(this).css("height",(i==3?400:45)+"px");
+	});
 
 	$(".panel.window").eq(perinfodNum).css("margin-top","20px");
 	$(".panel.window .panel-title").eq(perinfodNum).css("color","#000");
@@ -223,7 +237,7 @@ function initUpdPerInfoDialog(){
 	$("#updPerInfo_dialog_div").dialog({
 		title:"修改用户信息",
 		width:setFitWidthInParent("#updPerInfo_div","updPerInfo_dialog_div"),
-		height:290,
+		height:560,
 		top:5,
 		left:dialogLeft,
 		buttons:[
@@ -238,11 +252,11 @@ function initUpdPerInfoDialog(){
 
 	$("#updPerInfo_dialog_div table").css("width",(setFitWidthInParent("#updPerInfo_div","xgyhxx_dialog_table"))+"px");
 	$("#updPerInfo_dialog_div table").css("magin","-100px");
-	$("#updPerInfo_dialog_div table td").css("padding-left","40px");
+	$("#updPerInfo_dialog_div table td").css("padding-left","20px");
 	$("#updPerInfo_dialog_div table td").css("padding-right","20px");
 	$("#updPerInfo_dialog_div table td").css("font-size","15px");
-	$("#updPerInfo_dialog_div table .td1").css("width","30%");
-	$("#updPerInfo_dialog_div table .td2").css("width","60%");
+	$("#updPerInfo_dialog_div table .td1").css("width","35%");
+	$("#updPerInfo_dialog_div table .td2").css("width","55%");
 	$("#updPerInfo_dialog_div table tr").css("height","45px");
 
 	$(".panel.window").eq(updperinfodNum).css("margin-top","20px");
@@ -271,7 +285,7 @@ function checkEditPwd(){
 	if(checkPassword()){
 		if(checkNewPassword()){
 			if(checkNewPassword2()){
-				var password = $("#newPassword").val();
+				var password = $("#newPassword").val().trim();
 				$.post(sysManaPath+"updatePwdByUserId",
 					{password:MD5(password).toUpperCase()},
 					//{password:password},
@@ -333,7 +347,7 @@ function checkNewPassword(){
 	var password = $("#password").val();
 	var newPassword = $("#newPassword").val();
 	if(newPassword==null||newPassword==""){
-  	alert("新密码不能为空");
+  		alert("新密码不能为空");
   	return false;
 	}
 	if(newPassword==password){
@@ -364,97 +378,140 @@ function checkEditYhxx(){
 	if(checkPhone()){
 		if(checkQq()){
 			if(checkWeixin()){
-				var id='${sessionScope.user.id}';
-				var phone = $("#phone").val();
-				var qq = $("#qq").val();
-				var weixin = $("#weixin").val();
-				var state='${requestScope.user.state }';
-				var noCheckState='${requestScope.noCheckState }';
-				var editingState='${requestScope.editingState }';
-				if(state==editingState)
-					state=noCheckState;
-				$.post(sysManaPath+"editUser",
-					{id:id,phone:phone,qq:qq,weixin:weixin,state:state},
-					function(data){
-						openUpdPerInfoDialog(false);
-						if(data.message=="ok"){
-							$.messager.defaults.ok = "是";
-						    $.messager.defaults.cancel = "否";
-						    $.messager.defaults.width = 350;//更改消息框宽度
-						    $.messager.confirm(
-						    	"提示",
-						    	"编辑用户信息成功，重新登录生效！是否重新登录？"
-						        ,function(r){    
-						            if (r){    
-						                location.href=mainPath+"exit";
-						            }
-						        }); 
-						}
-						else{
-							$.messager.alert("提示","编辑用户信息失败","warning");
+				if(checkEducation()){
+					if(checkDeveLang()){
+						if(checkProExp()){
+					    	if(phoneFlag==false&qqFlag==false&weixinFlag==false){
+					    		alert("电话、qq、微信号必须填写其中一个");
+					    		return false
+					    	}
+							var id='${sessionScope.user.id}';
+							var phone = $("#phone").val();
+							var qq = $("#qq").val();
+							var weixin = $("#weixin").val();
+							var education = $("#education").val();
+							var deveLang = $("#deveLang").val();
+							var proExp = $("#proExp").val();
+							var state='${requestScope.user.state }';
+							var noCheckState='${requestScope.noCheckState }';
+							var editingState='${requestScope.editingState }';
+							if(state==editingState)
+								state=noCheckState;
+							$.post(sysManaPath+"editUser",
+								{id:id,phone:phone,qq:qq,weixin:weixin,education:education,deveLang:deveLang,proExp:proExp,state:state},
+								function(data){
+									openUpdPerInfoDialog(false);
+									if(data.message=="ok"){
+										$.messager.defaults.ok = "是";
+									    $.messager.defaults.cancel = "否";
+									    $.messager.defaults.width = 350;//更改消息框宽度
+									    $.messager.confirm(
+									    	"提示",
+									    	"编辑用户信息成功，重新登录生效！是否重新登录？"
+									        ,function(r){    
+									            if (r){    
+									                location.href=mainPath+"exit";
+									            }
+									        }); 
+									}
+									else{
+										$.messager.alert("提示","编辑用户信息失败","warning");
+									}
+								}
+							);
 						}
 					}
-				);
+				}
 			}
 		}
-	}
-}
-
-function focusPhone(){
-	var phone = $("#phone").val();
-	if(phone=="电话不能为空"){
-		$("#phone").val("");
-		$("#phone").css("color", "#555555");
 	}
 }
 
 //验证电话
 function checkPhone(){
 	var phone = $("#phone").val();
-	if(phone==null||phone==""||phone=="电话不能为空"){
-		$("#phone").css("color","#E15748");
-	  	$("#phone").val("电话不能为空");
-	  	return false;
-	}
+	if(phone==""||phone==null)
+		phoneFlag=false;
 	else
-		return true;
-}
-
-function focusQq(){
-	var qq = $("#qq").val();
-	if(qq=="qq不能为空"){
-		$("#qq").val("");
-		$("#qq").css("color", "#555555");
-	}
+		phoneFlag=true;
+	return true;
 }
 
 //验证qq
 function checkQq(){
 	var qq = $("#qq").val();
-	if(qq==null||qq==""||qq=="qq不能为空"){
-		$("#qq").css("color","#E15748");
-	  	$("#qq").val("qq不能为空");
-	  	return false;
-	}
+	if(qq==""||qq==null)
+		qqFlag=false;
 	else
-		return true;
-}
-
-function focusWeixin(){
-	var weixin = $("#weixin").val();
-	if(weixin=="微信不能为空"){
-		$("#weixin").val("");
-		$("#weixin").css("color", "#555555");
-	}
+		qqFlag=true;
+	return true;
 }
 
 //验证微信
 function checkWeixin(){
 	var weixin = $("#weixin").val();
-	if(weixin==null||weixin==""||weixin=="微信不能为空"){
-		$("#weixin").css("color","#E15748");
-	  	$("#weixin").val("微信不能为空");
-	  	return false;
+	if(weixin==""||weixin==null)
+		weixinFlag=false;
+	else
+		weixinFlag=true;
+	return true;
+}
+
+function focusEducation(){
+	var education = $("#education").val();
+	if(education=="学历不能为空"){
+		$("#education").val("");
+		$("#education").css("color", "#555555");
+	}
+}
+
+//验证学历
+function checkEducation(){
+	var education = $("#education").val();
+	if(education==null||education==""||education=="学历不能为空"){
+		$("#education").css("color","#E15748");
+    	$("#education").val("学历不能为空");
+    	return false;
+	}
+	else
+		return true;
+}
+
+function focusDeveLang(){
+	var deveLang = $("#deveLang").val();
+	if(deveLang=="擅长的开发语言不能为空"){
+		$("#deveLang").val("");
+		$("#deveLang").css("color", "#555555");
+	}
+}
+
+//验证擅长的开发语言
+function checkDeveLang(){
+	var deveLang = $("#deveLang").val();
+	if(deveLang==null||deveLang==""||deveLang=="擅长的开发语言不能为空"){
+		$("#deveLang").css("color","#E15748");
+    	$("#deveLang").val("擅长的开发语言不能为空");
+    	return false;
+	}
+	else
+		return true;
+}
+
+function focusProExp(){
+	var proExp = $("#proExp").val();
+	if(proExp=="项目经历不能为空"){
+		$("#proExp").val("");
+		$("#proExp").css("color", "#555555");
+	}
+}
+
+//验证项目经历
+function checkProExp(){
+	var proExp = $("#proExp").val();
+	if(proExp==null||proExp==""||proExp=="项目经历不能为空"){
+		$("#proExp").css("color","#E15748");
+    	$("#proExp").val("项目经历不能为空");
+    	return false;
 	}
 	else
 		return true;
@@ -506,7 +563,7 @@ function setFitWidthInParent(parent,self){
 				<td class="td1" align="right">
 					手机号
 				</td>
-				<td class="td2">
+				<td class="td3">
 					${requestScope.user.phone }
 				</td>
 			  </tr>
@@ -520,7 +577,7 @@ function setFitWidthInParent(parent,self){
 				<td class="td1" align="right">
 					密码
 				</td>
-				<td class="td2">
+				<td class="td3">
 					已设置
 					<div class="uploadBut_div updPwdBut_div" onclick="openUpdPwdDialog(true)">修改密码</div>
 				</td>
@@ -533,26 +590,42 @@ function setFitWidthInParent(parent,self){
 					${requestScope.user.weixin }
 				</td>
 				<td class="td1" align="right">
+					学历
+				</td>
+				<td class="td3">
+					${requestScope.user.education }
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					擅长的开发语言
+				</td>
+				<td class="td2">
+					${requestScope.user.deveLang }
+				</td>
+				<td class="td1" align="right">
+					项目经历
+				</td>
+				<td class="td3">
+					<div class="proExp_div">${requestScope.user.proExp }</div>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
 					创建时间
 				</td>
 				<td class="td2">
 					${requestScope.user.createTime }
 				</td>
-			  </tr>
-			  <tr>
 				<td class="td1" align="right">
 					状态
 				</td>
-				<td class="td2">
+				<td class="td3">
 					<c:choose>
 						<c:when test="${requestScope.user.state eq requestScope.noCheckState }">${requestScope.noCheckStateName }</c:when>
 						<c:when test="${requestScope.user.state eq requestScope.checkedState }">${requestScope.checkedStateName }</c:when>
 						<c:when test="${requestScope.user.state eq requestScope.editingState }">${requestScope.editingStateName }</c:when>
 					</c:choose>
-				</td>
-				<td class="td1" align="right">
-				</td>
-				<td class="td2">
 				</td>
 			  </tr>
 			</table>
@@ -604,7 +677,7 @@ function setFitWidthInParent(parent,self){
 						电话
 					</td>
 					<td class="td2">
-						<input type="text" id="phone" value="${requestScope.user.phone }" placeholder="电话" onfocus="focusPhone()" onblur="checkPhone()"/>
+						<input type="text" id="phone" value="${requestScope.user.phone }" placeholder="请输入电话" onblur="checkPhone()"/>
 					</td>
 				  </tr>
 				  <tr>
@@ -612,7 +685,7 @@ function setFitWidthInParent(parent,self){
 						qq
 					</td>
 					<td class="td2">
-						<input type="text" id="qq" value="${requestScope.user.qq }" placeholder="姓名" onfocus="focusQq()" onblur="checkQq()"/>
+						<input type="text" id="qq" value="${requestScope.user.qq }" placeholder="请输入qq" onblur="checkQq()"/>
 					</td>
 				  </tr>
 				  <tr>
@@ -620,7 +693,31 @@ function setFitWidthInParent(parent,self){
 						微信
 					</td>
 					<td class="td2">
-						<input type="text" id="weixin" value="${requestScope.user.weixin }" placeholder="微信" onfocus="focusWeixin()" onblur="checkWeixin()"/>
+						<input type="text" id="weixin" value="${requestScope.user.weixin }" placeholder="请输入微信" onblur="checkWeixin()"/>
+					</td>
+				  </tr>
+				  <tr>
+					<td class="td1" align="right">
+						学历
+					</td>
+					<td class="td2">
+						<input type="text" id="education" value="${requestScope.user.education }" placeholder="请输入学历" onfocus="focusEducation()" onblur="checkEducation()"/>
+					</td>
+				  </tr>
+				  <tr>
+					<td class="td1" align="right">
+						擅长的开发语言
+					</td>
+					<td class="td2">
+						<input type="text" id="deveLang" value="${requestScope.user.deveLang }" placeholder="请输入擅长的开发语言" onfocus="focusDeveLang()" onblur="checkDeveLang()"/>
+					</td>
+				  </tr>
+				  <tr>
+					<td class="td1" align="right">
+						项目经历
+					</td>
+					<td class="td2">
+						<textarea type="text" class="proExp_ta" id="proExp" placeholder="请输入项目经历" onfocus="focusProExp()" onblur="checkProExp()">${requestScope.user.proExp }</textarea>
 					</td>
 				  </tr>
 				</table>

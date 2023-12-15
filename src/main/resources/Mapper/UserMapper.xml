@@ -47,6 +47,15 @@
 			<if test="weixin!=null">
 				weixin,
 			</if>
+			<if test="education!=null">
+				education,
+			</if>
+			<if test="deveLang!=null">
+				deveLang,
+			</if>
+			<if test="proExp!=null">
+				proExp,
+			</if>
 				createTime,
 				state,
 		</trim>
@@ -67,6 +76,15 @@
 			<if test="weixin!=null">
 				#{weixin},
 			</if>
+			<if test="education!=null">
+				#{education},
+			</if>
+			<if test="deveLang!=null">
+				#{deveLang},
+			</if>
+			<if test="proExp!=null">
+				#{proExp},
+			</if>
 				now(),
 				${@com.outSouPlat.entity.User@NO_CHECK},
 		</trim>
@@ -85,6 +103,15 @@
 			</if>
 			<if test="weixin!=null">
 				weixin=#{weixin},
+			</if>
+			<if test="education!=null">
+				education=#{education},
+			</if>
+			<if test="deveLang!=null">
+				deveLang=#{deveLang},
+			</if>
+			<if test="proExp!=null">
+				proExp=#{proExp},
 			</if>
 			<if test="state!=null">
 				state=#{state},
