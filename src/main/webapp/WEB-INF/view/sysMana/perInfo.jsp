@@ -348,11 +348,11 @@ function checkNewPassword(){
 	var newPassword = $("#newPassword").val();
 	if(newPassword==null||newPassword==""){
   		alert("新密码不能为空");
-  	return false;
+  		return false;
 	}
 	if(newPassword==password){
 		alert("新密码不能和原密码一致！");
-  	return false;
+  		return false;
 	}
 	else
 		return true;
@@ -363,12 +363,12 @@ function checkNewPassword2(){
 	var newPassword = $("#newPassword").val();
 	var newPassword2 = $("#newPassword2").val();
 	if(newPassword2==null||newPassword2==""){
-  	alert("确认密码不能为空");
-  	return false;
+	  	alert("确认密码不能为空");
+	  	return false;
 	}
 	else if(newPassword!=newPassword2){
 		alert("两次密码不一致！");
-  	return false;
+  		return false;
 	}
 	else
 		return true;
