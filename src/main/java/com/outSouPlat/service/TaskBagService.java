@@ -22,4 +22,6 @@ public interface TaskBagService {
 
 	int submitById(Integer id);
 
+	int updateOrderUserId(Integer id, String name, Integer uploadUserId, Integer orderUserId, String orderUserName, String flag);
+
 }

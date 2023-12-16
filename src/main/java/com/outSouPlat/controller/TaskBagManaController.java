@@ -301,6 +301,33 @@ public class TaskBagManaController {
 		return jsonMap;
 	}
 	
+	@RequestMapping(value="/updateOrderUserId")
+	@ResponseBody
+	public Map<String, Object> updateOrderUserId(Integer id,String name,Integer uploadUserId,Integer orderUserId,String orderUserName,String flag) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {
+			int count=taskBagService.updateOrderUserId(id,name,uploadUserId,orderUserId,orderUserName,flag);
+			if(count>0) {
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "接单请求已发出，有待发包人同意，请留意系统管理-通知查询。");
+			}
+			else {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "接单请求发出失败！");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "接单请求发出失败！");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
 	@RequestMapping(value="/newTaskOrder")
 	@ResponseBody
 	public Map<String, Object> newTaskOrder(TaskOrder taskOrder) {

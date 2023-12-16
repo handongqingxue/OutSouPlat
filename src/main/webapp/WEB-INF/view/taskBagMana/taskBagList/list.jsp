@@ -260,7 +260,7 @@ function initTab1(){
 	            	}
 	            	if(showOrderOptionBut){
 			            if(row.state==unOrderState)
-			            	str+="<a onclick=\"receiveOrder("+value+")\">接单</a>&nbsp;&nbsp;";
+			            	str+="<a onclick=\"updateOrderUserId("+value+",'"+row.name+"',"+row.uploadUserId+",'update')\">接单</a>&nbsp;&nbsp;";
 	            	}
             	return str;
             }}
@@ -315,6 +315,23 @@ function submitById(id){
 			}
 			else{
 				alert(data.msg);
+			}
+		}
+	,"json");
+}
+
+function updateOrderUserId(id,name,uploadUserId,flag){
+	var orderUserId='${sessionScope.user.id}';
+	var orderUserName='${sessionScope.user.username}';
+	$.post(taskBagManaPath+"updateOrderUserId",
+		{id:id,name:name,uploadUserId:uploadUserId,orderUserId:orderUserId,orderUserName:orderUserName,flag:flag},
+		function(data){
+			if(data.message=="ok"){
+				alert(data.info);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(data.info);
 			}
 		}
 	,"json");

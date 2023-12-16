@@ -33,7 +33,7 @@ public class TaskOrder {
 	/**
 	 * 已废弃
 	 */
-	public static final int DISCARDED=8;//3
+	public static final int DISCARDED=8;
 	
 	/**
 	 * 开发中

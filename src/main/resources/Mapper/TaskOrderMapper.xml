@@ -30,7 +30,7 @@
 				#{userId},
 			</if>
 				now(),
-				${@com.outSouPlat.entity.TaskOrder@UN_FINISH}
+				${@com.outSouPlat.entity.TaskOrder@DEVELOPING}
 		</trim>
 	</insert>
 	<select id="queryForInt" resultType="java.lang.Integer">

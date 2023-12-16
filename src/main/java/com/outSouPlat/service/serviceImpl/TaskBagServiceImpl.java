@@ -23,6 +23,8 @@ public class TaskBagServiceImpl implements TaskBagService {
 	private ProjectMapper projectDao;
 	@Autowired
 	private TaskBagMapper taskBagDao;
+	@Autowired
+	private SysNoticeMapper sysNoticeDao;
 
 	@Override
 	public int queryForInt(String name, String projectName, String uploadUserName, String createTimeStart,
@@ -117,5 +119,40 @@ public class TaskBagServiceImpl implements TaskBagService {
 	public int submitById(Integer id) {
 		// TODO Auto-generated method stub
 		return taskBagDao.updateStateById(TaskBag.UN_ORDER, id);
+	}
+
+	@Override
+	public int updateOrderUserId(Integer id, String name, Integer uploadUserId, Integer orderUserId,
+			String orderUserName,String flag) {
+		// TODO Auto-generated method stub
+		int count=0;
+		if("clear".equals(flag))
+			count=taskBagDao.updateOrderUserId(id,null,TaskBag.UN_ORDER);
+		else
+			count=taskBagDao.updateOrderUserId(id,orderUserId,TaskBag.ORDER_CHECKING);
+		
+		if(count>0) {
+			int sendUserId=0;
+			String title=null;
+			String content=null;
+			if("clear".equals(flag)) {
+				sendUserId=orderUserId;
+				title="拒绝接单";
+				content="您的接单请求已被拒绝。";
+			}
+			else {
+				sendUserId=uploadUserId;
+				title="申请接单";
+				content="兼职用户"+orderUserName+"申请接取任务包"+name+",请到任务包管理-任务包查询里查看。";
+			}
+			
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setSendUserId(sendUserId);
+			sysNotice.setTitle(title);
+			sysNotice.setContent(content);
+			
+			sysNoticeDao.add(sysNotice);
+		}
+		return count;
 	}
 }

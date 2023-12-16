@@ -5,11 +5,11 @@ public class TaskBag {
 	/**
 	 * 未发布
 	 */
-	public static final int UN_SUBMIT=1;//1
+	public static final int UN_SUBMIT=1;
 	/**
 	 * 未接单
 	 */
-	public static final int UN_ORDER=2;//2
+	public static final int UN_ORDER=2;
 	/**
 	 * 接单审核中
 	 */
@@ -17,7 +17,7 @@ public class TaskBag {
 	/**
 	 * 开发中
 	 */
-	public static final int DEVELOPING=4;//3
+	public static final int DEVELOPING=4;
 	/**
 	 * 测试中
 	 */
