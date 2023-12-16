@@ -245,7 +245,7 @@ function initSearchLB(){
 			var state=stateCBB.combobox("getValue");
 			
 			tab1.datagrid("load",{no:no,taskBagName:taskBagName,userName:userName,createTimeStart:createTimeStart,
-				createTimeEnd:createTimeEnd,finishTimeStart:finishTimeStart,finishTimeEnd:finishTimeEnd,state:state});
+				createTimeEnd:createTimeEnd,finishTimeStart:finishTimeStart,finishTimeEnd:finishTimeEnd,state:state,userId:userId});
 		}
 	});
 }

@@ -58,7 +58,7 @@
 		 where id=#{id}
 	</update>
 	<select id="queryForInt" resultType="java.lang.Integer">
-		select count(*) from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id
+		select count(*) from test_result tr,task_order `to`,task_bag tb,user testu where tr.orderId=`to`.id and tr.testUserId=testu.id and `to`.taskBagId=tb.id
 		<if test="orderNo!=''&amp;orderNo!=null">
 			and `to`.no like CONCAT('%',#{orderNo},'%')
 		</if>
@@ -77,9 +77,17 @@
 		<if test="state!=''&amp;state!=null">
 			and tr.state=#{state}
 		</if>
+		<choose>
+			<when test="roleFlag==@com.outSouPlat.util.Constant@INTER_FLAG">
+			 	and testu.id=#{userId}
+			</when>
+			<when test="roleFlag==@com.outSouPlat.util.Constant@EXTER_FLAG">
+			 	and `to`.userId=#{userId}
+			</when>
+		</choose>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.TestResult">
-		select tr.*,`to`.no orderNo,tb.name taskBagName,u.username testUserName from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id
+		select tr.*,`to`.no orderNo,tb.name taskBagName,testu.username testUserName from test_result tr,task_order `to`,task_bag tb,user testu where tr.orderId=`to`.id and tr.testUserId=testu.id and `to`.taskBagId=tb.id
 		<if test="orderNo!=''&amp;orderNo!=null">
 			and `to`.no like CONCAT('%',#{orderNo},'%')
 		</if>
@@ -98,6 +106,14 @@
 		<if test="state!=''&amp;state!=null">
 			and tr.state=#{state}
 		</if>
+		<choose>
+			<when test="roleFlag==@com.outSouPlat.util.Constant@INTER_FLAG">
+			 	and testu.id=#{userId}
+			</when>
+			<when test="roleFlag==@com.outSouPlat.util.Constant@EXTER_FLAG">
+			 	and `to`.userId=#{userId}
+			</when>
+		</choose>
 		order by tr.createTime desc
 		limit #{rowNum},#{rows}
 	</select>

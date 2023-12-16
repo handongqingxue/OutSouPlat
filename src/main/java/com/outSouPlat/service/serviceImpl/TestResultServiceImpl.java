@@ -29,17 +29,17 @@ public class TestResultServiceImpl implements TestResultService {
 
 	@Override
 	public int queryForInt(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
-			Integer state) {
+			Integer state, Integer userId, Integer roleFlag) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryForInt(orderNo, taskBagName, testUserName, phone, createTimeStart, createTimeEnd, state);
+		return testResultDao.queryForInt(orderNo, taskBagName, testUserName, phone, createTimeStart, createTimeEnd, state, userId, roleFlag);
 	}
 
 	@Override
 	public List<TestResult> queryList(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart,
-			String createTimeEnd, Integer state, int page, int rows, String sort, String order) {
+			String createTimeEnd, Integer state, Integer userId, Integer roleFlag, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
 		return testResultDao.queryList(orderNo, taskBagName, testUserName, phone, createTimeStart, createTimeEnd, 
-				state, (page-1)*rows, rows, sort, order);
+				state, userId, roleFlag, (page-1)*rows, rows, sort, order);
 	}
 
 	@Override

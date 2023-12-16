@@ -60,6 +60,8 @@ var testingStateName;
 var unPassStateName;
 var unPayStateName;
 var paidStateName;
+
+var roleFlag;
 $(function(){
 	initStateVar();
 	showCompontByPermission();
@@ -69,6 +71,7 @@ $(function(){
 	initCreateTimeEndDTB();
 	initStateCBB();
 	initSearchLB();
+	initQTRRoleFlag();
 	initTab1();
 });
 
@@ -138,7 +141,7 @@ function initSearchLB(){
 			var state=stateCBB.combobox("getValue");
 			
 			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,testUserName:testUserName,phone:phone,
-				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,state:state});
+				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,state:state,userId:'${sessionUserIdStr}',roleFlag:roleFlag});
 		}
 	});
 }
@@ -152,10 +155,26 @@ function initRemoveLB(){
 	});
 }
 
+function initQTRRoleFlag(){
+	if(sessionUsernameStr==usernameStr){
+		roleFlag=1;
+	}
+	else{
+		var roleNames='${sessionScope.user.roleNames}';
+		if(roleNames.includes("技术人员")){
+			roleFlag=2;
+		}
+		else{
+			roleFlag=3;
+		}
+	}
+}
+
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"测试结果查询",
 		url:testResultPath+"querySyntheticList",
+		queryParams:{userId:'${sessionUserIdStr}',roleFlag:roleFlag},
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body","tab1_div"),
 		pagination:true,

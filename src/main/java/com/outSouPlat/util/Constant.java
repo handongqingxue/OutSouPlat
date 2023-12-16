@@ -11,6 +11,9 @@ import com.outSouPlat.entity.*;
 public class Constant {
 	
 	public static final String NO_PERM_RETURN_URL="login";
+	public static final int ADMIN_FLAG=1;
+	public static final int INTER_FLAG=2;
+	public static final int EXTER_FLAG=3;
 	
 	/**
 	 * 验证用户是否拥有权限
