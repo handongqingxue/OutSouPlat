@@ -19,7 +19,9 @@
 			<if test="desc!=null">
 				`desc`,
 			</if>
-				state
+			<if test="result!=null">
+				result,
+			</if>
 		</trim>
 		values
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -36,7 +38,9 @@
 			<if test="desc!=null">
 				#{desc},
 			</if>
-				${@com.outSouPlat.entity.TestResult@UN_TEST}
+			<if test="result!=null">
+				#{result},
+			</if>
 		</trim>
 	</insert>
 	<update id="edit" parameterType="com.outSouPlat.entity.TestResult">
@@ -51,8 +55,8 @@
 			<if test="desc!=null">
 				`desc`=#{desc},
 			</if>
-			<if test="state!=null">
-				state=#{state},
+			<if test="result!=null">
+				result=#{result},
 			</if>
 		</trim>
 		 where id=#{id}
@@ -74,8 +78,8 @@
 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
 			and tr.createTime between #{createTimeStart} and #{createTimeEnd}
 		</if>
-		<if test="state!=''&amp;state!=null">
-			and tr.state=#{state}
+		<if test="result!=''&amp;result!=null">
+			and tr.result=#{result}
 		</if>
 		<choose>
 			<when test="roleFlag==@com.outSouPlat.util.Constant@INTER_FLAG">
@@ -103,8 +107,8 @@
 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
 			and tr.createTime between #{createTimeStart} and #{createTimeEnd}
 		</if>
-		<if test="state!=''&amp;state!=null">
-			and tr.state=#{state}
+		<if test="result!=''&amp;result!=null">
+			and tr.result=#{result}
 		</if>
 		<choose>
 			<when test="roleFlag==@com.outSouPlat.util.Constant@INTER_FLAG">

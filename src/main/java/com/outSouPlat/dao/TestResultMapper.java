@@ -13,10 +13,10 @@ public interface TestResultMapper {
 	int edit(TestResult testResult);
 
 	int queryForInt(@Param("orderNo") String orderNo, @Param("taskBagName") String taskBagName, @Param("testUserName") String testUserName, @Param("phone") String phone,
-			@Param("createTimeStart") String createTimeStart, @Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state, @Param("userId") Integer userId, @Param("roleFlag") Integer roleFlag);
+			@Param("createTimeStart") String createTimeStart, @Param("createTimeEnd") String createTimeEnd, @Param("result") Boolean result, @Param("userId") Integer userId, @Param("roleFlag") Integer roleFlag);
 	
 	List<TestResult> queryList(@Param("orderNo") String orderNo, @Param("taskBagName") String taskBagName, @Param("testUserName") String testUserName, @Param("phone") String phone, @Param("createTimeStart") String createTimeStart,
-			@Param("createTimeEnd") String createTimeEnd, @Param("state") Integer state, @Param("userId") Integer userId, @Param("roleFlag") Integer roleFlag, @Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
+			@Param("createTimeEnd") String createTimeEnd, @Param("result") Boolean result, @Param("userId") Integer userId, @Param("roleFlag") Integer roleFlag, @Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
 
 	TestResult selectById(@Param("id") String id);
 }

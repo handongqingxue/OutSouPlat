@@ -144,11 +144,8 @@ function setFitWidthInParent(parent,self){
 				<td class="td2">
 					<!-- https://blog.csdn.net/u012730333/article/details/42081827 -->
 					<c:choose>
-						<c:when test="${requestScope.testResult.state eq requestScope.unTestState }">${requestScope.unTestStateName}</c:when>
-						<c:when test="${requestScope.testResult.state eq requestScope.testingState }">${requestScope.testingStateName}</c:when>
-						<c:when test="${requestScope.testResult.state eq requestScope.unPassState }">${requestScope.unPassStateName}</c:when>
-						<c:when test="${requestScope.testResult.state eq requestScope.unPayState }">${requestScope.unPayStateName}</c:when>
-						<c:when test="${requestScope.testResult.state eq requestScope.paidState }">${requestScope.paidStateName}</c:when>
+						<c:when test="${requestScope.testResult.result eq requestScope.unPass }">${requestScope.unPassName}</c:when>
+						<c:when test="${requestScope.testResult.result eq requestScope.pass }">${requestScope.passName}</c:when>
 					</c:choose>
 				</td>
 			  </tr>

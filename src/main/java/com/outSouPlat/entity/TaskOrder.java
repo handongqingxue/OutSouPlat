@@ -3,26 +3,66 @@ package com.outSouPlat.entity;
 public class TaskOrder {
 	
 	/**
-	 * 未完成
+	 * 开发中
 	 */
-	public static final int UN_FINISH=1;
+	public static final int DEVELOPING=1;
+	/**
+	 * 待测试
+	 */
+	public static final int UN_TEST=2;
+	/**
+	 * 测试中
+	 */
+	public static final int TESTING=3;
+	/**
+	 * 不合格
+	 */
+	public static final int UN_PASS=4;
+	/**
+	 * 待支付佣金
+	 */
+	public static final int UN_PAY=5;
+	/**
+	 * 已支付佣金
+	 */
+	public static final int PAID=6;
 	/**
 	 * 已完成
 	 */
-	public static final int FINISHED=2;
+	public static final int FINISHED=7;
 	/**
 	 * 已废弃
 	 */
-	public static final int DISCARDED=3;
+	public static final int DISCARDED=8;//3
 	
 	/**
-	 * 未完成
+	 * 开发中
 	 */
-	public static final String UN_FINISH_NAME="未完成";
+	public static final String DEVELOPING_NAME="开发中";
 	/**
 	 * 已完成
 	 */
 	public static final String FINISHED_NAME="已完成";
+	/**
+	 * 待测试
+	 */
+	public static final String UN_TEST_NAME="待测试";
+	/**
+	 * 测试中
+	 */
+	public static final String TESTING_NAME="测试中";
+	/**
+	 * 不合格
+	 */
+	public static final String UN_PASS_NAME="不合格";
+	/**
+	 * 待支付佣金
+	 */
+	public static final String UN_PAY_NAME="待支付佣金";
+	/**
+	 * 已支付佣金
+	 */
+	public static final String PAID_NAME="已支付佣金";
 	/**
 	 * 已废弃
 	 */

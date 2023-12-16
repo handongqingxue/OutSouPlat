@@ -3,46 +3,22 @@ package com.outSouPlat.entity;
 public class TestResult {
 
 	/**
-	 * 待测试
+	 * 合格
 	 */
-	public static final int UN_TEST=1;
-	/**
-	 * 测试中
-	 */
-	public static final int TESTING=2;
+	public static final boolean PASS=true;
 	/**
 	 * 不合格
 	 */
-	public static final int UN_PASS=3;
-	/**
-	 * 待支付佣金
-	 */
-	public static final int UN_PAY=4;
-	/**
-	 * 已支付佣金
-	 */
-	public static final int PAID=5;
+	public static final boolean UN_PASS=false;
 	
 	/**
-	 * 待测试
+	 * 合格
 	 */
-	public static final String UN_TEST_NAME="待测试";
-	/**
-	 * 测试中
-	 */
-	public static final String TESTING_NAME="测试中";
+	public static final String PASS_NAME="合格";
 	/**
 	 * 不合格
 	 */
 	public static final String UN_PASS_NAME="不合格";
-	/**
-	 * 待支付佣金
-	 */
-	public static final String UN_PAY_NAME="待支付佣金";
-	/**
-	 * 已支付佣金
-	 */
-	public static final String PAID_NAME="已支付佣金";
 	
 	private Integer id;
 	public Integer getId() {
@@ -99,11 +75,11 @@ public class TestResult {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public Integer getState() {
-		return state;
+	public Boolean getResult() {
+		return result;
 	}
-	public void setState(Integer state) {
-		this.state = state;
+	public void setResult(Boolean result) {
+		this.result = result;
 	}
 	private Integer orderId;
 	private String orderNo;
@@ -113,5 +89,5 @@ public class TestResult {
 	private String createTime;
 	private String phone;
 	private String desc;
-	private Integer state;
+	private Boolean result;
 }

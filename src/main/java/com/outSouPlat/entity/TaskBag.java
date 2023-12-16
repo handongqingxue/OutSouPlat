@@ -5,23 +5,27 @@ public class TaskBag {
 	/**
 	 * 未发布
 	 */
-	public static final int UN_SUBMIT=1;
+	public static final int UN_SUBMIT=1;//1
 	/**
 	 * 未接单
 	 */
-	public static final int UN_ORDER=2;
+	public static final int UN_ORDER=2;//2
+	/**
+	 * 接单审核中
+	 */
+	public static final int ORDER_CHECKING=3;
 	/**
 	 * 开发中
 	 */
-	public static final int DEVELOPING=3;
+	public static final int DEVELOPING=4;//3
 	/**
 	 * 测试中
 	 */
-	public static final int TESTING=4;
+	public static final int TESTING=5;
 	/**
 	 * 已完成
 	 */
-	public static final int FINISH=5;
+	public static final int FINISH=6;
 	
 	/**
 	 * 未发布
@@ -31,6 +35,10 @@ public class TaskBag {
 	 * 未接单
 	 */
 	public static final String UN_ORDER_NAME="未接单";
+	/**
+	 * 接单审核中
+	 */
+	public static final String ORDER_CHECKING_NAME="接单审核中";
 	/**
 	 * 开发中
 	 */

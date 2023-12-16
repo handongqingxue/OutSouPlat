@@ -96,30 +96,34 @@ var dialogLeft=20;
 var ucdNum=0;
 var utrdNum=1;
 
-var unFinishState;
-var finishedState;
-var discardedState;
-
-var unFinishStateName;
-var finishedStateName;
-var discardedStateName;
-
+var developingState;
 var unTestState;
 var testingState;
 var unPassState;
 var unPayState;
 var paidState;
+var finishedState;
+var discardedState;
 
+var developingStateName;
 var unTestStateName;
 var testingStateName;
 var unPassStateName;
 var unPayStateName;
 var paidStateName;
+var finishedStateName;
+var discardedStateName;
+
+var unPass;
+var pass;
+
+var unPassName;
+var passName;
 
 var userId;
 $(function(){
 	initTOStateVar();
-	initUTRStateVar();
+	initUTRVar();
 	showCompontByPermission();
 	showOptionByPermission();
 	
@@ -169,27 +173,31 @@ function showOptionByPermission(){
 }
 
 function initTOStateVar(){
-	unFinishState=parseInt('${requestScope.unFinishState}');
-	finishedState=parseInt('${requestScope.finishedState}');
-	discardedState=parseInt('${requestScope.discardedState}');
-
-	unFinishStateName='${requestScope.unFinishStateName}';
-	finishedStateName='${requestScope.finishedStateName}';
-	discardedStateName='${requestScope.discardedStateName}';
-}
-
-function initUTRStateVar(){
+	developingState=parseInt('${requestScope.developingState}');
 	unTestState=parseInt('${requestScope.unTestState}');
 	testingState=parseInt('${requestScope.testingState}');
 	unPassState=parseInt('${requestScope.unPassState}');
 	unPayState=parseInt('${requestScope.unPayState}');
 	paidState=parseInt('${requestScope.paidState}');
+	finishedState=parseInt('${requestScope.finishedState}');
+	discardedState=parseInt('${requestScope.discardedState}');
 
+	developingStateName='${requestScope.developingStateName}';
 	unTestStateName='${requestScope.unTestStateName}';
 	testingStateName='${requestScope.testingStateName}';
 	unPassStateName='${requestScope.unPassStateName}';
 	unPayStateName='${requestScope.unPayStateName}';
 	paidStateName='${requestScope.paidStateName}';
+	finishedStateName='${requestScope.finishedStateName}';
+	discardedStateName='${requestScope.discardedStateName}';
+}
+
+function initUTRVar(){
+	unPass=parseInt('${requestScope.unPass}');
+	pass=parseInt('${requestScope.pass}');
+
+	unPassName='${requestScope.unPassName}';
+	passName='${requestScope.passName}';
 }
 
 function initCreateTimeStartDTB(){
@@ -219,7 +227,12 @@ function initFinishTimeEndDTB(){
 function initTOStateCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":unFinishState,"text":unFinishStateName});
+	data.push({"value":developingState,"text":developingStateName});
+	data.push({"value":unTestState,"text":unTestStateName});
+	data.push({"value":testingState,"text":testingStateName});
+	data.push({"value":unPassState,"text":unPassStateName});
+	data.push({"value":unPayState,"text":unPayStateName});
+	data.push({"value":paidState,"text":paidStateName});
 	data.push({"value":finishedState,"text":finishedStateName});
 	data.push({"value":discardedState,"text":discardedStateName});
 	
@@ -273,7 +286,7 @@ function discardedByIds() {
 	var allowCodeFileUrls="";
 	var allowTaskBagIds="";
 	for (var i = 0; i < rows.length; i++) {
-		if(rows[i].state==unFinishState){
+		if(rows[i].state==developingState){
 			allowIds += "," + rows[i].id;
 			allowNos += "," + rows[i].no;
 			allowCodeFileUrls += "," + rows[i].codeFileUrl;
@@ -416,19 +429,16 @@ function initUploadTestResultDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
-	initUtrStateCBB();
+	initUtrResultCBB();
 }
 
-function initUtrStateCBB(){
+function initUtrResultCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":unTestState,"text":unTestStateName});
-	data.push({"value":testingState,"text":testingStateName});
-	data.push({"value":unPassState,"text":unPassStateName});
-	data.push({"value":unPayState,"text":unPayStateName});
-	data.push({"value":paidState,"text":paidStateName});
+	data.push({"value":unPass,"text":unPassName});
+	data.push({"value":pass,"text":passName});
 	
-	utrStateCBB=$("#utr_state_cbb").combobox({
+	utrResultCBB=$("#utr_result_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		data:data
@@ -496,8 +506,23 @@ function initTab1(){
 function getStateNameById(stateId){
 	var str;
 	switch (stateId) {
-	case unFinishState:
-		str=unFinishStateName;//未完成
+	case developingState:
+		str=developingStateName;//开发中
+		break;
+	case unTestState:
+		str=unTestStateName;//待测试
+		break;
+	case testingState:
+		str=testingStateName;//测试中
+		break;
+	case unPassState:
+		str=unPassStateName;//不合格
+		break;
+	case unPayState:
+		str=unPayStateName;//待支付佣金
+		break;
+	case paidState:
+		str=paidStateName;//已支付佣金
 		break;
 	case finishedState:
 		str=finishedStateName;//已完成
@@ -530,7 +555,7 @@ function openUploadTestResultDialog(flag,orderId){
 }
 
 function checkTestResult(){
-	if(checkUtrState()){
+	if(checkUtrResult()){
 		if(checkUtrPhone()){
 			uploadTestResult();
 		}
@@ -561,7 +586,7 @@ function uploadCode(){
 
 function uploadTestResult(){
 	var orderId=$("#upload_test_result_div #orderId").val();
-	var state=utrStateCBB.combobox("getValue");
+	var state=utrResultCBB.combobox("getValue");
 	$("#upload_test_result_div #state").val(state);
 	
 	var formData = new FormData($("#form2")[0]);
@@ -586,10 +611,10 @@ function uploadTestResult(){
 }
 
 //验证测试结果状态
-function checkUtrState(){
-	var state=utrStateCBB.combobox("getValue");
+function checkUtrResult(){
+	var state=utrResultCBB.combobox("getValue");
 	if(state==null||state==""){
-	  	alert("请选择状态");
+	  	alert("请选择结果");
 	  	return false;
 	}
 	else
@@ -700,11 +725,11 @@ function setFitWidthInParent(parent,self){
 				<table>
 				  <tr>
 					<td class="td1" align="right">
-						状态
+						结果
 					</td>
 					<td class="td2">
-						<input id="utr_state_cbb"/>
-						<input type="hidden" id="state" name="state"/>
+						<input id="utr_result_cbb"/>
+						<input type="hidden" id="result" name="result"/>
 					</td>
 				  </tr>
 				  <tr>

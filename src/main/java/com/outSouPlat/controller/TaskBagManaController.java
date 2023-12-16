@@ -119,7 +119,7 @@ public class TaskBagManaController {
 	
 			Constant.setUserPermissionInRequest(request);
 			Constant.setTaskOrderStateInRequest(request);
-			Constant.setTestResultStateInRequest(request);
+			Constant.setTestResultInRequest(request);
 			
 			url=MODULE_NAME+"/taskOrder/list";
 		}

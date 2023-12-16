@@ -57,12 +57,14 @@ var showOrderOptionBut=false;
 
 var unSubmitState;
 var unOrderState;
+var orderCheckingState;
 var developingState;
 var testingState;
 var finishState;
 
 var unSubmitStateName;
 var unOrderStateName;
+var orderCheckingStateName;
 var developingStateName;
 var testingStateName;
 var finishStateName;
@@ -97,12 +99,14 @@ function showOptionByPermission(){
 function initStateVar(){
 	unSubmitState=parseInt('${requestScope.unSubmitState}');
 	unOrderState=parseInt('${requestScope.unOrderState}');
+	orderCheckingState=parseInt('${requestScope.orderCheckingState}');
 	developingState=parseInt('${requestScope.developingState}');
 	testingState=parseInt('${requestScope.testingState}');
 	finishState=parseInt('${requestScope.finishState}');
 
 	unSubmitStateName='${requestScope.unSubmitStateName}';
 	unOrderStateName='${requestScope.unOrderStateName}';
+	orderCheckingStateName='${requestScope.orderCheckingStateName}';
 	developingStateName='${requestScope.developingStateName}';
 	testingStateName='${requestScope.testingStateName}';
 	finishStateName='${requestScope.finishStateName}';
@@ -125,6 +129,7 @@ function initStateCBB(){
 	data.push({"value":"","text":"请选择"});
 	data.push({"value":unSubmitState,"text":unSubmitStateName});
 	data.push({"value":unOrderState,"text":unOrderStateName});
+	data.push({"value":orderCheckingState,"text":orderCheckingStateName});
 	data.push({"value":developingState,"text":developingStateName});
 	data.push({"value":testingState,"text":testingStateName});
 	data.push({"value":finishState,"text":finishStateName});
@@ -283,6 +288,9 @@ function getStateNameById(stateId){
 		break;
 	case unOrderState:
 		str=unOrderStateName;//未接单
+		break;
+	case orderCheckingState:
+		str=orderCheckingStateName;//接单审核中
 		break;
 	case developingState:
 		str=developingStateName;//开发中

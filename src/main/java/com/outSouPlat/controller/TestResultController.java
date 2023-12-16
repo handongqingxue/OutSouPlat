@@ -43,7 +43,7 @@ public class TestResultController {
 			request.setAttribute("testResult", testResult);
 	
 			Constant.setUserPermissionInRequest(request);
-			Constant.setTestResultStateInRequest(request);
+			Constant.setTestResultInRequest(request);
 			
 			url=MODULE_NAME+"/synthetic/edit";
 		}
@@ -62,7 +62,7 @@ public class TestResultController {
 	
 			Constant.setRoleFlagInRequest(request);
 			Constant.setUserPermissionInRequest(request);
-			Constant.setTestResultStateInRequest(request);
+			Constant.setTestResultInRequest(request);
 			
 			url=MODULE_NAME+"/synthetic/list";
 		}
@@ -88,7 +88,7 @@ public class TestResultController {
 			request.setAttribute("testResult", testResult);
 	
 			Constant.setUserPermissionInRequest(request);
-			Constant.setTestResultStateInRequest(request);
+			Constant.setTestResultInRequest(request);
 			
 			url=MODULE_NAME+"/synthetic/detail";
 		}
@@ -150,7 +150,7 @@ public class TestResultController {
 	@RequestMapping(value="/querySyntheticList")
 	@ResponseBody
 	public Map<String, Object> querySyntheticList(String orderNo,String taskBagName,String testUserName,String phone,String createTimeStart,String createTimeEnd,
-			Integer state,Integer userId,Integer roleFlag,int page,int rows,String sort,String order) {
+			Boolean result,Integer userId,Integer roleFlag,int page,int rows,String sort,String order) {
 		
 		//System.out.println("userId="+userId);
 		//System.out.println("roleFlag="+roleFlag);
@@ -158,8 +158,8 @@ public class TestResultController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = testResultService.queryForInt(orderNo,taskBagName,testUserName,phone,createTimeStart,createTimeEnd,state,userId,roleFlag);
-			List<TestResult> testResultList=testResultService.queryList(orderNo,taskBagName,testUserName,phone,createTimeStart,createTimeEnd,state,userId,roleFlag, page, rows, sort, order);
+			int count = testResultService.queryForInt(orderNo,taskBagName,testUserName,phone,createTimeStart,createTimeEnd,result,userId,roleFlag);
+			List<TestResult> testResultList=testResultService.queryList(orderNo,taskBagName,testUserName,phone,createTimeStart,createTimeEnd,result,userId,roleFlag, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", testResultList);

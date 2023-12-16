@@ -35,19 +35,13 @@ var dialogTop=70;
 var dialogLeft=20;
 var edNum=0;
 
-var unTestState;
-var testingState;
-var unPassState;
-var unPayState;
-var paidState;
+var unPass;
+var pass;
 
-var unTestStateName;
-var testingStateName;
-var unPassStateName;
-var unPayStateName;
-var paidStateName;
+var unPassName;
+var passName;
 $(function(){
-	initStateVar();
+	initResultVar();
 	initEditDialog();//0
 
 	initDialogPosition();//将不同窗体移动到主要内容区域
@@ -64,18 +58,12 @@ function initDialogPosition(){
 	ccDiv.css("width",setFitWidthInParent("body","center_con_div")+"px");
 }
 
-function initStateVar(){
-	unTestState=parseInt('${requestScope.unTestState}');
-	testingState=parseInt('${requestScope.testingState}');
-	unPassState=parseInt('${requestScope.unPassState}');
-	unPayState=parseInt('${requestScope.unPayState}');
-	paidState=parseInt('${requestScope.paidState}');
+function initResultVar(){
+	unPass=parseInt('${requestScope.unPass}');
+	pass=parseInt('${requestScope.pass}');
 
-	unTestStateName='${requestScope.unTestStateName}';
-	testingStateName='${requestScope.testingStateName}';
-	unPassStateName='${requestScope.unPassStateName}';
-	unPayStateName='${requestScope.unPayStateName}';
-	paidStateName='${requestScope.paidStateName}';
+	unPassName='${requestScope.unPassName}';
+	passName='${requestScope.passName}';
 }
 
 function initEditDialog(){
@@ -122,40 +110,37 @@ function initEditDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
-	initStateCBB();
+	initResultCBB();
 }
 
-function initStateCBB(){
+function initResultCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":unTestState,"text":unTestStateName});
-	data.push({"value":testingState,"text":testingStateName});
-	data.push({"value":unPassState,"text":unPassStateName});
-	data.push({"value":unPayState,"text":unPayStateName});
-	data.push({"value":paidState,"text":paidStateName});
+	data.push({"value":unPass,"text":unPassName});
+	data.push({"value":pass,"text":passName});
 	
-	stateCBB=$("#edit_div #state_cbb").combobox({
+	resultCBB=$("#edit_div #result_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		//multiple:true,
 		data:data,
 		onLoadSuccess:function(){
-			$(this).combobox("setValue",'${requestScope.testResult.state }');
+			$(this).combobox("setValue",'${requestScope.testResult.result }');
 		}
 	});
 }
 
 function checkEdit(){
 	if(checkPhone()){
-		if(checkState()){
+		if(checkResult()){
 			editTestResult();
 		}
 	}
 }
 
 function editTestResult(){
-	var state=stateCBB.combobox("getValue");
-	$("#edit_div #state").val(state);
+	var result=resultCBB.combobox("getValue");
+	$("#edit_div #result").val(result);
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
@@ -198,11 +183,11 @@ function checkPhone(){
 		return true;
 }
 
-//验证状态
-function checkState(){
-	var state=stateCBB.combobox("getValue");
-	if(state==null||state==""){
-	  	alert("请选择状态");
+//验证结果
+function checkResult(){
+	var result=resultCBB.combobox("getValue");
+	if(result==null||result==""){
+	  	alert("请选择结果");
 	  	return false;
 	}
 	else
@@ -278,8 +263,8 @@ function setFitWidthInParent(parent,self){
 					状态
 				</td>
 				<td class="td2">
-					<input id="state_cbb"/>
-					<input type="hidden" id="state" name="state" value="${requestScope.testResult.state }"/>
+					<input id="result_cbb"/>
+					<input type="hidden" id="result" name="result" value="${requestScope.testResult.result }"/>
 				</td>
 			  </tr>
 			  <tr>

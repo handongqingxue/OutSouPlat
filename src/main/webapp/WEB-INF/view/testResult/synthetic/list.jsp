@@ -21,7 +21,7 @@
 	height:32px;
 }
 .tab1_div .toolbar .row_div .orderNo_span,
-.tab1_div .toolbar .row_div .state_span,
+.tab1_div .toolbar .row_div .result_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
 .tab1_div .toolbar .row_div .testUserName_span,
 .tab1_div .toolbar .row_div .phone_span,
@@ -53,28 +53,22 @@ var adminFlag;
 var interFlag;
 var exterFlag;
 
-var unTestState;
-var testingState;
-var unPassState;
-var unPayState;
-var paidState;
+var unPass;
+var pass;
 
-var unTestStateName;
-var testingStateName;
-var unPassStateName;
-var unPayStateName;
-var paidStateName;
+var unPassName;
+var passName;
 
 var roleFlag;
 $(function(){
 	initRoleFlagVar();
-	initStateVar();
+	initResultVar();
 	showCompontByPermission();
 	showOptionByPermission();
 	
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
-	initStateCBB();
+	initResultCBB();
 	initSearchLB();
 	initQTRRoleFlag();
 	initTab1();
@@ -96,18 +90,12 @@ function initRoleFlagVar(){
 	exterFlag=parseInt('${requestScope.exterFlag}');
 }
 
-function initStateVar(){
-	unTestState=parseInt('${requestScope.unTestState}');
-	testingState=parseInt('${requestScope.testingState}');
-	unPassState=parseInt('${requestScope.unPassState}');
-	unPayState=parseInt('${requestScope.unPayState}');
-	paidState=parseInt('${requestScope.paidState}');
+function initResultVar(){
+	unPass='${requestScope.unPass}';
+	pass='${requestScope.pass}';
 
-	unTestStateName='${requestScope.unTestStateName}';
-	testingStateName='${requestScope.testingStateName}';
-	unPassStateName='${requestScope.unPassStateName}';
-	unPayStateName='${requestScope.unPayStateName}';
-	paidStateName='${requestScope.paidStateName}';
+	unPassName='${requestScope.unPassName}';
+	passName='${requestScope.passName}';
 }
 
 function initCreateTimeStartDTB(){
@@ -122,16 +110,13 @@ function initCreateTimeEndDTB(){
     });
 }
 
-function initStateCBB(){
+function initResultCBB(){
 	var data=[];
 	data.push({"value":"","text":"请选择"});
-	data.push({"value":unTestState,"text":unTestStateName});
-	data.push({"value":testingState,"text":testingStateName});
-	data.push({"value":unPassState,"text":unPassStateName});
-	data.push({"value":unPayState,"text":unPayStateName});
-	data.push({"value":paidState,"text":paidStateName});
+	data.push({"value":unPass,"text":unPassName});
+	data.push({"value":pass,"text":passName});
 	
-	stateCBB=$("#state_cbb").combobox({
+	resultCBB=$("#result_cbb").combobox({
 		valueField:"value",
 		textField:"text",
 		//multiple:true,
@@ -149,10 +134,10 @@ function initSearchLB(){
 			var phone=$("#toolbar #phone").val();
 			var createTimeStart=createTimeStartDTB.datetimebox("getValue");
 			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
-			var state=stateCBB.combobox("getValue");
+			var result=resultCBB.combobox("getValue");
 			
 			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,testUserName:testUserName,phone:phone,
-				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,state:state,userId:'${sessionUserIdStr}',roleFlag:roleFlag});
+				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,result:result,userId:'${sessionUserIdStr}',roleFlag:roleFlag});
 		}
 	});
 }
@@ -196,8 +181,8 @@ function initTab1(){
 			{field:"testUserName",title:"测试人",width:150},
 			{field:"phone",title:"测试人电话",width:150},
 			{field:"createTime",title:"测试时间",width:150},
-            {field:"state",title:"状态",width:100,formatter:function(value,row){
-            	return getStateNameById(value);
+            {field:"result",title:"结果",width:100,formatter:function(value,row){
+            	return getResultNameById(value);
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="";
@@ -222,26 +207,8 @@ function initTab1(){
 	});
 }
 
-function getStateNameById(stateId){
-	var str;
-	switch (stateId) {
-	case unTestState:
-		str=unTestStateName;//待测试
-		break;
-	case testingState:
-		str=testingStateName;//测试中
-		break;
-	case unPassState:
-		str=unPassStateName;//不合格
-		break;
-	case unPayState:
-		str=unPayStateName;//待支付佣金
-		break;
-	case paidState:
-		str=paidStateName;//已支付佣金
-		break;
-	}
-	return str;
+function getResultNameById(result){
+	return result?passName:unPassName;
 }
 
 function setFitWidthInParent(parent,self){
@@ -278,8 +245,8 @@ function setFitWidthInParent(parent,self){
 				<span class="createTime_span">测试时间：</span>
 				<input id="createTimeStart_dtb"/>-
 				<input id="createTimeEnd_dtb"/>
-				<span class="state_span">状态：</span>
-				<input id="state_cbb"/>
+				<span class="result_span">结果：</span>
+				<input id="result_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
 				<c:if test="${sessionUsername eq usernameStr||fn:contains(permissionIdsStr,testResultDelPermStr)}">
 				<a id="remove_but">删除</a>

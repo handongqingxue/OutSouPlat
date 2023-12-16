@@ -109,12 +109,14 @@ public class Constant {
 
 		request.setAttribute("unSubmitState", TaskBag.UN_SUBMIT);
 		request.setAttribute("unOrderState", TaskBag.UN_ORDER);
+		request.setAttribute("orderCheckingState", TaskBag.ORDER_CHECKING);
 		request.setAttribute("developingState", TaskBag.DEVELOPING);
 		request.setAttribute("testingState", TaskBag.TESTING);
 		request.setAttribute("finishState", TaskBag.FINISH);
 		
 		request.setAttribute("unSubmitStateName", TaskBag.UN_SUBMIT_NAME);
 		request.setAttribute("unOrderStateName", TaskBag.UN_ORDER_NAME);
+		request.setAttribute("orderCheckingStateName", TaskBag.ORDER_CHECKING_NAME);
 		request.setAttribute("developingStateName", TaskBag.DEVELOPING_NAME);
 		request.setAttribute("testingStateName", TaskBag.TESTING_NAME);
 		request.setAttribute("finishStateName", TaskBag.FINISH_NAME);
@@ -126,32 +128,36 @@ public class Constant {
 	 */
 	public static void setTaskOrderStateInRequest(HttpServletRequest request) {
 
-		request.setAttribute("unFinishState", TaskOrder.UN_FINISH);
+		request.setAttribute("developingState", TaskOrder.DEVELOPING);
+		request.setAttribute("unTestState", TaskOrder.UN_TEST);
+		request.setAttribute("testingState", TaskOrder.TESTING);
+		request.setAttribute("unPassState", TaskOrder.UN_PASS);
+		request.setAttribute("unPayState", TaskOrder.UN_PAY);
+		request.setAttribute("paidState", TaskOrder.PAID);
 		request.setAttribute("finishedState", TaskOrder.FINISHED);
 		request.setAttribute("discardedState", TaskOrder.DISCARDED);
 		
-		request.setAttribute("unFinishStateName", TaskOrder.UN_FINISH_NAME);
+		request.setAttribute("developingStateName", TaskOrder.DEVELOPING_NAME);
+		request.setAttribute("unTestStateName", TaskOrder.UN_TEST_NAME);
+		request.setAttribute("testingStateName", TaskOrder.TESTING_NAME);
+		request.setAttribute("unPassStateName", TaskOrder.UN_PASS_NAME);
+		request.setAttribute("unPayStateName", TaskOrder.UN_PAY_NAME);
+		request.setAttribute("paidStateName", TaskOrder.PAID_NAME);
 		request.setAttribute("finishedStateName", TaskOrder.FINISHED_NAME);
 		request.setAttribute("discardedStateName", TaskOrder.DISCARDED_NAME);
 	}
 	
 	/**
-	 * 存放测试结果状态常量
+	 * 存放测试结果常量
 	 * @param request
 	 */
-	public static void setTestResultStateInRequest(HttpServletRequest request) {
+	public static void setTestResultInRequest(HttpServletRequest request) {
 		
-		request.setAttribute("unTestState", TestResult.UN_TEST);
-		request.setAttribute("testingState", TestResult.TESTING);
-		request.setAttribute("unPassState", TestResult.UN_PASS);
-		request.setAttribute("unPayState", TestResult.UN_PAY);
-		request.setAttribute("paidState", TestResult.PAID);
+		request.setAttribute("unPass", TestResult.UN_PASS);
+		request.setAttribute("pass", TestResult.PASS);
 		
-		request.setAttribute("unTestStateName", TestResult.UN_TEST_NAME);
-		request.setAttribute("testingStateName", TestResult.TESTING_NAME);
-		request.setAttribute("unPassStateName", TestResult.UN_PASS_NAME);
-		request.setAttribute("unPayStateName", TestResult.UN_PAY_NAME);
-		request.setAttribute("paidStateName", TestResult.PAID_NAME);
+		request.setAttribute("unPassName", TestResult.UN_PASS_NAME);
+		request.setAttribute("passName", TestResult.PASS_NAME);
 	}
 	
 	/**

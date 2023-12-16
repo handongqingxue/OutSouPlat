@@ -346,7 +346,12 @@ function setFitWidthInParent(parent,self){
 				<td class="td2">
 					<!-- https://blog.csdn.net/u012730333/article/details/42081827 -->
 					<c:choose>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.unFinishState }">${requestScope.unFinishStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.developingState }">${requestScope.developingStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unTestState }">${requestScope.unTestStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.testingState }">${requestScope.testingStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unPassState }">${requestScope.unPassStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unPayState }">${requestScope.unPayStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.paidState }">${requestScope.paidStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.finishedState }">${requestScope.finishedStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.discardedState }">${requestScope.discardedStateName}</c:when>
 					</c:choose>
