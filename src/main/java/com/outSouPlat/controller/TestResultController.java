@@ -60,6 +60,7 @@ public class TestResultController {
 		if(Constant.checkIfExistPerm(Permission.TEST_RESULT_SEAR,request)) {
 			//publicService.selectNav(request);
 	
+			Constant.setRoleFlagInRequest(request);
 			Constant.setUserPermissionInRequest(request);
 			Constant.setTestResultStateInRequest(request);
 			
@@ -151,8 +152,8 @@ public class TestResultController {
 	public Map<String, Object> querySyntheticList(String orderNo,String taskBagName,String testUserName,String phone,String createTimeStart,String createTimeEnd,
 			Integer state,Integer userId,Integer roleFlag,int page,int rows,String sort,String order) {
 		
-		System.out.println("userId="+userId);
-		System.out.println("roleFlag="+roleFlag);
+		//System.out.println("userId="+userId);
+		//System.out.println("roleFlag="+roleFlag);
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		

@@ -11,8 +11,17 @@ import com.outSouPlat.entity.*;
 public class Constant {
 	
 	public static final String NO_PERM_RETURN_URL="login";
+	/**
+	 * 超级管理员
+	 */
 	public static final int ADMIN_FLAG=1;
+	/**
+	 * 内部人员(技术或商务)
+	 */
 	public static final int INTER_FLAG=2;
+	/**
+	 * 外部人员(兼职人员)
+	 */
 	public static final int EXTER_FLAG=3;
 	
 	/**
@@ -163,6 +172,17 @@ public class Constant {
 
 		request.setAttribute("codeType", FileUtil.CODE);//1
 		request.setAttribute("annexType", FileUtil.ANNEX);//2
+	}
+	
+	/**
+	 * 存放角色常量
+	 * @param request
+	 */
+	public static void setRoleFlagInRequest(HttpServletRequest request) {
+
+		request.setAttribute("adminFlag", ADMIN_FLAG);//1
+		request.setAttribute("interFlag", INTER_FLAG);//2
+		request.setAttribute("exterFlag", EXTER_FLAG);//3
 	}
 	
 	/**

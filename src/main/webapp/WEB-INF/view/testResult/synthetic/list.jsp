@@ -49,6 +49,10 @@ var testResultEditPermStr='${testResultEditPermStr}';
 
 var showEditOptionBut=false;
 
+var adminFlag;
+var interFlag;
+var exterFlag;
+
 var unTestState;
 var testingState;
 var unPassState;
@@ -63,6 +67,7 @@ var paidStateName;
 
 var roleFlag;
 $(function(){
+	initRoleFlagVar();
 	initStateVar();
 	showCompontByPermission();
 	showOptionByPermission();
@@ -83,6 +88,12 @@ function showCompontByPermission(){
 function showOptionByPermission(){
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testResultEditPermStr)!=-1)
 		showEditOptionBut=true;
+}
+
+function initRoleFlagVar(){
+	adminFlag=parseInt('${requestScope.adminFlag}');
+	interFlag=parseInt('${requestScope.interFlag}');
+	exterFlag=parseInt('${requestScope.exterFlag}');
 }
 
 function initStateVar(){
@@ -157,15 +168,15 @@ function initRemoveLB(){
 
 function initQTRRoleFlag(){
 	if(sessionUsernameStr==usernameStr){
-		roleFlag=1;
+		roleFlag=adminFlag;
 	}
 	else{
 		var roleNames='${sessionScope.user.roleNames}';
 		if(roleNames.includes("技术人员")){
-			roleFlag=2;
+			roleFlag=interFlag;
 		}
 		else{
-			roleFlag=3;
+			roleFlag=exterFlag;
 		}
 	}
 }
