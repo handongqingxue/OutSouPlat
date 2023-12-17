@@ -9,6 +9,9 @@
 			<if test="sendUserId!=null">
 				sendUserId,
 			</if>
+			<if test="receiveUserId!=null">
+				receiveUserId,
+			</if>
 			<if test="title!=null">
 				title,
 			</if>
@@ -22,6 +25,9 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="sendUserId!=null">
 				#{sendUserId},
+			</if>
+			<if test="receiveUserId!=null">
+				#{receiveUserId},
 			</if>
 			<if test="title!=null">
 				#{title},

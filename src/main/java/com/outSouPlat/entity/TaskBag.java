@@ -131,6 +131,12 @@ public class TaskBag {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+	public Integer getOrderUserId() {
+		return orderUserId;
+	}
+	public void setOrderUserId(Integer orderUserId) {
+		this.orderUserId = orderUserId;
+	}
 	public Integer getState() {
 		return state;
 	}
@@ -149,5 +155,6 @@ public class TaskBag {
 	private String describe;
 	private Integer projectId;
 	private String projectName;
+	private Integer orderUserId;
 	private Integer state;
 }

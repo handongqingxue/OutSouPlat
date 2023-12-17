@@ -72,8 +72,10 @@ public class TaskOrder {
 	private String no;
 	private Integer taskBagId;
 	private String taskBagName;
-	private Integer userId;
-	private String userName;
+	private Integer agreeUserId;
+	private String agreeUserName;
+	private Integer orderUserId;
+	private String orderUserName;
 	private String createTime;
 	private String finishTime;
 	private Long annexFileSize;
@@ -105,17 +107,29 @@ public class TaskOrder {
 	public void setTaskBagName(String taskBagName) {
 		this.taskBagName = taskBagName;
 	}
-	public Integer getUserId() {
-		return userId;
+	public Integer getAgreeUserId() {
+		return agreeUserId;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setAgreeUserId(Integer agreeUserId) {
+		this.agreeUserId = agreeUserId;
 	}
-	public String getUserName() {
-		return userName;
+	public String getAgreeUserName() {
+		return agreeUserName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAgreeUserName(String agreeUserName) {
+		this.agreeUserName = agreeUserName;
+	}
+	public Integer getOrderUserId() {
+		return orderUserId;
+	}
+	public void setOrderUserId(Integer orderUserId) {
+		this.orderUserId = orderUserId;
+	}
+	public String getOrderUserName() {
+		return orderUserName;
+	}
+	public void setOrderUserName(String orderUserName) {
+		this.orderUserName = orderUserName;
 	}
 	public String getCreateTime() {
 		return createTime;

@@ -94,6 +94,14 @@ public class Permission {
 	 * 上传代码
 	 */
 	public static final int UPLOAD_CODE=23;
+	/**
+	 * 同意接单
+	 */
+	public static final int AGREE_ORDER=24;
+	/**
+	 * 拒绝接单
+	 */
+	public static final int REFUSE_ORDER=25;
 
 	private Integer id;
 	public Integer getId() {

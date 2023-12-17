@@ -6,6 +6,8 @@
 <c:set var="taskBagEditPermStr" value=",${requestScope.taskBagEditPerm},"></c:set>
 <c:set var="taskBagSubmitPermStr" value=",${requestScope.taskBagSubmitPerm},"></c:set>
 <c:set var="taskBagOrderPermStr" value=",${requestScope.taskBagOrderPerm},"></c:set>
+<c:set var="agreeOrderPermStr" value=",${requestScope.agreeOrderPerm},"></c:set>
+<c:set var="refuseOrderPermStr" value=",${requestScope.refuseOrderPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,10 +52,14 @@ var taskBagDelPermStr='${taskBagDelPermStr}';
 var taskBagEditPermStr='${taskBagEditPermStr}';
 var taskBagSubmitPermStr='${taskBagSubmitPermStr}';
 var taskBagOrderPermStr='${taskBagOrderPermStr}';
+var agreeOrderPermStr='${agreeOrderPermStr}';
+var refuseOrderPermStr='${refuseOrderPermStr}';
 
 var showEditOptionBut=false;
 var showSubmitOptionBut=false;
 var showOrderOptionBut=false;
+var showAgreeOrderOptionBut=false;
+var showRefuseOrderOptionBut=false;
 
 var unSubmitState;
 var unOrderState;
@@ -94,6 +100,10 @@ function showOptionByPermission(){
 		showSubmitOptionBut=true;
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskBagOrderPermStr)!=-1)
 		showOrderOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(agreeOrderPermStr)!=-1)
+		showAgreeOrderOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(refuseOrderPermStr)!=-1)
+		showRefuseOrderOptionBut=true;
 }
 
 function initStateVar(){
@@ -249,7 +259,7 @@ function initTab1(){
             {field:"state",title:"状态",width:100,formatter:function(value,row){
             	return getStateNameById(value);
             }},
-            {field:"id",title:"操作",width:150,formatter:function(value,row){
+            {field:"id",title:"操作",width:220,formatter:function(value,row){
             	var str="";
 	            	if(showEditOptionBut)
 	            		str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
@@ -261,6 +271,14 @@ function initTab1(){
 	            	if(showOrderOptionBut){
 			            if(row.state==unOrderState)
 			            	str+="<a onclick=\"updateOrderUserId("+value+",'"+row.name+"',"+row.uploadUserId+",'update')\">接单</a>&nbsp;&nbsp;";
+	            	}
+	            	if(showAgreeOrderOptionBut){
+			            if(row.state==orderCheckingState)
+			            	str+="<a onclick=\"receiveOrder("+value+",'"+row.name+"',"+row.orderUserId+")\">同意接单</a>&nbsp;&nbsp;";
+	            	}
+	            	if(showRefuseOrderOptionBut){
+			            if(row.state==orderCheckingState)
+			            	str+="<a onclick=\"updateOrderUserId("+value+",'"+row.name+"',"+row.uploadUserId+",'clear')\">拒绝接单</a>&nbsp;&nbsp;";
 	            	}
             	return str;
             }}
@@ -337,10 +355,13 @@ function updateOrderUserId(id,name,uploadUserId,flag){
 	,"json");
 }
 
-function receiveOrder(id){
-	var userId='${sessionScope.user.id}';
+function receiveOrder(id,name,orderUserId){
+	var agreeUserId='${sessionScope.user.id}';
+	var agreeUserName='${sessionScope.user.username}';
+	alert(name+","+agreeUserId+","+agreeUserName+","+orderUserId);
+	return false;
 	$.post(taskBagManaPath+"newTaskOrder",
-		{taskBagId:id,userId:userId},
+		{taskBagId:id,taskBagName:name,agreeUserId:agreeUserId,agreeUserName:agreeUserName,orderUserId:orderUserId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);

@@ -208,6 +208,8 @@ public class Constant {
 		request.setAttribute("taskBagSearPerm", Permission.TASK_BAG_SEAR);//8
 		request.setAttribute("taskBagSubmitPerm", Permission.TASK_BAG_SUBMIT);//21
 		request.setAttribute("taskBagOrderPerm", Permission.TASK_BAG_ORDER);//22
+		request.setAttribute("agreeOrderPerm", Permission.AGREE_ORDER);//24
+		request.setAttribute("refuseOrderPerm", Permission.REFUSE_ORDER);//25
 		
 		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
 		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10

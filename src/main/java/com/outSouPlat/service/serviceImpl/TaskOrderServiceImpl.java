@@ -30,7 +30,7 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 		// TODO Auto-generated method stub
 		int count=0;
 		Integer taskBagId = taskOrder.getTaskBagId();
-		taskOrder.setNo(yMdHmsSDF.format(new Date())+taskBagId+taskOrder.getUserId());
+		taskOrder.setNo(yMdHmsSDF.format(new Date())+"_"+taskBagId+"_"+taskOrder.getAgreeUserId()+"_"+taskOrder.getOrderUserId());
 		count=taskOrderDao.add(taskOrder);
 		if(count>0)
 			count=taskBagDao.updateStateById(TaskBag.DEVELOPING,taskBagId);

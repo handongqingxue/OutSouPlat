@@ -12,8 +12,11 @@
 			<if test="taskBagId!=null">
 				taskBagId,
 			</if>
-			<if test="userId!=null">
-				userId,
+			<if test="agreeUserId!=null">
+				agreeUserId,
+			</if>
+			<if test="orderUserId!=null">
+				orderUserId,
 			</if>
 				createTime,
 				state
@@ -26,23 +29,26 @@
 			<if test="taskBagId!=null">
 				#{taskBagId},
 			</if>
-			<if test="userId!=null">
-				#{userId},
+			<if test="agreeUserId!=null">
+				#{agreeUserId},
+			</if>
+			<if test="orderUserId!=null">
+				#{orderUserId},
 			</if>
 				now(),
 				${@com.outSouPlat.entity.TaskOrder@DEVELOPING}
 		</trim>
 	</insert>
 	<select id="queryForInt" resultType="java.lang.Integer">
-		select count(*) from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id
+		select count(*) from task_order `to`,task_bag tb,user order_u where `to`.taskBagId=tb.id and `to`.orderUserId=order_u.id
 		<if test="no!=''&amp;no!=null">
 			and `to`.no like CONCAT('%',#{no},'%')
 		</if>
 		<if test="taskBagName!=''&amp;taskBagName!=null">
 			and tb.name like CONCAT('%',#{taskBagName},'%')
 		</if>
-		<if test="userName!=''&amp;userName!=null">
-			and u.username like CONCAT('%',#{userName},'%')
+		<if test="orderUserName!=''&amp;orderUserName!=null">
+			and order_u.username like CONCAT('%',#{orderUserName},'%')
 		</if>
 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
 			and `to`.createTime between #{createTimeStart} and #{createTimeEnd}
@@ -54,19 +60,19 @@
 			and `to`.state=#{state}
 		</if>
 		<if test="userId!=''&amp;userId!=null">
-			and `to`.userId=#{userId}
+			and `to`.orderUserId=#{userId}
 		</if>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.TaskOrder">
-		select `to`.*,tb.name taskBagName,u.userName from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id
+		select `to`.*,tb.name taskBagName,order_u.userName orderUserName from task_order `to`,task_bag tb,user order_u where `to`.taskBagId=tb.id and `to`.orderUserId=order_u.id
 		<if test="no!=''&amp;no!=null">
 			and `to`.no like CONCAT('%',#{no},'%')
 		</if>
 		<if test="taskBagName!=''&amp;taskBagName!=null">
 			and tb.name like CONCAT('%',#{taskBagName},'%')
 		</if>
-		<if test="userName!=''&amp;userName!=null">
-			and u.username like CONCAT('%',#{userName},'%')
+		<if test="orderUserName!=''&amp;orderUserName!=null">
+			and order_u.username like CONCAT('%',#{orderUserName},'%')
 		</if>
 		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
 			and `to`.createTime between #{createTimeStart} and #{createTimeEnd}
@@ -78,13 +84,13 @@
 			and `to`.state=#{state}
 		</if>
 		<if test="userId!=''&amp;userId!=null">
-			and `to`.userId=#{userId}
+			and `to`.orderUserId=#{userId}
 		</if>
 		order by `to`.createTime desc
 		limit #{rowNum},#{rows}
 	</select>
 	<select id="selectById" resultType="com.outSouPlat.entity.TaskOrder">
-		select `to`.*,tb.name taskBagName,tb.annexFileSize,tb.annexFileUrl,u.userName from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.userId=u.id and `to`.id=#{id}
+		select `to`.*,tb.name taskBagName,tb.annexFileSize,tb.annexFileUrl,u.userName from task_order `to`,task_bag tb,user u where `to`.taskBagId=tb.id and `to`.orderUserId=u.id and `to`.id=#{id}
 	</select>
 	<update id="uploadCodeFile">
 		update task_order set codeFileSize=#{codeFileSize},codeFileUrl=#{codeFileUrl} where id=#{id}

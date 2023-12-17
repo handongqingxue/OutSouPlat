@@ -133,21 +133,25 @@ public class TaskBagServiceImpl implements TaskBagService {
 		
 		if(count>0) {
 			int sendUserId=0;
+			int receiveUserId=0;
 			String title=null;
 			String content=null;
 			if("clear".equals(flag)) {
-				sendUserId=orderUserId;
+				sendUserId=uploadUserId;
+				receiveUserId=orderUserId;
 				title="拒绝接单";
 				content="您的接单请求已被拒绝。";
 			}
 			else {
-				sendUserId=uploadUserId;
+				sendUserId=orderUserId;
+				receiveUserId=uploadUserId;
 				title="申请接单";
 				content="兼职用户"+orderUserName+"申请接取任务包"+name+",请到任务包管理-任务包查询里查看。";
 			}
 			
 			SysNotice sysNotice=new SysNotice();
 			sysNotice.setSendUserId(sendUserId);
+			sysNotice.setReceiveUserId(receiveUserId);
 			sysNotice.setTitle(title);
 			sysNotice.setContent(content);
 			

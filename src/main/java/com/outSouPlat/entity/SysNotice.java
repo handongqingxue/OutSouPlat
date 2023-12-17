@@ -18,6 +18,12 @@ public class SysNotice {
 	public void setSendUserId(Integer sendUserId) {
 		this.sendUserId = sendUserId;
 	}
+	public Integer getReceiveUserId() {
+		return receiveUserId;
+	}
+	public void setReceiveUserId(Integer receiveUserId) {
+		this.receiveUserId = receiveUserId;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -43,6 +49,7 @@ public class SysNotice {
 		this.read = read;
 	}
 	private Integer sendUserId;
+	private Integer receiveUserId;
 	private String title;
 	private String content;
 	private String createTime;
