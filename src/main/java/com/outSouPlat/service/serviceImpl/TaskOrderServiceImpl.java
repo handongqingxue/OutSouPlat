@@ -2,6 +2,7 @@ package com.outSouPlat.service.serviceImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -95,6 +96,58 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	@Override
 	public int uploadCodeFile(TaskOrder taskOrder) {
 		// TODO Auto-generated method stub
-		return taskOrderDao.uploadCodeFile(taskOrder);
+		int count=0;
+		count=taskOrderDao.uploadCodeFile(taskOrder);
+		if(count>0) {
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setSendUserId(taskOrder.getOrderUserId());
+			sysNotice.setTitle("任务单代码上传通知");
+			sysNotice.setContent("任务单"+taskOrder.getNo()+"代码已上传，请下载代码测试。");
+			sysNoticeDao.add(sysNotice);
+		}
+		return count;
+	}
+
+	@Override
+	public int startTest(Integer orderId, String orderNo, Integer orderUserId) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> idList=new ArrayList<String>();
+		idList.add(orderId+"");
+		count=taskOrderDao.updateStateByIdList(TaskOrder.TESTING, idList);
+		if(count>0) {
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setReceiveUserId(orderUserId);
+			sysNotice.setTitle("任务单测试通知");
+			sysNotice.setContent("任务单"+orderNo+"已开始测试，请等待测试结果。");
+			sysNoticeDao.add(sysNotice);
+			
+		}
+		return count;
+	}
+
+	@Override
+	public int comfirmPay(String orderIds, String orderNos, String orderUserIds) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> orderIdList = Arrays.asList(orderIds.split(","));
+		count=taskOrderDao.updateStateByIdList(TaskOrder.PAID, orderIdList);
+		if(count>0) {
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setReceiveUserId(Integer.valueOf(orderUserIds));//前期先单个用户推送
+			sysNotice.setTitle("佣金支付通知");
+			sysNotice.setContent("任务单"+orderNos+"佣金已支付，请查看相关账户。");
+			sysNoticeDao.add(sysNotice);
+		}
+		return count;
+	}
+
+	@Override
+	public int comfirmPaid(String orderIds) {
+		// TODO Auto-generated method stub
+		int count=0;
+		List<String> orderIdList = Arrays.asList(orderIds.split(","));
+		count=taskOrderDao.updateStateByIdList(TaskOrder.FINISHED, orderIdList);
+		return count;
 	}
 }

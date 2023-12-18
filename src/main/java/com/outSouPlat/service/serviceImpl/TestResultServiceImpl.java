@@ -14,11 +14,29 @@ public class TestResultServiceImpl implements TestResultService {
 
 	@Autowired
 	private TestResultMapper testResultDao;
+	@Autowired
+	private TaskOrderMapper taskOrderDao;
+	@Autowired
+	private SysNoticeMapper sysNoticeDao;
 
 	@Override
 	public int add(TestResult testResult) {
 		// TODO Auto-generated method stub
-		return testResultDao.add(testResult);
+		int count=0;
+		count=testResultDao.add(testResult);
+		if(count>0) {
+			Boolean result = testResult.getResult();
+			int state=result?TaskOrder.UN_PAY:TaskOrder.REWORKING;
+			taskOrderDao.updateStateById(state, testResult.getOrderId());
+			
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setSendUserId(testResult.getTestUserId());
+			sysNotice.setReceiveUserId(testResult.getOrderUserId());
+			sysNotice.setTitle("测试结果通知");
+			sysNotice.setContent("您的任务单号"+testResult.getOrderNo()+"测试"+(result?"合格":"不合格")+"，测试用户"+testResult.getTestUserName()+"，请到测试结果-综合查询里查看。");
+			sysNoticeDao.add(sysNotice);
+		}
+		return count;
 	}
 
 	@Override

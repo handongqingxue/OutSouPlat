@@ -102,6 +102,18 @@ public class Permission {
 	 * 拒绝接单
 	 */
 	public static final int REFUSE_ORDER=25;
+	/**
+	 * 测试代码
+	 */
+	public static final int TEST_CODE=26;
+	/**
+	 * 支付佣金
+	 */
+	public static final int PAY_COMMISSION=27;
+	/**
+	 * 收到佣金
+	 */
+	public static final int GET_COMMISSION=28;
 
 	private Integer id;
 	public Integer getId() {

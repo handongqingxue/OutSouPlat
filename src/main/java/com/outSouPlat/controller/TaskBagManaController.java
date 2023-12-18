@@ -438,6 +438,63 @@ public class TaskBagManaController {
 		}
 		return json;
 	}
+
+	@RequestMapping(value="/startTestOrder",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String startTestOrder(Integer orderId,String orderNo,Integer orderUserId) {
+		int count=taskOrderService.startTest(orderId,orderNo,orderUserId);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("开始测试失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("任务单已是测试中状态，请完成测试后上传测试结果。");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/comfirmOrderPay",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String comfirmOrderPay(String orderIds,String orderNos,String orderUserIds) {
+		int count=taskOrderService.comfirmPay(orderIds,orderNos,orderUserIds);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("确认已支付失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("确认已支付成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
+
+	@RequestMapping(value="/comfirmOrderPaid",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String comfirmOrderPay(String orderIds) {
+		int count=taskOrderService.comfirmPaid(orderIds);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("确认已收到佣金失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("确认已收到佣金成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
 	
 	@RequestMapping(value="/uploadTaskOrderCodeFile")
 	@ResponseBody

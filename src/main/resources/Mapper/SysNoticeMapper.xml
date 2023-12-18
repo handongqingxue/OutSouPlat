@@ -40,13 +40,13 @@
 		</trim>
 	</insert>
 	<select id="queryForInt" resultType="java.lang.Integer">
-		select count(*) from sys_notice sn,user send_u,user receive_u where sn.sendUserId=send_u.id and sn.receiveUserId=receive_u.id
+		select count(*) from sys_notice sn left join user send_u on sn.sendUserId=send_u.id left join user receive_u on sn.receiveUserId=receive_u.id where 1=1
 		<if test="title!=''&amp;title!=null">
 			and sn.title like CONCAT('%',#{title},'%')
 		</if>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.SysNotice">
-		select sn.*,send_u.username sendUserName,receive_u.username receiveUserName from sys_notice sn,user send_u,user receive_u where sn.sendUserId=send_u.id and sn.receiveUserId=receive_u.id
+		select sn.*,send_u.username sendUserName,receive_u.username receiveUserName from sys_notice sn left join user send_u on sn.sendUserId=send_u.id left join user receive_u on sn.receiveUserId=receive_u.id where 1=1  
 		<if test="title!=''&amp;title!=null">
 			and sn.title like CONCAT('%',#{title},'%')
 		</if>

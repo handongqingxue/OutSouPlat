@@ -20,4 +20,10 @@ public interface TaskOrderService {
 	TaskOrder selectById(String id);
 
 	int uploadCodeFile(TaskOrder taskOrder);
+
+	int startTest(Integer orderId, String orderNo, Integer orderUserId);
+
+	int comfirmPay(String orderIds, String orderNos, String orderUserIds);
+
+	int comfirmPaid(String orderIds);
 }

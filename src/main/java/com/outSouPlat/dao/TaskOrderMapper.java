@@ -21,5 +21,7 @@ public interface TaskOrderMapper {
 
 	int uploadCodeFile(TaskOrder taskOrder);
 
+	int updateStateById(@Param("state") int state, @Param("id")int id);
+
 	int updateStateByIdList(@Param("state") int state, @Param("idList")List<String> idList);
 }

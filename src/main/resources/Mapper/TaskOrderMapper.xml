@@ -105,10 +105,27 @@
 		select `to`.*,tb.name taskBagName,tb.annexFileSize,tb.annexFileUrl,order_u.userName orderUserName,agree_u.userName agreeUserName from task_order `to`,task_bag tb,user order_u,user agree_u where `to`.taskBagId=tb.id and `to`.orderUserId=order_u.id and `to`.agreeUserId=agree_u.id and `to`.id=#{id}
 	</select>
 	<update id="uploadCodeFile">
-		update task_order set codeFileSize=#{codeFileSize},codeFileUrl=#{codeFileUrl} where id=#{id}
+		update task_order set codeFileSize=#{codeFileSize},codeFileUrl=#{codeFileUrl},state=${@com.outSouPlat.entity.TaskOrder@UN_TEST} where id=#{id}
+	</update>
+	<update id="updateStateById">
+		update task_order set 
+		<trim suffixOverrides=",">
+		state=#{state},
+		<if test="state==@com.outSouPlat.entity.TaskOrder@UN_PAY">
+			finishTime=now(),
+		</if>
+		</trim>
+		 where id=#{id}
 	</update>
 	<update id="updateStateByIdList">
-		update task_order set state=#{state} where
+		update task_order set 
+		<trim suffixOverrides=",">
+		state=#{state},
+		<if test="state==@com.outSouPlat.entity.TaskOrder@UN_PAY">
+			finishTime=now(),
+		</if>
+		</trim>
+		 where
 		<foreach collection="idList" item="id" open="1=1 and cast(id as char) in (" separator="," close=")">
 		#{id}
 		</foreach>

@@ -2,9 +2,12 @@
     pageEncoding="utf-8"%>
 <%@include file="../../inc/js.jsp"%>
 <c:set var="taskOrderDelPermStr" value=",${requestScope.taskOrderDelPerm},"></c:set>
+<c:set var="testCodePermStr" value=",${requestScope.testCodePerm},"></c:set>
 <c:set var="downloadCodePermStr" value=",${requestScope.downloadCodePerm},"></c:set>
 <c:set var="uploadCodePermStr" value=",${requestScope.uploadCodePerm},"></c:set>
 <c:set var="testResultUplPermStr" value=",${requestScope.testResultUplPerm},"></c:set>
+<c:set var="payCommissionPermStr" value=",${requestScope.payCommissionPerm},"></c:set>
+<c:set var="getCommissionPermStr" value=",${requestScope.getCommissionPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,13 +90,19 @@ var sessionUsernameStr='${sessionUsernameStr}';
 var usernameStr='${usernameStr}';
 var permissionIdsStr='${permissionIdsStr}';
 var taskOrderDelPermStr='${taskOrderDelPermStr}';
+var testCodePermStr='${testCodePermStr}';
 var downloadCodePermStr='${downloadCodePermStr}';
 var uploadCodePermStr='${uploadCodePermStr}';
 var testResultUplPermStr='${testResultUplPermStr}';
+var payCommissionPermStr='${payCommissionPermStr}';
+var getCommissionPermStr='${getCommissionPermStr}';
 
+var showTestCodeOptionBut=false;
 var showDownloadCodeBut=false;
 var showUploadCodeOptionBut=false;
 var showTestResultUplOptionBut=false;
+var showPayCommissionOptionBut=false;
+var showGetCommissionOptionBut=false;
 
 var dialogTop=10;
 var dialogLeft=20;
@@ -168,12 +177,18 @@ function showCompontByPermission(){
 }
 
 function showOptionByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testCodePermStr)!=-1)
+		showTestCodeOptionBut=true;
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(downloadCodePermStr)!=-1)
 		showDownloadCodeBut=true;
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(uploadCodePermStr)!=-1)
 		showUploadCodeOptionBut=true;
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testResultUplPermStr)!=-1)
 		showTestResultUplOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(payCommissionPermStr)!=-1)
+		showPayCommissionOptionBut=true;
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(getCommissionPermStr)!=-1)
+		showGetCommissionOptionBut=true;
 }
 
 function initTOStateVar(){
@@ -197,8 +212,8 @@ function initTOStateVar(){
 }
 
 function initUTRVar(){
-	unPass=parseInt('${requestScope.unPass}');
-	pass=parseInt('${requestScope.pass}');
+	unPass='${requestScope.unPass}';
+	pass='${requestScope.pass}';
 
 	unPassName='${requestScope.unPassName}';
 	passName='${requestScope.passName}';
@@ -394,7 +409,7 @@ function initUploadTestResultDialog(){
         	   checkTestResult();
            }},
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openUploadTestResultDialog(false,"");
+        	   openUploadTestResultDialog(false,"","","");
            }}
         ]
 	});
@@ -489,10 +504,26 @@ function initTab1(){
             {field:"id",title:"操作",width:250,formatter:function(value,row){
             	var str="";
             	str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
-            	if(showUploadCodeOptionBut)
-            		str+="<a onclick=\"openUploadCodeDialog(true,"+value+")\">上传代码</a>&nbsp;&nbsp;";
-            	if(showTestResultUplOptionBut)
-            		str+="<a onclick=\"openUploadTestResultDialog(true,"+value+")\">上传测试结果</a>&nbsp;&nbsp;";
+            	if(showUploadCodeOptionBut){
+                	if(row.state==developingState||row.state==reworkingState)
+            			str+="<a onclick=\"openUploadCodeDialog(true,"+value+")\">上传代码</a>&nbsp;&nbsp;";
+            	}
+            	if(showTestCodeOptionBut){
+	            	if(row.state==unTestState)
+	            		str+="<a onclick=\"startTest("+value+",'"+row.no+"',"+row.orderUserId+")\">开始测试</a>&nbsp;&nbsp;";
+            	}
+            	if(showTestResultUplOptionBut){
+                	if(row.state==testingState)
+            			str+="<a onclick=\"openUploadTestResultDialog(true,"+value+",'"+row.no+"',"+row.orderUserId+")\">上传测试结果</a>&nbsp;&nbsp;";
+            	}
+            	if(showPayCommissionOptionBut){
+	               	if(row.state==unPayState)
+	               		str+="<a onclick=\"comfirmPay("+value+",'"+row.no+"',"+row.orderUserId+")\">确认支付佣金</a>&nbsp;&nbsp;";
+            	}
+            	if(showGetCommissionOptionBut){
+	                if(row.state==paidState)
+	                	str+="<a onclick=\"comfirmPaid("+value+")\">已收到佣金</a>&nbsp;&nbsp;";
+            	}
             	return str;
             }}
 	    ]],
@@ -552,7 +583,7 @@ function openUploadCodeDialog(flag,id){
 	$("#upload_code_div #id").val(id);
 }
 
-function openUploadTestResultDialog(flag,orderId){
+function openUploadTestResultDialog(flag,orderId,orderNo,orderUserId){
 	if(flag){
 		$("#upload_test_result_bg_div").css("display","block");
 	}
@@ -560,6 +591,53 @@ function openUploadTestResultDialog(flag,orderId){
 		$("#upload_test_result_bg_div").css("display","none");
 	}
 	$("#upload_test_result_div #orderId").val(orderId);
+	$("#upload_test_result_div #orderNo").val(orderNo);
+	$("#upload_test_result_div #orderUserId").val(orderUserId);
+}
+
+function startTest(orderId,orderNo,orderUserId){
+	$.post(taskBagManaPath + "startTestOrder",
+		{orderId:orderId,orderNo:orderNo,orderUserId:orderUserId},
+		function(result){
+			if(result.status==1){
+				alert(result.msg);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(result.msg);
+			}
+		}
+	,"json");
+}
+
+function comfirmPay(orderId,orderNo,orderUserId){
+	$.post(taskBagManaPath + "comfirmOrderPay",
+		{orderIds:orderId,orderNos:orderNo,orderUserIds:orderUserId},
+		function(result){
+			if(result.status==1){
+				alert(result.msg);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(result.msg);
+			}
+		}
+	,"json");
+}
+
+function comfirmPaid(orderId){
+	$.post(taskBagManaPath + "comfirmOrderPaid",
+		{orderIds:orderId},
+		function(result){
+			if(result.status==1){
+				alert(result.msg);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(result.msg);
+			}
+		}
+	,"json");
 }
 
 function checkTestResult(){
@@ -593,9 +671,9 @@ function uploadCode(){
 }
 
 function uploadTestResult(){
-	var orderId=$("#upload_test_result_div #orderId").val();
-	var state=utrResultCBB.combobox("getValue");
-	$("#upload_test_result_div #state").val(state);
+	//var orderId=$("#upload_test_result_div #orderId").val();
+	var result=utrResultCBB.combobox("getValue");
+	$("#upload_test_result_div #result").val(result);
 	
 	var formData = new FormData($("#form2")[0]);
 	$.ajax({
@@ -609,7 +687,8 @@ function uploadTestResult(){
 		success: function (data){
 			if(data.message=="ok"){
 				alert(data.info);
-				openUploadTestResultDialog(false,"");
+				openUploadTestResultDialog(false,"","","");
+				tab1.datagrid("load");
 			}
 			else{
 				alert(data.info);
@@ -733,7 +812,10 @@ function setFitWidthInParent(parent,self){
 			<div class="upload_test_result_dialog_div" id="upload_test_result_dialog_div">
 			<form id="form2" name="form2" method="post" action="" enctype="multipart/form-data">
 				<input type="hidden" id="orderId" name="orderId"/>
+				<input type="hidden" id="orderNo" name="orderNo"/>
+				<input type="hidden" id="orderUserId" name="orderUserId"/>
 				<input type="hidden" id="testUserId" name="testUserId" value="${sessionScope.user.id}"/>
+				<input type="hidden" id="testUserName" name="testUserName" value="${sessionScope.user.username}"/>
 				<table>
 				  <tr>
 					<td class="td1" align="right">

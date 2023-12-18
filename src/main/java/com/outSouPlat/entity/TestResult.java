@@ -51,6 +51,12 @@ public class TestResult {
 	public void setUploadUserName(String uploadUserName) {
 		this.uploadUserName = uploadUserName;
 	}
+	public Integer getOrderUserId() {
+		return orderUserId;
+	}
+	public void setOrderUserId(Integer orderUserId) {
+		this.orderUserId = orderUserId;
+	}
 	public String getOrderUserName() {
 		return orderUserName;
 	}
@@ -103,6 +109,7 @@ public class TestResult {
 	private String orderNo;
 	private String taskBagName;
 	private String uploadUserName;
+	private Integer orderUserId;
 	private String orderUserName;
 	private String agreeUserName;
 	private Integer testUserId;
