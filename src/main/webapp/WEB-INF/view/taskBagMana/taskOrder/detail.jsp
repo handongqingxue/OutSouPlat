@@ -397,7 +397,7 @@ function setFitWidthInParent(parent,self){
 						<c:when test="${requestScope.taskOrder.state eq requestScope.developingState }">${requestScope.developingStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.unTestState }">${requestScope.unTestStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.testingState }">${requestScope.testingStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.unPassState }">${requestScope.unPassStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.reworkingState }">${requestScope.reworkingStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.unPayState }">${requestScope.unPayStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.paidState }">${requestScope.paidStateName}</c:when>
 						<c:when test="${requestScope.taskOrder.state eq requestScope.finishedState }">${requestScope.finishedStateName}</c:when>

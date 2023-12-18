@@ -30,6 +30,8 @@ public class SysManaController {
 	private RoleService roleService;
 	@Autowired
 	private PermissionService permissionService;
+	@Autowired
+	private SysNoticeService sysNoticeService;
 	public static final String MODULE_NAME="sysMana";
 	
 	/**
@@ -48,6 +50,15 @@ public class SysManaController {
 		Constant.setUserPermissionInRequest(request);
 		
 		return MODULE_NAME+"/perInfo";
+	}
+	
+	@RequestMapping(value="/sysNotice/list")
+	public String goSysNoticeList(HttpServletRequest request) {
+		
+		//publicService.selectNav(request);
+		Constant.setUserPermissionInRequest(request);
+		
+		return MODULE_NAME+"/sysNotice/list";
 	}
 
 	/**
@@ -246,6 +257,31 @@ public class SysManaController {
 			url=Constant.NO_PERM_RETURN_URL;
 		
 		return url;
+	}
+	
+	/**
+	 * 查询系统通知
+	 * @param title
+	 * @param state
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value="/querySysNoticeList")
+	@ResponseBody
+	public Map<String, Object> querySysNoticeList(String title,Integer state,int page,int rows,String sort,String order) {
+		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		int count = sysNoticeService.queryForInt(title);
+		List<SysNotice> sysNoticeList=sysNoticeService.queryList(title, page, rows, sort, order);
+		
+		jsonMap.put("total", count);
+		jsonMap.put("rows", sysNoticeList);
+		
+		return jsonMap;
 	}
 	
 	/**

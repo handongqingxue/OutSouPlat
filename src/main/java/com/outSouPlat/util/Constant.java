@@ -131,7 +131,7 @@ public class Constant {
 		request.setAttribute("developingState", TaskOrder.DEVELOPING);
 		request.setAttribute("unTestState", TaskOrder.UN_TEST);
 		request.setAttribute("testingState", TaskOrder.TESTING);
-		request.setAttribute("unPassState", TaskOrder.UN_PASS);
+		request.setAttribute("reworkingState", TaskOrder.REWORKING);
 		request.setAttribute("unPayState", TaskOrder.UN_PAY);
 		request.setAttribute("paidState", TaskOrder.PAID);
 		request.setAttribute("finishedState", TaskOrder.FINISHED);
@@ -140,7 +140,7 @@ public class Constant {
 		request.setAttribute("developingStateName", TaskOrder.DEVELOPING_NAME);
 		request.setAttribute("unTestStateName", TaskOrder.UN_TEST_NAME);
 		request.setAttribute("testingStateName", TaskOrder.TESTING_NAME);
-		request.setAttribute("unPassStateName", TaskOrder.UN_PASS_NAME);
+		request.setAttribute("reworkingStateName", TaskOrder.REWORKING_NAME);
 		request.setAttribute("unPayStateName", TaskOrder.UN_PAY_NAME);
 		request.setAttribute("paidStateName", TaskOrder.PAID_NAME);
 		request.setAttribute("finishedStateName", TaskOrder.FINISHED_NAME);

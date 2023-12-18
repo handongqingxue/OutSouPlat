@@ -15,9 +15,9 @@ public class TaskOrder {
 	 */
 	public static final int TESTING=3;
 	/**
-	 * 不合格
+	 * 返工中
 	 */
-	public static final int UN_PASS=4;
+	public static final int REWORKING=4;
 	/**
 	 * 待支付佣金
 	 */
@@ -52,9 +52,9 @@ public class TaskOrder {
 	 */
 	public static final String TESTING_NAME="测试中";
 	/**
-	 * 不合格
+	 * 返工中
 	 */
-	public static final String UN_PASS_NAME="不合格";
+	public static final String REWORKING_NAME="返工中";
 	/**
 	 * 待支付佣金
 	 */

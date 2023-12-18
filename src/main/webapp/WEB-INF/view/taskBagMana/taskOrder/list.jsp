@@ -103,7 +103,7 @@ var utrdNum=1;
 var developingState;
 var unTestState;
 var testingState;
-var unPassState;
+var reworkingState;
 var unPayState;
 var paidState;
 var finishedState;
@@ -112,7 +112,7 @@ var discardedState;
 var developingStateName;
 var unTestStateName;
 var testingStateName;
-var unPassStateName;
+var reworkingStateName;
 var unPayStateName;
 var paidStateName;
 var finishedStateName;
@@ -180,7 +180,7 @@ function initTOStateVar(){
 	developingState=parseInt('${requestScope.developingState}');
 	unTestState=parseInt('${requestScope.unTestState}');
 	testingState=parseInt('${requestScope.testingState}');
-	unPassState=parseInt('${requestScope.unPassState}');
+	reworkingState=parseInt('${requestScope.reworkingState}');
 	unPayState=parseInt('${requestScope.unPayState}');
 	paidState=parseInt('${requestScope.paidState}');
 	finishedState=parseInt('${requestScope.finishedState}');
@@ -189,7 +189,7 @@ function initTOStateVar(){
 	developingStateName='${requestScope.developingStateName}';
 	unTestStateName='${requestScope.unTestStateName}';
 	testingStateName='${requestScope.testingStateName}';
-	unPassStateName='${requestScope.unPassStateName}';
+	reworkingStateName='${requestScope.reworkingStateName}';
 	unPayStateName='${requestScope.unPayStateName}';
 	paidStateName='${requestScope.paidStateName}';
 	finishedStateName='${requestScope.finishedStateName}';
@@ -234,7 +234,7 @@ function initTOStateCBB(){
 	data.push({"value":developingState,"text":developingStateName});
 	data.push({"value":unTestState,"text":unTestStateName});
 	data.push({"value":testingState,"text":testingStateName});
-	data.push({"value":unPassState,"text":unPassStateName});
+	data.push({"value":reworkingState,"text":reworkingStateName});
 	data.push({"value":unPayState,"text":unPayStateName});
 	data.push({"value":paidState,"text":paidStateName});
 	data.push({"value":finishedState,"text":finishedStateName});
@@ -523,8 +523,8 @@ function getStateNameById(stateId){
 	case testingState:
 		str=testingStateName;//测试中
 		break;
-	case unPassState:
-		str=unPassStateName;//不合格
+	case reworkingState:
+		str=reworkingStateName;//返工中
 		break;
 	case unPayState:
 		str=unPayStateName;//待支付佣金

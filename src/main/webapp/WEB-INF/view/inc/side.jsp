@@ -174,6 +174,13 @@
 							&nbsp;&nbsp;&nbsp;个人信息
 						</a>
 					</li>
+					<div class="line_div"></div>
+					<li class="layui-nav-item perInfo_item_li">
+						<img class="pointer-img" alt="" src="<%=basePath%>resource/image/ico_3.gif" />
+						<a href="<%=basePath%>sysMana/sysNotice/list">
+							&nbsp;&nbsp;&nbsp;通知查询
+						</a>
+					</li>
 					<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,userSearPermStr)}">
 					<div class="line_div"></div>
 					<li class="layui-nav-item user_item_li">
