@@ -358,8 +358,6 @@ function updateOrderUserId(id,name,uploadUserId,flag){
 function receiveOrder(id,name,orderUserId){
 	var agreeUserId='${sessionScope.user.id}';
 	var agreeUserName='${sessionScope.user.username}';
-	alert(name+","+agreeUserId+","+agreeUserName+","+orderUserId);
-	return false;
 	$.post(taskBagManaPath+"newTaskOrder",
 		{taskBagId:id,taskBagName:name,agreeUserId:agreeUserId,agreeUserName:agreeUserName,orderUserId:orderUserId},
 		function(data){

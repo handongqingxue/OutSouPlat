@@ -30,10 +30,23 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 		// TODO Auto-generated method stub
 		int count=0;
 		Integer taskBagId = taskOrder.getTaskBagId();
-		taskOrder.setNo(yMdHmsSDF.format(new Date())+"_"+taskBagId+"_"+taskOrder.getAgreeUserId()+"_"+taskOrder.getOrderUserId());
+		String taskOrderNo = yMdHmsSDF.format(new Date())+"_"+taskBagId+"_"+taskOrder.getAgreeUserId()+"_"+taskOrder.getOrderUserId();
+		taskOrder.setNo(taskOrderNo);
 		count=taskOrderDao.add(taskOrder);
-		if(count>0)
+		if(count>0) {
 			count=taskBagDao.updateStateById(TaskBag.DEVELOPING,taskBagId);
+
+			Integer agreeUserId = taskOrder.getAgreeUserId();
+			String agreeUserName = taskOrder.getAgreeUserName();
+			Integer receiveUserId = taskOrder.getOrderUserId();
+			
+			SysNotice sysNotice=new SysNotice();
+			sysNotice.setSendUserId(agreeUserId);
+			sysNotice.setReceiveUserId(receiveUserId);
+			sysNotice.setTitle("任务单批准通过");
+			sysNotice.setContent("您申请的任务单已批准通过，任务单号"+taskOrderNo+"，批准用户"+agreeUserName+"，请到任务包管理-任务单查询里查看。");
+			sysNoticeDao.add(sysNotice);
+		}
 		return count;
 	}
 
