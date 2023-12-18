@@ -45,6 +45,24 @@ public class TestResult {
 	public void setTaskBagName(String taskBagName) {
 		this.taskBagName = taskBagName;
 	}
+	public String getUploadUserName() {
+		return uploadUserName;
+	}
+	public void setUploadUserName(String uploadUserName) {
+		this.uploadUserName = uploadUserName;
+	}
+	public String getOrderUserName() {
+		return orderUserName;
+	}
+	public void setOrderUserName(String orderUserName) {
+		this.orderUserName = orderUserName;
+	}
+	public String getAgreeUserName() {
+		return agreeUserName;
+	}
+	public void setAgreeUserName(String agreeUserName) {
+		this.agreeUserName = agreeUserName;
+	}
 	public Integer getTestUserId() {
 		return testUserId;
 	}
@@ -84,6 +102,9 @@ public class TestResult {
 	private Integer orderId;
 	private String orderNo;
 	private String taskBagName;
+	private String uploadUserName;
+	private String orderUserName;
+	private String agreeUserName;
 	private Integer testUserId;
 	private String testUserName;
 	private String createTime;

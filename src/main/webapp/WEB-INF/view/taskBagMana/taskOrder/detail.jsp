@@ -324,10 +324,10 @@ function setFitWidthInParent(parent,self){
 					接单人
 				</td>
 				<td class="td2">
-					${requestScope.taskOrder.userName }
+					${requestScope.taskOrder.orderUserName }
 				</td>
 				<td class="td1" align="right">
-					发布时间
+					接单时间
 				</td>
 				<td class="td2">
 					${requestScope.taskOrder.createTime }
@@ -335,26 +335,16 @@ function setFitWidthInParent(parent,self){
 			  </tr>
 			  <tr>
 				<td class="td1" align="right">
+					审核人
+				</td>
+				<td class="td2">
+					${requestScope.taskOrder.agreeUserName }
+				</td>
+				<td class="td1" align="right">
 					完成时间
 				</td>
 				<td class="td2">
 					${requestScope.taskOrder.finishTime }
-				</td>
-				<td class="td1" align="right">
-					状态
-				</td>
-				<td class="td2">
-					<!-- https://blog.csdn.net/u012730333/article/details/42081827 -->
-					<c:choose>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.developingState }">${requestScope.developingStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.unTestState }">${requestScope.unTestStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.testingState }">${requestScope.testingStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.unPassState }">${requestScope.unPassStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.unPayState }">${requestScope.unPayStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.paidState }">${requestScope.paidStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.finishedState }">${requestScope.finishedStateName}</c:when>
-						<c:when test="${requestScope.taskOrder.state eq requestScope.discardedState }">${requestScope.discardedStateName}</c:when>
-					</c:choose>
 				</td>
 			  </tr>
 			  <tr>
@@ -395,6 +385,28 @@ function setFitWidthInParent(parent,self){
 							<div class="downloadBut_div dlAnnexBut_div" onclick="download(${requestScope.remotePlace},${requestScope.annexType})">下载</div>
 						</c:otherwise>
 					</c:choose>
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					状态
+				</td>
+				<td class="td2">
+					<!-- https://blog.csdn.net/u012730333/article/details/42081827 -->
+					<c:choose>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.developingState }">${requestScope.developingStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unTestState }">${requestScope.unTestStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.testingState }">${requestScope.testingStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unPassState }">${requestScope.unPassStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.unPayState }">${requestScope.unPayStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.paidState }">${requestScope.paidStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.finishedState }">${requestScope.finishedStateName}</c:when>
+						<c:when test="${requestScope.taskOrder.state eq requestScope.discardedState }">${requestScope.discardedStateName}</c:when>
+					</c:choose>
+				</td>
+				<td class="td1" align="right">
+				</td>
+				<td class="td2">
 				</td>
 			  </tr>
 			</table>

@@ -25,7 +25,9 @@
 .tab1_div .toolbar .row_div .no_span,
 .tab1_div .toolbar .row_div .state_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
+.tab1_div .toolbar .row_div .uploadUserName_span,
 .tab1_div .toolbar .row_div .orderUserName_span,
+.tab1_div .toolbar .row_div .agreeUserName_span,
 .tab1_div .toolbar .row_div .createTime_span,
 .tab1_div .toolbar .row_div .finishTime_span,
 .tab1_div .toolbar .row_div .search_but{
@@ -33,7 +35,9 @@
 }
 .tab1_div .toolbar .row_div .no_inp,
 .tab1_div .toolbar .row_div .taskBagName_inp,
-.tab1_div .toolbar .row_div .orderUserName_inp{
+.tab1_div .toolbar .row_div .uploadUserName_inp,
+.tab1_div .toolbar .row_div .orderUserName_inp,
+.tab1_div .toolbar .row_div .agreeUserName_inp{
 	width: 120px;
 	height: 25px;
 }
@@ -250,14 +254,16 @@ function initSearchLB(){
 		onClick:function(){
 			var no=$("#toolbar #no").val();
 			var taskBagName=$("#toolbar #taskBagName").val();
+			var uploadUserName=$("#toolbar #uploadUserName").val();
 			var orderUserName=$("#toolbar #orderUserName").val();
+			var agreeUserName=$("#toolbar #agreeUserName").val();
 			var createTimeStart=createTimeStartDTB.datetimebox("getValue");
 			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
 			var finishTimeStart=finishTimeStartDTB.datetimebox("getValue");
 			var finishTimeEnd=finishTimeEndDTB.datetimebox("getValue");
 			var state=stateCBB.combobox("getValue");
 			
-			tab1.datagrid("load",{no:no,taskBagName:taskBagName,orderUserName:orderUserName,createTimeStart:createTimeStart,
+			tab1.datagrid("load",{no:no,taskBagName:taskBagName,uploadUserName:uploadUserName,orderUserName:orderUserName,agreeUserName:agreeUserName,createTimeStart:createTimeStart,
 				createTimeEnd:createTimeEnd,finishTimeStart:finishTimeStart,finishTimeEnd:finishTimeEnd,state:state,userId:userId});
 		}
 	});
@@ -472,7 +478,9 @@ function initTab1(){
 		columns:[[
 			{field:"no",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
+			{field:"uploadUserName",title:"上传人",width:150},
 			{field:"orderUserName",title:"接单人",width:150},
+			{field:"agreeUserName",title:"审核人",width:150},
 			{field:"createTime",title:"接单时间",width:150},
 			{field:"finishTime",title:"完成时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
@@ -491,7 +499,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{no:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"no",colspan:7});
+				$(this).datagrid("mergeCells",{index:0,field:"no",colspan:9});
 				data.total=0;
 			}
 			
@@ -674,13 +682,17 @@ function setFitWidthInParent(parent,self){
 				<input type="text" class="no_inp" id="no" placeholder="请输入任务单号"/>
 				<span class="taskBagName_span">任务包：</span>
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
+				<span class="uploadUserName_span">上传人：</span>
+				<input type="text" class="uploadUserName_inp" id="uploadUserName" placeholder="请输入上传人"/>
 				<span class="orderUserName_span">接单人：</span>
 				<input type="text" class="orderUserName_inp" id="orderUserName" placeholder="请输入接单人"/>
+				<span class="agreeUserName_span">审核人：</span>
+				<input type="text" class="agreeUserName_inp" id="agreeUserName" placeholder="请输入审核人"/>
+			</div>
+			<div class="row_div">
 				<span class="createTime_span">接单时间：</span>
 				<input id="createTimeStart_dtb"/>-
 				<input id="createTimeEnd_dtb"/>
-			</div>
-			<div class="row_div">
 				<span class="finishTime_span">完成时间：</span>
 				<input id="finishTimeStart_dtb"/>-
 				<input id="finishTimeEnd_dtb"/>

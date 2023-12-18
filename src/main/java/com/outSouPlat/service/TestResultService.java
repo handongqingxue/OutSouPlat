@@ -10,10 +10,10 @@ public interface TestResultService {
 
 	int edit(TestResult testResult);
 
-	int queryForInt(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart,
+	int queryForInt(String orderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,
 			String createTimeEnd, Boolean result, Integer userId, Integer roleFlag);
 
-	List<TestResult> queryList(String orderNo, String taskBagName, String testUserName, String phone, String createTimeStart,
+	List<TestResult> queryList(String orderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,
 			String createTimeEnd, Boolean result, Integer userId, Integer roleFlag, int page, int rows, String sort, String order);
 
 	TestResult selectById(String id);

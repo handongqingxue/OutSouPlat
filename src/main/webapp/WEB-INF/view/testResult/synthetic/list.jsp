@@ -23,6 +23,9 @@
 .tab1_div .toolbar .row_div .orderNo_span,
 .tab1_div .toolbar .row_div .result_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
+.tab1_div .toolbar .row_div .uploadUserName_span,
+.tab1_div .toolbar .row_div .orderUserName_span,
+.tab1_div .toolbar .row_div .agreeUserName_span,
 .tab1_div .toolbar .row_div .testUserName_span,
 .tab1_div .toolbar .row_div .phone_span,
 .tab1_div .toolbar .row_div .createTime_span,
@@ -31,6 +34,9 @@
 }
 .tab1_div .toolbar .row_div .orderNo_inp,
 .tab1_div .toolbar .row_div .taskBagName_inp,
+.tab1_div .toolbar .row_div .uploadUserName_inp,
+.tab1_div .toolbar .row_div .orderUserName_inp,
+.tab1_div .toolbar .row_div .agreeUserName_inp,
 .tab1_div .toolbar .row_div .testUserName_inp,
 .tab1_div .toolbar .row_div .phone_inp{
 	width: 120px;
@@ -130,14 +136,17 @@ function initSearchLB(){
 		onClick:function(){
 			var orderNo=$("#toolbar #orderNo").val();
 			var taskBagName=$("#toolbar #taskBagName").val();
+			var uploadUserName=$("#toolbar #uploadUserName").val();
+			var orderUserName=$("#toolbar #orderUserName").val();
+			var agreeUserName=$("#toolbar #agreeUserName").val();
 			var testUserName=$("#toolbar #testUserName").val();
 			var phone=$("#toolbar #phone").val();
 			var createTimeStart=createTimeStartDTB.datetimebox("getValue");
 			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
 			var result=resultCBB.combobox("getValue");
 			
-			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,testUserName:testUserName,phone:phone,
-				createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,result:result,userId:'${sessionUserIdStr}',roleFlag:roleFlag});
+			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,uploadUserName:uploadUserName,orderUserName:orderUserName,agreeUserName:agreeUserName,
+				testUserName:testUserName,phone:phone,createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,result:result,userId:'${sessionUserIdStr}',roleFlag:roleFlag});
 		}
 	});
 }
@@ -178,6 +187,9 @@ function initTab1(){
 		columns:[[
 			{field:"orderNo",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
+			{field:"uploadUserName",title:"上传人",width:150},
+			{field:"orderUserName",title:"接单人",width:150},
+			{field:"agreeUserName",title:"审核人",width:150},
 			{field:"testUserName",title:"测试人",width:150},
 			{field:"phone",title:"测试人电话",width:150},
 			{field:"createTime",title:"测试时间",width:150},
@@ -195,7 +207,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{orderNo:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"orderNo",colspan:7});
+				$(this).datagrid("mergeCells",{index:0,field:"orderNo",colspan:10});
 				data.total=0;
 			}
 			
@@ -236,12 +248,18 @@ function setFitWidthInParent(parent,self){
 				<input type="text" class="orderNo_inp" id="orderNo" placeholder="请输入任务单号"/>
 				<span class="taskBagName_span">任务包：</span>
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
+				<span class="uploadUserName_span">上传人：</span>
+				<input type="text" class="uploadUserName_inp" id="uploadUserName" placeholder="请输入上传人"/>
+				<span class="orderUserName_span">接单人：</span>
+				<input type="text" class="orderUserName_inp" id="orderUserName" placeholder="请输入接单人"/>
+				<span class="agreeUserName_span">审核人：</span>
+				<input type="text" class="agreeUserName_inp" id="agreeUserName" placeholder="请输入审核人"/>
+			</div>
+			<div class="row_div">
 				<span class="testUserName_span">测试人：</span>
 				<input type="text" class="testUserName_inp" id="testUserName" placeholder="请输入测试人"/>
 				<span class="phone_span">测试人电话：</span>
 				<input type="text" class="phone_inp" id="phone" placeholder="请输入测试人电话"/>
-			</div>
-			<div class="row_div">
 				<span class="createTime_span">测试时间：</span>
 				<input id="createTimeStart_dtb"/>-
 				<input id="createTimeEnd_dtb"/>

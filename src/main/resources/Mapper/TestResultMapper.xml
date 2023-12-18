@@ -62,12 +62,21 @@
 		 where id=#{id}
 	</update>
 	<select id="queryForInt" resultType="java.lang.Integer">
-		select count(*) from test_result tr,task_order `to`,task_bag tb,user testu where tr.orderId=`to`.id and tr.testUserId=testu.id and `to`.taskBagId=tb.id
+		select count(*) from test_result tr,task_order `to`,task_bag tb,user upload_u,user order_u,user agree_u,user testu where tr.orderId=`to`.id and tb.uploadUserId=upload_u.id and `to`.orderUserId=order_u.id and `to`.agreeUserId=agree_u.id and tr.testUserId=testu.id and `to`.taskBagId=tb.id
 		<if test="orderNo!=''&amp;orderNo!=null">
 			and `to`.no like CONCAT('%',#{orderNo},'%')
 		</if>
 		<if test="taskBagName!=''&amp;taskBagName!=null">
 			and tb.name like CONCAT('%',#{taskBagName},'%')
+		</if>
+		<if test="uploadUserName!=''&amp;uploadUserName!=null">
+			and upload_u.username like CONCAT('%',#{uploadUserName},'%')
+		</if>
+		<if test="orderUserName!=''&amp;orderUserName!=null">
+			and order_u.username like CONCAT('%',#{orderUserName},'%')
+		</if>
+		<if test="agreeUserName!=''&amp;agreeUserName!=null">
+			and agree_u.username like CONCAT('%',#{agreeUserName},'%')
 		</if>
 		<if test="testUserName!=''&amp;testUserName!=null">
 			and u.username like CONCAT('%',#{testUserName},'%')
@@ -86,17 +95,26 @@
 			 	and testu.id=#{userId}
 			</when>
 			<when test="roleFlag==@com.outSouPlat.util.Constant@EXTER_FLAG">
-			 	and `to`.userId=#{userId}
+			 	and `to`.orderUserId=#{userId}
 			</when>
 		</choose>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.TestResult">
-		select tr.*,`to`.no orderNo,tb.name taskBagName,testu.username testUserName from test_result tr,task_order `to`,task_bag tb,user testu where tr.orderId=`to`.id and tr.testUserId=testu.id and `to`.taskBagId=tb.id
+		select tr.*,`to`.no orderNo,tb.name taskBagName,upload_u.username uploadUserName,order_u.username orderUserName,agree_u.userName agreeUserName,testu.username testUserName from test_result tr,task_order `to`,task_bag tb,user upload_u,user order_u,user agree_u,user testu where tr.orderId=`to`.id and tb.uploadUserId=upload_u.id and `to`.orderUserId=order_u.id and `to`.agreeUserId=agree_u.id and tr.testUserId=testu.id and `to`.taskBagId=tb.id
 		<if test="orderNo!=''&amp;orderNo!=null">
 			and `to`.no like CONCAT('%',#{orderNo},'%')
 		</if>
 		<if test="taskBagName!=''&amp;taskBagName!=null">
 			and tb.name like CONCAT('%',#{taskBagName},'%')
+		</if>
+		<if test="uploadUserName!=''&amp;uploadUserName!=null">
+			and upload_u.username like CONCAT('%',#{uploadUserName},'%')
+		</if>
+		<if test="orderUserName!=''&amp;orderUserName!=null">
+			and order_u.username like CONCAT('%',#{orderUserName},'%')
+		</if>
+		<if test="agreeUserName!=''&amp;agreeUserName!=null">
+			and agree_u.username like CONCAT('%',#{agreeUserName},'%')
 		</if>
 		<if test="testUserName!=''&amp;testUserName!=null">
 			and u.username like CONCAT('%',#{testUserName},'%')
@@ -115,13 +133,13 @@
 			 	and testu.id=#{userId}
 			</when>
 			<when test="roleFlag==@com.outSouPlat.util.Constant@EXTER_FLAG">
-			 	and `to`.userId=#{userId}
+			 	and `to`.orderUserId=#{userId}
 			</when>
 		</choose>
 		order by tr.createTime desc
 		limit #{rowNum},#{rows}
 	</select>
 	<select id="selectById" resultType="com.outSouPlat.entity.TestResult">
-		select tr.*,`to`.no orderNo,tb.name taskBagName,u.username testUserName from test_result tr,task_order `to`,task_bag tb,user u where tr.orderId=`to`.id and tr.testUserId=u.id and `to`.taskBagId=tb.id and `to`.userId=u.id and tr.id=#{id}
+		select tr.*,`to`.no orderNo,tb.name taskBagName,test_u.username testUserName from test_result tr,task_order `to`,task_bag tb,user test_u where tr.orderId=`to`.id and tr.testUserId=test_u.id and `to`.taskBagId=tb.id and tr.id=#{id}
 	</select>
 </mapper>
