@@ -63,6 +63,23 @@ public class SysManaController {
 	}
 
 	/**
+	 * 跳转到任务包管理-任务包列表-详情页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/sysNotice/detail")
+	public String goSysNoticeDetail(HttpServletRequest request) {
+
+		String id = request.getParameter("id");
+		SysNotice sysNotice=sysNoticeService.selectById(id);
+		request.setAttribute("sysNotice", sysNotice);
+		
+		Constant.setUserPermissionInRequest(request);
+			
+		return MODULE_NAME+"/sysNotice/detail";
+	}
+
+	/**
 	 * 跳转到系统管理-用户查询-编辑页面
 	 * @param request
 	 * @return

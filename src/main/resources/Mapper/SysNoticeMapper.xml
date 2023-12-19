@@ -83,4 +83,7 @@
 		order by createTime desc
 		limit #{rowNum},#{rows}
 	</select>
+	<select id="selectById" resultType="com.outSouPlat.entity.SysNotice">
+		select sn.*,send_u.username sendUserName,receive_u.username receiveUserName from sys_notice sn left join user send_u on sn.sendUserId=send_u.id left join user receive_u on sn.receiveUserId=receive_u.id where sn.id=#{id}
+	</select>
 </mapper>

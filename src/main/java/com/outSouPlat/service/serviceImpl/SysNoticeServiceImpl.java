@@ -27,4 +27,10 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 		// TODO Auto-generated method stub
 		return sysNoticeDao.queryList(title,sendUserName,receiveUserName,createTimeStart,createTimeEnd,read, userId, (page-1)*rows, rows, sort, order);
 	}
+
+	@Override
+	public SysNotice selectById(String id) {
+		// TODO Auto-generated method stub
+		return sysNoticeDao.selectById(id);
+	}
 }
