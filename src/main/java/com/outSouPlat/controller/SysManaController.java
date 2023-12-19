@@ -63,7 +63,7 @@ public class SysManaController {
 	}
 
 	/**
-	 * 跳转到任务包管理-任务包列表-详情页面
+	 * 跳转到系统管理-通知查询-详情页面
 	 * @param request
 	 * @return
 	 */
