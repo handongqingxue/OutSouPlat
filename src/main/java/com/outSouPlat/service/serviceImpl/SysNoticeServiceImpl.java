@@ -1,5 +1,6 @@
 package com.outSouPlat.service.serviceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,12 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 	public SysNotice selectById(String id) {
 		// TODO Auto-generated method stub
 		return sysNoticeDao.selectById(id);
+	}
+
+	@Override
+	public int signRead(String ids) {
+		// TODO Auto-generated method stub
+		List<String> idList = Arrays.asList(ids.split(","));
+		return sysNoticeDao.signRead(idList);
 	}
 }

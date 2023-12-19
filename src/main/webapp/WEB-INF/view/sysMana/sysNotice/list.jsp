@@ -49,6 +49,7 @@ $(function(){
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
 	initReadCBB();
+	initSignReadLB();
 	initSearchLB();
 	initTab1();
 });
@@ -100,6 +101,49 @@ function initReadCBB(){
 		//multiple:true,
 		data:data
 	});
+}
+
+function initSignReadLB(){
+	signReadLB=$("#signRead_but").linkbutton({
+		iconCls:"icon-remove",
+		onClick:function(){
+			signReadByIds();
+		}
+	});
+}
+
+function signReadByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要标注的信息！","warning");
+		return false;
+	}
+	
+	var ids="";
+	for (var i = 0; i < rows.length; i++) {
+		if(!rows[i].read){
+			ids += "," + rows[i].id;
+		}
+	}
+	if(ids==""){
+		$.messager.alert("提示","所选信息状态都是已读！","warning");
+		return false;
+	}
+	else{
+		ids=ids.substring(1);
+		$.post(sysManaPath + "signNoticeRead",
+			{ids:ids},
+			function(result){
+				if(result.status==1){
+					alert(result.msg);
+					tab1.datagrid("load");
+				}
+				else{
+					alert(result.msg);
+				}
+			}
+		,"json");
+	}
 }
 
 function initSearchLB(){
@@ -184,6 +228,7 @@ function setFitWidthInParent(parent,self){
 			<input id="createTimeEnd_dtb"/>
 			<span class="read_span">是否已读：</span>
 			<input id="read_cbb"/>
+			<a id="signRead_but">标记为已读</a>
 			<a class="search_but" id="search_but">查询</a>
 		</div>
 		<table id="tab1">

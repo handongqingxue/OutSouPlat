@@ -301,6 +301,26 @@ public class SysManaController {
 		
 		return jsonMap;
 	}
+
+	@RequestMapping(value="/signNoticeRead",produces="plain/text; charset=UTF-8")
+	@ResponseBody
+	public String signNoticeRead(String ids) {
+		//TODO 针对分类的动态进行实时调整更新
+		int count=sysNoticeService.signRead(ids);
+		PlanResult plan=new PlanResult();
+		String json;
+		if(count==0) {
+			plan.setStatus(0);
+			plan.setMsg("标记失败");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		else {
+			plan.setStatus(1);
+			plan.setMsg("标记成功");
+			json=JsonUtil.getJsonFromObject(plan);
+		}
+		return json;
+	}
 	
 	/**
 	 * 编辑用户

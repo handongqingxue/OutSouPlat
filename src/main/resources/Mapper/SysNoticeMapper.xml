@@ -86,4 +86,11 @@
 	<select id="selectById" resultType="com.outSouPlat.entity.SysNotice">
 		select sn.*,send_u.username sendUserName,receive_u.username receiveUserName from sys_notice sn left join user send_u on sn.sendUserId=send_u.id left join user receive_u on sn.receiveUserId=receive_u.id where sn.id=#{id}
 	</select>
+	<update id="signRead">
+		update sys_notice set `read`=${@com.outSouPlat.entity.SysNotice@READ}
+		 where
+		<foreach collection="idList" item="id" open="1=1 and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</update>
 </mapper>
