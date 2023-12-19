@@ -4,6 +4,9 @@ public class SysNotice {
 
 	public static final boolean READ=true;
 	public static final boolean UN_READ=false;
+
+	public static final String READ_NAME="已读";
+	public static final String UN_READ_NAME="未读";
 	
 	private Integer id;
 	public Integer getId() {
@@ -48,6 +51,12 @@ public class SysNotice {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getContentSubStr() {
+		return contentSubStr;
+	}
+	public void setContentSubStr(String contentSubStr) {
+		this.contentSubStr = contentSubStr;
+	}
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -66,6 +75,7 @@ public class SysNotice {
 	private String receiveUserName;
 	private String title;
 	private String content;
+	private String contentSubStr;
 	private String createTime;
 	private Boolean read;
 }

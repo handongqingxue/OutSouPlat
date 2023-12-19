@@ -18,7 +18,7 @@ $(function(){
             form = layui.form;
         //监听提交按钮
         form.on('submit(login)', function (data) {
-            $(data.elem).attr('class', 'layui-btn layui-btn-disabled');
+            //$(data.elem).attr('class', 'layui-btn layui-btn-disabled');//这行逻辑是在登录失败时，按钮变为禁止符号，暂时屏蔽掉
             var url=baseUrl + "/main/login"
             var params = {
             		username: data.field.username,
@@ -33,7 +33,7 @@ $(function(){
             		layer.msg(json.msg, {icon: 6});
             		window.location.href=path+json.url;
             	}else if(json.status==1){
-            		layer.alert(json.msg,{icon:5})
+            		layer.alert(json.msg,{icon:5});
             	}
             	return false;
             })

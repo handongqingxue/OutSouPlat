@@ -44,11 +44,41 @@
 		<if test="title!=''&amp;title!=null">
 			and sn.title like CONCAT('%',#{title},'%')
 		</if>
+		<if test="sendUserName!=''&amp;sendUserName!=null">
+			and send_u.username like CONCAT('%',#{sendUserName},'%')
+		</if>
+		<if test="receiveUserName!=''&amp;receiveUserName!=null">
+			and receive_u.username like CONCAT('%',#{receiveUserName},'%')
+		</if>
+		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
+			and sn.createTime between #{createTimeStart} and #{createTimeEnd}
+		</if>
+		<if test="read!=''&amp;read!=null">
+			and sn.read=#{read}
+		</if>
+		<if test="userId!=''&amp;userId!=null">
+			and sn.receiveUserId=#{userId}
+		</if>
 	</select>
 	<select id="queryList" resultType="com.outSouPlat.entity.SysNotice">
-		select sn.*,send_u.username sendUserName,receive_u.username receiveUserName from sys_notice sn left join user send_u on sn.sendUserId=send_u.id left join user receive_u on sn.receiveUserId=receive_u.id where 1=1  
+		select sn.*,case when length(sn.content)>20 then CONCAT(SUBSTRING(sn.content,1,20),'...') else sn.content end contentSubStr,send_u.username sendUserName,receive_u.username receiveUserName from sys_notice sn left join user send_u on sn.sendUserId=send_u.id left join user receive_u on sn.receiveUserId=receive_u.id where 1=1  
 		<if test="title!=''&amp;title!=null">
 			and sn.title like CONCAT('%',#{title},'%')
+		</if>
+		<if test="sendUserName!=''&amp;sendUserName!=null">
+			and send_u.username like CONCAT('%',#{sendUserName},'%')
+		</if>
+		<if test="receiveUserName!=''&amp;receiveUserName!=null">
+			and receive_u.username like CONCAT('%',#{receiveUserName},'%')
+		</if>
+		<if test="createTimeStart!=''&amp;createTimeStart!=null&amp;createTimeEnd!=''&amp;createTimeEnd!=null">
+			and sn.createTime between #{createTimeStart} and #{createTimeEnd}
+		</if>
+		<if test="read!=''&amp;read!=null">
+			and sn.read=#{read}
+		</if>
+		<if test="userId!=''&amp;userId!=null">
+			and sn.receiveUserId=#{userId}
 		</if>
 		order by createTime desc
 		limit #{rowNum},#{rows}

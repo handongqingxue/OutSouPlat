@@ -53,12 +53,10 @@ var showEditOptionBut=false;
 
 var unContractState;
 var contractedState;
-var developingState;
 var finishState;
 
 var unContractStateName;
 var contractedStateName;
-var developingStateName;
 var finishStateName;
 $(function(){
 	initStateVar();
@@ -87,12 +85,10 @@ function showOptionByPermission(){
 function initStateVar(){
 	unContractState=parseInt('${requestScope.unContractState}');
 	contractedState=parseInt('${requestScope.contractedState}');
-	developingState=parseInt('${requestScope.developingState}');
 	finishState=parseInt('${requestScope.finishState}');
 
 	unContractStateName='${requestScope.unContractStateName}';
 	contractedStateName='${requestScope.contractedStateName}';
-	developingStateName='${requestScope.developingStateName}';
 	finishStateName='${requestScope.finishStateName}';
 }
 
@@ -113,7 +109,6 @@ function initStateCBB(){
 	data.push({"value":"","text":"请选择"});
 	data.push({"value":unContractState,"text":unContractStateName});
 	data.push({"value":contractedState,"text":contractedStateName});
-	data.push({"value":developingState,"text":developingStateName});
 	data.push({"value":finishState,"text":finishStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
@@ -210,9 +205,6 @@ function getStateNameById(stateId){
 		break;
 	case contractedState:
 		str=contractedStateName;//已承包
-		break;
-	case developingState:
-		str=developingStateName;//开发中
 		break;
 	case finishState:
 		str=finishStateName;//已完成

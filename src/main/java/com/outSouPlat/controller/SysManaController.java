@@ -57,6 +57,7 @@ public class SysManaController {
 		
 		//publicService.selectNav(request);
 		Constant.setUserPermissionInRequest(request);
+		Constant.setSysNoticeReadInRequest(request);
 		
 		return MODULE_NAME+"/sysNotice/list";
 	}
@@ -271,12 +272,12 @@ public class SysManaController {
 	 */
 	@RequestMapping(value="/querySysNoticeList")
 	@ResponseBody
-	public Map<String, Object> querySysNoticeList(String title,Integer state,int page,int rows,String sort,String order) {
+	public Map<String, Object> querySysNoticeList(String title,String sendUserName,String receiveUserName,String createTimeStart,String createTimeEnd,Boolean read,Integer userId,int page,int rows,String sort,String order) {
 		
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		int count = sysNoticeService.queryForInt(title);
-		List<SysNotice> sysNoticeList=sysNoticeService.queryList(title, page, rows, sort, order);
+		int count = sysNoticeService.queryForInt(title,sendUserName,receiveUserName,createTimeStart,createTimeEnd,read,userId);
+		List<SysNotice> sysNoticeList=sysNoticeService.queryList(title,sendUserName,receiveUserName,createTimeStart,createTimeEnd,read, userId, page, rows, sort, order);
 		
 		jsonMap.put("total", count);
 		jsonMap.put("rows", sysNoticeList);

@@ -11,10 +11,6 @@ public class Project {
 	 */
 	public static final int CONTRACTED=2;
 	/**
-	 * 开发中
-	 */
-	public static final int DEVELOPING=3;
-	/**
 	 * 已完成
 	 */
 	public static final int FINISH=4;
@@ -27,10 +23,6 @@ public class Project {
 	 * 已承包
 	 */
 	public static final String CONTRACTED_NAME="已承包";
-	/**
-	 * 开发中
-	 */
-	public static final String DEVELOPING_NAME="开发中";
 	/**
 	 * 已完成
 	 */

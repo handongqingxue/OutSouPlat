@@ -14,10 +14,16 @@
 .tab1_div .toolbar{
 	height:32px;
 }
-.tab1_div .toolbar .title_span{
+.tab1_div .toolbar .title_span,
+.tab1_div .toolbar .sendUserName_span,
+.tab1_div .toolbar .receiveUserName_span,
+.tab1_div .toolbar .createTime_span,
+.tab1_div .toolbar .read_span{
 	margin-left: 13px;
 }
-.tab1_div .toolbar .title_inp{
+.tab1_div .toolbar .title_inp,
+.tab1_div .toolbar .sendUserName_inp,
+.tab1_div .toolbar .receiveUserName_inp{
 	width: 120px;height: 25px;
 }
 .tab1_div .toolbar .search_but{
@@ -29,17 +35,84 @@
 var path='<%=basePath %>';
 var sysManaPath=path+'sysMana/';
 
+var unRead;
+var read;
+
+var unReadName;
+var readName;
+
+var userId;
 $(function(){
+	initQSNUserId();
+	initReadVar();
+	
+	initCreateTimeStartDTB();
+	initCreateTimeEndDTB();
+	initReadCBB();
 	initSearchLB();
 	initTab1();
 });
+
+function initQSNUserId(){
+	if('${sessionUsernameStr}'=='${usernameStr}'){
+		userId="";
+	}
+	else{
+		var roleNames='${sessionScope.user.roleNames}';
+		if(roleNames.includes("技术人员")){
+			userId="";
+		}
+		else{
+			userId='${sessionUserIdStr}';
+		}
+	}
+}
+
+function initReadVar(){
+	unRead='${requestScope.unRead}';
+	read='${requestScope.read}';
+
+	unReadName='${requestScope.unReadName}';
+	readName='${requestScope.readName}';
+}
+
+function initCreateTimeStartDTB(){
+	createTimeStartDTB=$("#createTimeStart_dtb").datetimebox({
+        required:false
+    });
+}
+
+function initCreateTimeEndDTB(){
+	createTimeEndDTB=$("#createTimeEnd_dtb").datetimebox({
+        required:false
+    });
+}
+
+function initReadCBB(){
+	var data=[];
+	data.push({"value":"","text":"请选择"});
+	data.push({"value":read,"text":readName});
+	data.push({"value":unRead,"text":unReadName});
+	
+	readCBB=$("#read_cbb").combobox({
+		valueField:"value",
+		textField:"text",
+		//multiple:true,
+		data:data
+	});
+}
 
 function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
 			var title=$("#toolbar #title").val();
-			tab1.datagrid("load",{title:title});
+			var sendUserName=$("#toolbar #sendUserName").val();
+			var receiveUserName=$("#toolbar #receiveUserName").val();
+			var createTimeStart=createTimeStartDTB.datetimebox("getValue");
+			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
+			var read=readCBB.combobox("getValue");
+			tab1.datagrid("load",{title:title,sendUserName:sendUserName,receiveUserName:receiveUserName,createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,read:read,userId:userId});
 		}
 	});
 }
@@ -48,16 +121,17 @@ function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"系统管理-通知查询-列表",
 		url:sysManaPath+"querySysNoticeList",
+		queryParams:{userId:userId},
 		toolbar:"#toolbar",
 		width:setFitWidthInParent("body","tab1_div"),
 		pagination:true,
 		pageSize:10,
 		columns:[[
 			{field:"title",title:"标题",width:150},
-			{field:"content",title:"内容",width:300},
+			{field:"contentSubStr",title:"内容",width:300},
 			{field:"sendUserName",title:"发送人",width:150},
 			{field:"receiveUserName",title:"接收人",width:150},
-			{field:"createTime",title:"创建时间",width:150},
+			{field:"createTime",title:"发送时间",width:150},
 			{field:"read",title:"是否已读",width:100,formatter:function(value,row){
 				return value?"已读":"未读";
 			}},
@@ -101,6 +175,15 @@ function setFitWidthInParent(parent,self){
 		<div class="toolbar" id="toolbar">
 			<span class="title_span">标题：</span>
 			<input type="text" class="title_inp" id="title" placeholder="请输入标题"/>
+			<span class="sendUserName_span">发送人：</span>
+			<input type="text" class="sendUserName_inp" id="sendUserName" placeholder="请输入发送人"/>
+			<span class="receiveUserName_span">接收人：</span>
+			<input type="text" class="receiveUserName_inp" id="receiveUserName" placeholder="请输入接收人"/>
+			<span class="createTime_span">发送时间：</span>
+			<input id="createTimeStart_dtb"/>-
+			<input id="createTimeEnd_dtb"/>
+			<span class="read_span">是否已读：</span>
+			<input id="read_cbb"/>
 			<a class="search_but" id="search_but">查询</a>
 		</div>
 		<table id="tab1">

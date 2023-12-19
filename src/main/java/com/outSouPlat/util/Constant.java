@@ -92,12 +92,10 @@ public class Constant {
 
 		request.setAttribute("unContractState", Project.UN_CONTRACT);
 		request.setAttribute("contractedState", Project.CONTRACTED);
-		request.setAttribute("developingState", Project.DEVELOPING);
 		request.setAttribute("finishState", Project.FINISH);
 		
 		request.setAttribute("unContractStateName", Project.UN_CONTRACT_NAME);
 		request.setAttribute("contractedStateName", Project.CONTRACTED_NAME);
-		request.setAttribute("developingStateName", Project.DEVELOPING_NAME);
 		request.setAttribute("finishStateName", Project.FINISH_NAME);
 	}
 	
@@ -158,6 +156,19 @@ public class Constant {
 		
 		request.setAttribute("unPassName", TestResult.UN_PASS_NAME);
 		request.setAttribute("passName", TestResult.PASS_NAME);
+	}
+	
+	/**
+	 * 存放系统通知是否已读常量
+	 * @param request
+	 */
+	public static void setSysNoticeReadInRequest(HttpServletRequest request) {
+		
+		request.setAttribute("read", SysNotice.READ);
+		request.setAttribute("unRead", SysNotice.UN_READ);
+
+		request.setAttribute("readName", SysNotice.READ_NAME);
+		request.setAttribute("unReadName", SysNotice.UN_READ_NAME);
 	}
 	
 	/**

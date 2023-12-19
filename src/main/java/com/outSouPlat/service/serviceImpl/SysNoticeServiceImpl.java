@@ -16,14 +16,15 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 	private SysNoticeMapper sysNoticeDao;
 
 	@Override
-	public int queryForInt(String title) {
+	public int queryForInt(String title,String sendUserName,String receiveUserName,String createTimeStart,String createTimeEnd,Boolean read, Integer userId) {
 		// TODO Auto-generated method stub
-		return sysNoticeDao.queryForInt(title);
+		return sysNoticeDao.queryForInt(title,sendUserName,receiveUserName,createTimeStart,createTimeEnd,read, userId);
 	}
 
 	@Override
-	public List<SysNotice> queryList(String title, int page, int rows, String sort, String order) {
+	public List<SysNotice> queryList(String title,String sendUserName,String receiveUserName,String createTimeStart,String createTimeEnd,Boolean read, Integer userId, 
+			int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return sysNoticeDao.queryList(title, (page-1)*rows, rows, sort, order);
+		return sysNoticeDao.queryList(title,sendUserName,receiveUserName,createTimeStart,createTimeEnd,read, userId, (page-1)*rows, rows, sort, order);
 	}
 }
