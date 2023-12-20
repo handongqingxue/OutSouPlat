@@ -72,6 +72,8 @@ public class TaskOrder {
 	private String no;
 	private Integer taskBagId;
 	private String taskBagName;
+	private Integer projectId;
+	private String projectName;
 	private String uploadUserName;
 	private Integer agreeUserId;
 	private String agreeUserName;
@@ -107,6 +109,18 @@ public class TaskOrder {
 	}
 	public void setTaskBagName(String taskBagName) {
 		this.taskBagName = taskBagName;
+	}
+	public Integer getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	public String getUploadUserName() {
 		return uploadUserName;

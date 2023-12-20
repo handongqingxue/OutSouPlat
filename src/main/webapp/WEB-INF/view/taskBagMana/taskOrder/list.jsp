@@ -409,7 +409,7 @@ function initUploadTestResultDialog(){
         	   checkTestResult();
            }},
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openUploadTestResultDialog(false,"","","");
+        	   openUploadTestResultDialog(false,"","","","");
            }}
         ]
 	});
@@ -493,6 +493,7 @@ function initTab1(){
 		columns:[[
 			{field:"no",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
+			{field:"projectName",title:"项目",width:150},
 			{field:"uploadUserName",title:"上传人",width:150},
 			{field:"orderUserName",title:"接单人",width:150},
 			{field:"agreeUserName",title:"审核人",width:150},
@@ -510,11 +511,11 @@ function initTab1(){
             	}
             	if(showTestCodeOptionBut){
 	            	if(row.state==unTestState)
-	            		str+="<a onclick=\"startTest("+value+",'"+row.no+"',"+row.orderUserId+")\">开始测试</a>&nbsp;&nbsp;";
+	            		str+="<a onclick=\"startTest("+value+",'"+row.no+"',"+row.taskBagId+","+row.orderUserId+")\">开始测试</a>&nbsp;&nbsp;";
             	}
             	if(showTestResultUplOptionBut){
                 	if(row.state==testingState)
-            			str+="<a onclick=\"openUploadTestResultDialog(true,"+value+",'"+row.no+"',"+row.orderUserId+")\">上传测试结果</a>&nbsp;&nbsp;";
+            			str+="<a onclick=\"openUploadTestResultDialog(true,"+value+",'"+row.no+"',"+row.taskBagId+","+row.orderUserId+")\">上传测试结果</a>&nbsp;&nbsp;";
             	}
             	if(showPayCommissionOptionBut){
 	               	if(row.state==unPayState)
@@ -522,7 +523,7 @@ function initTab1(){
             	}
             	if(showGetCommissionOptionBut){
 	                if(row.state==paidState)
-	                	str+="<a onclick=\"comfirmPaid("+value+")\">已收到佣金</a>&nbsp;&nbsp;";
+	                	str+="<a onclick=\"comfirmPaid("+value+","+row.taskBagId+","+row.projectId+")\">已收到佣金</a>&nbsp;&nbsp;";
             	}
             	return str;
             }}
@@ -530,7 +531,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{no:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"no",colspan:9});
+				$(this).datagrid("mergeCells",{index:0,field:"no",colspan:10});
 				data.total=0;
 			}
 			
@@ -583,7 +584,7 @@ function openUploadCodeDialog(flag,id){
 	$("#upload_code_div #id").val(id);
 }
 
-function openUploadTestResultDialog(flag,orderId,orderNo,orderUserId){
+function openUploadTestResultDialog(flag,orderId,orderNo,bagId,orderUserId){
 	if(flag){
 		$("#upload_test_result_bg_div").css("display","block");
 	}
@@ -592,12 +593,13 @@ function openUploadTestResultDialog(flag,orderId,orderNo,orderUserId){
 	}
 	$("#upload_test_result_div #orderId").val(orderId);
 	$("#upload_test_result_div #orderNo").val(orderNo);
+	$("#upload_test_result_div #bagId").val(bagId);
 	$("#upload_test_result_div #orderUserId").val(orderUserId);
 }
 
-function startTest(orderId,orderNo,orderUserId){
+function startTest(orderId,orderNo,taskBagId,orderUserId){
 	$.post(taskBagManaPath + "startTestOrder",
-		{orderId:orderId,orderNo:orderNo,orderUserId:orderUserId},
+		{orderId:orderId,orderNo:orderNo,taskBagId:taskBagId,orderUserId:orderUserId},
 		function(result){
 			if(result.status==1){
 				alert(result.msg);
@@ -625,9 +627,9 @@ function comfirmPay(orderId,orderNo,orderUserId){
 	,"json");
 }
 
-function comfirmPaid(orderId){
+function comfirmPaid(orderId,taskBagId,projectId){
 	$.post(taskBagManaPath + "comfirmOrderPaid",
-		{orderIds:orderId},
+		{orderIds:orderId,taskBagIds:taskBagId,projectIds:projectId},
 		function(result){
 			if(result.status==1){
 				alert(result.msg);
@@ -687,7 +689,7 @@ function uploadTestResult(){
 		success: function (data){
 			if(data.message=="ok"){
 				alert(data.info);
-				openUploadTestResultDialog(false,"","","");
+				openUploadTestResultDialog(false,"","","","");
 				tab1.datagrid("load");
 			}
 			else{
@@ -813,6 +815,7 @@ function setFitWidthInParent(parent,self){
 			<form id="form2" name="form2" method="post" action="" enctype="multipart/form-data">
 				<input type="hidden" id="orderId" name="orderId"/>
 				<input type="hidden" id="orderNo" name="orderNo"/>
+				<input type="hidden" id="bagId" name="bagId"/>
 				<input type="hidden" id="orderUserId" name="orderUserId"/>
 				<input type="hidden" id="testUserId" name="testUserId" value="${sessionScope.user.id}"/>
 				<input type="hidden" id="testUserName" name="testUserName" value="${sessionScope.user.username}"/>

@@ -39,6 +39,12 @@ public class TestResult {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+	public Integer getBagId() {
+		return bagId;
+	}
+	public void setBagId(Integer bagId) {
+		this.bagId = bagId;
+	}
 	public String getTaskBagName() {
 		return taskBagName;
 	}
@@ -107,6 +113,7 @@ public class TestResult {
 	}
 	private Integer orderId;
 	private String orderNo;
+	private Integer bagId;
 	private String taskBagName;
 	private String uploadUserName;
 	private Integer orderUserId;

@@ -26,6 +26,7 @@
 			</if>
 				outCount,
 				taskBagCount,
+				finishBagCount,
 				createTime,
 				state
 		</trim>
@@ -49,6 +50,7 @@
 			<if test="deveTool!=null">
 				#{deveTool},
 			</if>
+				0,
 				0,
 				0,
 				now(),
@@ -147,5 +149,8 @@
 			taskBagCount-#{count}
 		</if>
 		where id=#{id}
+	</update>
+	<update id="updateFinishBagCountById">
+		update project set finishBagCount=finishBagCount+#{finishBagCount} where id=#{id}
 	</update>
 </mapper>

@@ -25,4 +25,6 @@ public interface ProjectMapper {
 
 	int updateTaskBagCountById(@Param("addFlag") boolean addFlag, @Param("count") Integer count, @Param("id") Integer id);
 
+	int updateFinishBagCountById(@Param("finishBagCount") Integer finishBagCount, @Param("id") Integer id);
+
 }

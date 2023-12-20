@@ -441,8 +441,8 @@ public class TaskBagManaController {
 
 	@RequestMapping(value="/startTestOrder",produces="plain/text; charset=UTF-8")
 	@ResponseBody
-	public String startTestOrder(Integer orderId,String orderNo,Integer orderUserId) {
-		int count=taskOrderService.startTest(orderId,orderNo,orderUserId);
+	public String startTestOrder(Integer orderId,String orderNo,Integer taskBagId,Integer orderUserId) {
+		int count=taskOrderService.startTest(orderId,orderNo,taskBagId,orderUserId);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {
@@ -479,8 +479,8 @@ public class TaskBagManaController {
 
 	@RequestMapping(value="/comfirmOrderPaid",produces="plain/text; charset=UTF-8")
 	@ResponseBody
-	public String comfirmOrderPay(String orderIds) {
-		int count=taskOrderService.comfirmPaid(orderIds);
+	public String comfirmOrderPaid(String orderIds,String taskBagIds,String projectIds) {
+		int count=taskOrderService.comfirmPaid(orderIds,taskBagIds,projectIds);
 		PlanResult plan=new PlanResult();
 		String json;
 		if(count==0) {

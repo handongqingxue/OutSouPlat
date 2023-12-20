@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,8 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	private TaskOrderMapper taskOrderDao;
 	@Autowired
 	private TaskBagMapper taskBagDao;
+	@Autowired
+	private ProjectMapper projectDao;
 	@Autowired
 	private SysNoticeMapper sysNoticeDao;
 	private DateFormat yMdHmsSDF=new SimpleDateFormat("yyyyMMddHHmmss");
@@ -109,13 +114,15 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	}
 
 	@Override
-	public int startTest(Integer orderId, String orderNo, Integer orderUserId) {
+	public int startTest(Integer orderId, String orderNo,Integer taskBagId, Integer orderUserId) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> idList=new ArrayList<String>();
 		idList.add(orderId+"");
 		count=taskOrderDao.updateStateByIdList(TaskOrder.TESTING, idList);
 		if(count>0) {
+			taskBagDao.updateStateById(TaskBag.TESTING, taskBagId);
+			
 			SysNotice sysNotice=new SysNotice();
 			sysNotice.setReceiveUserId(orderUserId);
 			sysNotice.setTitle("任务单测试通知");
@@ -143,11 +150,46 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	}
 
 	@Override
-	public int comfirmPaid(String orderIds) {
+	public int comfirmPaid(String orderIds,String taskBagIds,String projectIds) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> orderIdList = Arrays.asList(orderIds.split(","));
 		count=taskOrderDao.updateStateByIdList(TaskOrder.FINISHED, orderIdList);
+		if(count>0) {
+			List<String> taskBagIdList = Arrays.asList(taskBagIds.split(","));
+			taskBagDao.updateStateByIdList(TaskBag.FINISH, taskBagIdList);
+			Map<String,Integer> projectIdCountMap=new HashMap<String,Integer>();
+			List<String> projectIdList = Arrays.asList(projectIds.split(","));
+			for (String projectId : projectIdList) {
+				boolean projectIdExist = checkIfProjectIdExistInMap(projectId,projectIdCountMap);
+				if(projectIdExist) {
+					int projectIdCount = Integer.valueOf(projectIdCountMap.get(projectId).toString());
+					projectIdCount++;
+					projectIdCountMap.put(projectId, projectIdCount);
+				}
+				else {
+					projectIdCountMap.put(projectId,1);
+				}
+			}
+			Set<String> projectIdKeySet = projectIdCountMap.keySet();
+			for (String projectIdKey : projectIdKeySet) {
+				int projectId = Integer.valueOf(projectIdKey);
+				int finishBagCount = Integer.valueOf(projectIdCountMap.get(projectIdKey).toString());
+				projectDao.updateFinishBagCountById(finishBagCount, projectId);
+			}
+		}
 		return count;
+	}
+	
+	private boolean checkIfProjectIdExistInMap(String projectId, Map<String,Integer> projectIdCountMap) {
+		boolean exist = false;
+		Set<String> projectIdKeySet = projectIdCountMap.keySet();
+		for (String projectIdKey : projectIdKeySet) {
+			if(projectIdKey.equals(projectId)) {
+				exist=true;
+				break;
+			}
+		}
+		return exist;
 	}
 }

@@ -170,6 +170,7 @@ function initTab1(){
 			{field:"deveTool",title:"开发工具",width:150},
 			{field:"outCount",title:"外包人数",width:100},
 			{field:"taskBagCount",title:"任务包数量",width:150},
+			{field:"finishBagCount",title:"已完成任务包数量",width:150},
 			{field:"createTime",title:"发布时间",width:150},
             {field:"state",title:"状态",width:100,formatter:function(value,row){
             	return getStateNameById(value);
@@ -185,7 +186,7 @@ function initTab1(){
         onLoadSuccess:function(data){
 			if(data.total==0){
 				$(this).datagrid("appendRow",{name:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"name",colspan:9});
+				$(this).datagrid("mergeCells",{index:0,field:"name",colspan:10});
 				data.total=0;
 			}
 			

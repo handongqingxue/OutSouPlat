@@ -17,6 +17,8 @@ public class TestResultServiceImpl implements TestResultService {
 	@Autowired
 	private TaskOrderMapper taskOrderDao;
 	@Autowired
+	private TaskBagMapper taskBagDao;
+	@Autowired
 	private SysNoticeMapper sysNoticeDao;
 
 	@Override
@@ -28,6 +30,8 @@ public class TestResultServiceImpl implements TestResultService {
 			Boolean result = testResult.getResult();
 			int state=result?TaskOrder.UN_PAY:TaskOrder.REWORKING;
 			taskOrderDao.updateStateById(state, testResult.getOrderId());
+			if(!result)
+				taskBagDao.updateStateById(TaskBag.DEVELOPING, testResult.getBagId());
 			
 			SysNotice sysNotice=new SysNotice();
 			sysNotice.setSendUserId(testResult.getTestUserId());

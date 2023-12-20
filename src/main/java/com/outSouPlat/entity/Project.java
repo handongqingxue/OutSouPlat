@@ -92,6 +92,12 @@ public class Project {
 	public void setTaskBagCount(Integer taskBagCount) {
 		this.taskBagCount = taskBagCount;
 	}
+	public Integer getFinishBagCount() {
+		return finishBagCount;
+	}
+	public void setFinishBagCount(Integer finishBagCount) {
+		this.finishBagCount = finishBagCount;
+	}
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -112,6 +118,7 @@ public class Project {
 	private String deveTool;
 	private Integer outCount;
 	private Integer taskBagCount;
+	private Integer finishBagCount;
 	private String createTime;
 	private Integer state;
 }
