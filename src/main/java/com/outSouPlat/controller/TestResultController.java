@@ -149,7 +149,7 @@ public class TestResultController {
 	
 	@RequestMapping(value="/querySyntheticList")
 	@ResponseBody
-	public Map<String, Object> querySyntheticList(String orderNo,String taskBagName,String uploadUserName,String orderUserName,String agreeUserName,
+	public Map<String, Object> querySyntheticList(String taskOrderNo,String taskBagName,String uploadUserName,String orderUserName,String agreeUserName,
 			String testUserName,String phone,String createTimeStart,String createTimeEnd,Boolean result,Integer userId,Integer roleFlag,int page,int rows,String sort,String order) {
 		
 		/*
@@ -164,8 +164,8 @@ public class TestResultController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = testResultService.queryForInt(orderNo,taskBagName,uploadUserName,orderUserName,agreeUserName,testUserName,phone,createTimeStart,createTimeEnd,result,userId,roleFlag);
-			List<TestResult> testResultList=testResultService.queryList(orderNo,taskBagName,uploadUserName,orderUserName,agreeUserName,testUserName,phone,createTimeStart,createTimeEnd,result,userId,roleFlag, page, rows, sort, order);
+			int count = testResultService.queryForInt(taskOrderNo,taskBagName,uploadUserName,orderUserName,agreeUserName,testUserName,phone,createTimeStart,createTimeEnd,result,userId,roleFlag);
+			List<TestResult> testResultList=testResultService.queryList(taskOrderNo,taskBagName,uploadUserName,orderUserName,agreeUserName,testUserName,phone,createTimeStart,createTimeEnd,result,userId,roleFlag, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", testResultList);

@@ -19,6 +19,8 @@ public class TestResultServiceImpl implements TestResultService {
 	@Autowired
 	private TaskBagMapper taskBagDao;
 	@Autowired
+	private ProjectMapper projectDao;
+	@Autowired
 	private SysNoticeMapper sysNoticeDao;
 
 	@Override
@@ -28,16 +30,26 @@ public class TestResultServiceImpl implements TestResultService {
 		count=testResultDao.add(testResult);
 		if(count>0) {
 			Boolean result = testResult.getResult();
-			int state=result?TaskOrder.UN_PAY:TaskOrder.REWORKING;
-			taskOrderDao.updateStateById(state, testResult.getOrderId());
-			if(!result)
-				taskBagDao.updateStateById(TaskBag.DEVELOPING, testResult.getBagId());
+			int toState=result?TaskOrder.FINISHED:TaskOrder.REWORKING;
+			taskOrderDao.updateStateById(toState, testResult.getTaskOrderId());
+			int tbState=result?TaskBag.FINISH:TaskBag.DEVELOPING;
+			taskBagDao.updateStateById(tbState, testResult.getTaskBagId());
+			if(result) {
+				int projectId = testResult.getProjectId();
+				projectDao.updateFinishBagCountById(projectId);
+				Project project = projectDao.selectById(projectId+"");
+				int finishBagCount=project.getFinishBagCount();
+				int taskBagCount = project.getTaskBagCount();
+				if(finishBagCount==taskBagCount) {
+					projectDao.updateStateById(Project.FINISH, projectId);
+				}
+			}
 			
 			SysNotice sysNotice=new SysNotice();
 			sysNotice.setSendUserId(testResult.getTestUserId());
 			sysNotice.setReceiveUserId(testResult.getOrderUserId());
 			sysNotice.setTitle("测试结果通知");
-			sysNotice.setContent("您的任务单号"+testResult.getOrderNo()+"测试"+(result?"合格":"不合格")+"，测试用户"+testResult.getTestUserName()+"，请到测试结果-综合查询里查看。");
+			sysNotice.setContent("您的任务单号"+testResult.getTaskOrderNo()+"测试"+(result?"合格":"不合格")+"，测试用户"+testResult.getTestUserName()+"，请到测试结果-综合查询里查看。");
 			sysNoticeDao.add(sysNotice);
 		}
 		return count;
@@ -50,17 +62,17 @@ public class TestResultServiceImpl implements TestResultService {
 	}
 
 	@Override
-	public int queryForInt(String orderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
+	public int queryForInt(String taskOrderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
 			Boolean result, Integer userId, Integer roleFlag) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryForInt(orderNo, taskBagName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, result, userId, roleFlag);
+		return testResultDao.queryForInt(taskOrderNo, taskBagName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, result, userId, roleFlag);
 	}
 
 	@Override
-	public List<TestResult> queryList(String orderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,
+	public List<TestResult> queryList(String taskOrderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,
 			String createTimeEnd, Boolean result, Integer userId, Integer roleFlag, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryList(orderNo, taskBagName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, 
+		return testResultDao.queryList(taskOrderNo, taskBagName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, 
 				result, userId, roleFlag, (page-1)*rows, rows, sort, order);
 	}
 

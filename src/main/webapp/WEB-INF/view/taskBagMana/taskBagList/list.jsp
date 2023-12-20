@@ -274,7 +274,7 @@ function initTab1(){
 	            	}
 	            	if(showAgreeOrderOptionBut){
 			            if(row.state==orderCheckingState)
-			            	str+="<a onclick=\"receiveOrder("+value+",'"+row.name+"',"+row.orderUserId+")\">同意接单</a>&nbsp;&nbsp;";
+			            	str+="<a onclick=\"receiveOrder("+value+",'"+row.name+"',"+row.projectId+","+row.orderUserId+")\">同意接单</a>&nbsp;&nbsp;";
 	            	}
 	            	if(showRefuseOrderOptionBut){
 			            if(row.state==orderCheckingState)
@@ -355,11 +355,11 @@ function updateOrderUserId(id,name,uploadUserId,flag){
 	,"json");
 }
 
-function receiveOrder(id,name,orderUserId){
+function receiveOrder(taskBagId,taskBagName,projectId,orderUserId){
 	var agreeUserId='${sessionScope.user.id}';
 	var agreeUserName='${sessionScope.user.username}';
 	$.post(taskBagManaPath+"newTaskOrder",
-		{taskBagId:id,taskBagName:name,agreeUserId:agreeUserId,agreeUserName:agreeUserName,orderUserId:orderUserId},
+		{taskBagId:taskBagId,taskBagName:taskBagName,projectId:projectId,agreeUserId:agreeUserId,agreeUserName:agreeUserName,orderUserId:orderUserId},
 		function(data){
 			if(data.message=="ok"){
 				alert(data.info);

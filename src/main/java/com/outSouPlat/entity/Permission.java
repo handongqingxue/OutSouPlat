@@ -109,11 +109,11 @@ public class Permission {
 	/**
 	 * 支付佣金
 	 */
-	public static final int PAY_COMMISSION=27;
+	//public static final int PAY_COMMISSION=27;
 	/**
 	 * 收到佣金
 	 */
-	public static final int GET_COMMISSION=28;
+	//public static final int GET_COMMISSION=28;
 
 	private Integer id;
 	public Integer getId() {

@@ -6,8 +6,6 @@
 <c:set var="downloadCodePermStr" value=",${requestScope.downloadCodePerm},"></c:set>
 <c:set var="uploadCodePermStr" value=",${requestScope.uploadCodePerm},"></c:set>
 <c:set var="testResultUplPermStr" value=",${requestScope.testResultUplPerm},"></c:set>
-<c:set var="payCommissionPermStr" value=",${requestScope.payCommissionPerm},"></c:set>
-<c:set var="getCommissionPermStr" value=",${requestScope.getCommissionPerm},"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,15 +92,11 @@ var testCodePermStr='${testCodePermStr}';
 var downloadCodePermStr='${downloadCodePermStr}';
 var uploadCodePermStr='${uploadCodePermStr}';
 var testResultUplPermStr='${testResultUplPermStr}';
-var payCommissionPermStr='${payCommissionPermStr}';
-var getCommissionPermStr='${getCommissionPermStr}';
 
 var showTestCodeOptionBut=false;
 var showDownloadCodeBut=false;
 var showUploadCodeOptionBut=false;
 var showTestResultUplOptionBut=false;
-var showPayCommissionOptionBut=false;
-var showGetCommissionOptionBut=false;
 
 var dialogTop=10;
 var dialogLeft=20;
@@ -113,19 +107,13 @@ var developingState;
 var unTestState;
 var testingState;
 var reworkingState;
-var unPayState;
-var paidState;
 var finishedState;
-var discardedState;
 
 var developingStateName;
 var unTestStateName;
 var testingStateName;
 var reworkingStateName;
-var unPayStateName;
-var paidStateName;
 var finishedStateName;
-var discardedStateName;
 
 var unPass;
 var pass;
@@ -173,7 +161,7 @@ function initDialogPosition(){
 
 function showCompontByPermission(){
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(taskOrderDelPermStr)!=-1)
-		initDiscardedLB();
+		initRemoveLB();
 }
 
 function showOptionByPermission(){
@@ -185,10 +173,6 @@ function showOptionByPermission(){
 		showUploadCodeOptionBut=true;
 	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(testResultUplPermStr)!=-1)
 		showTestResultUplOptionBut=true;
-	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(payCommissionPermStr)!=-1)
-		showPayCommissionOptionBut=true;
-	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(getCommissionPermStr)!=-1)
-		showGetCommissionOptionBut=true;
 }
 
 function initTOStateVar(){
@@ -196,19 +180,13 @@ function initTOStateVar(){
 	unTestState=parseInt('${requestScope.unTestState}');
 	testingState=parseInt('${requestScope.testingState}');
 	reworkingState=parseInt('${requestScope.reworkingState}');
-	unPayState=parseInt('${requestScope.unPayState}');
-	paidState=parseInt('${requestScope.paidState}');
 	finishedState=parseInt('${requestScope.finishedState}');
-	discardedState=parseInt('${requestScope.discardedState}');
 
 	developingStateName='${requestScope.developingStateName}';
 	unTestStateName='${requestScope.unTestStateName}';
 	testingStateName='${requestScope.testingStateName}';
 	reworkingStateName='${requestScope.reworkingStateName}';
-	unPayStateName='${requestScope.unPayStateName}';
-	paidStateName='${requestScope.paidStateName}';
 	finishedStateName='${requestScope.finishedStateName}';
-	discardedStateName='${requestScope.discardedStateName}';
 }
 
 function initUTRVar(){
@@ -250,10 +228,7 @@ function initTOStateCBB(){
 	data.push({"value":unTestState,"text":unTestStateName});
 	data.push({"value":testingState,"text":testingStateName});
 	data.push({"value":reworkingState,"text":reworkingStateName});
-	data.push({"value":unPayState,"text":unPayStateName});
-	data.push({"value":paidState,"text":paidStateName});
 	data.push({"value":finishedState,"text":finishedStateName});
-	data.push({"value":discardedState,"text":discardedStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
 		valueField:"value",
@@ -284,19 +259,19 @@ function initSearchLB(){
 	});
 }
 
-function initDiscardedLB(){
-	discardedLB=$("#discarded_but").linkbutton({
+function initRemoveLB(){
+	removeLB=$("#remove_but").linkbutton({
 		iconCls:"icon-remove",
 		onClick:function(){
-			discardedByIds();
+			deleteByIds();
 		}
 	});
 }
 
-function discardedByIds() {
+function deleteByIds() {
 	var rows=tab1.datagrid("getSelections");
 	if (rows.length == 0) {
-		$.messager.alert("提示","请选择要废弃的信息！","warning");
+		$.messager.alert("提示","请选择要删除的信息！","warning");
 		return false;
 	}
 
@@ -304,12 +279,14 @@ function discardedByIds() {
 	var notAllowNos="";
 	var allowIds="";
 	var allowNos="";
+	var allowProjectIds="";
 	var allowCodeFileUrls="";
 	var allowTaskBagIds="";
 	for (var i = 0; i < rows.length; i++) {
 		if(rows[i].state==developingState){
 			allowIds += "," + rows[i].id;
 			allowNos += "," + rows[i].no;
+			allowProjectIds += "," + rows[i].projectId;
 			allowCodeFileUrls += "," + rows[i].codeFileUrl;
 			allowTaskBagIds += "," + rows[i].taskBagId;
 		}
@@ -320,23 +297,25 @@ function discardedByIds() {
 		notAllowNos=notAllowNos.substring(1);
 	if(allowIds!=""){
 		allowIds=allowIds.substring(1);
+		allowNos=allowNos.substring(1);
+		allowProjectIds=allowProjectIds.substring(1);
 		allowCodeFileUrls=allowCodeFileUrls.substring(1);
 		allowTaskBagIds=allowTaskBagIds.substring(1);
 	}
 	
 	if(notAllowNos!=""&allowIds==""){
-		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法废弃";
+		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法删除";
 		alert(confirmStr);
 		return false;
 	}
 	else if(notAllowNos!=""&allowIds!="")
-		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法废弃,要废弃其他任务单吗？";
+		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法删除,要删除其他任务单吗？";
 	else
-		confirmStr="确实要废弃选中的任务单吗？";
+		confirmStr="确实要删除选中的任务单吗？";
 	
 	if(confirm(confirmStr)){
-		$.post(taskBagManaPath + "discardTaskOrderByIds",
-			{ids:allowIds,nos:allowNos,codeFileUrls:allowCodeFileUrls,taskBagIds:allowTaskBagIds,sendUserId:'${sessionUserIdStr}',sendUsername:'${sessionUsernameStr}'},
+		$.post(taskBagManaPath + "deleteTaskOrderByIds",
+			{ids:allowIds,nos:allowNos,projectIds:allowProjectIds,codeFileUrls:allowCodeFileUrls,taskBagIds:allowTaskBagIds,sendUserId:'${sessionUserIdStr}',sendUsername:'${sessionUsernameStr}'},
 			function(result){
 				if(result.status==1){
 					alert(result.msg);
@@ -409,7 +388,7 @@ function initUploadTestResultDialog(){
         	   checkTestResult();
            }},
            {text:"取消",id:"cancel_but",iconCls:"icon-cancel",handler:function(){
-        	   openUploadTestResultDialog(false,"","","","");
+        	   openUploadTestResultDialog(false,"","","","","");
            }}
         ]
 	});
@@ -515,15 +494,7 @@ function initTab1(){
             	}
             	if(showTestResultUplOptionBut){
                 	if(row.state==testingState)
-            			str+="<a onclick=\"openUploadTestResultDialog(true,"+value+",'"+row.no+"',"+row.taskBagId+","+row.orderUserId+")\">上传测试结果</a>&nbsp;&nbsp;";
-            	}
-            	if(showPayCommissionOptionBut){
-	               	if(row.state==unPayState)
-	               		str+="<a onclick=\"comfirmPay("+value+",'"+row.no+"',"+row.orderUserId+")\">确认支付佣金</a>&nbsp;&nbsp;";
-            	}
-            	if(showGetCommissionOptionBut){
-	                if(row.state==paidState)
-	                	str+="<a onclick=\"comfirmPaid("+value+","+row.taskBagId+","+row.projectId+")\">已收到佣金</a>&nbsp;&nbsp;";
+            			str+="<a onclick=\"openUploadTestResultDialog(true,"+value+",'"+row.no+"',"+row.taskBagId+","+row.projectId+","+row.orderUserId+")\">上传测试结果</a>&nbsp;&nbsp;";
             	}
             	return str;
             }}
@@ -558,17 +529,8 @@ function getStateNameById(stateId){
 	case reworkingState:
 		str=reworkingStateName;//返工中
 		break;
-	case unPayState:
-		str=unPayStateName;//待支付佣金
-		break;
-	case paidState:
-		str=paidStateName;//已支付佣金
-		break;
 	case finishedState:
 		str=finishedStateName;//已完成
-		break;
-	case discardedState:
-		str=discardedStateName;//已废弃
 		break;
 	}
 	return str;
@@ -584,52 +546,23 @@ function openUploadCodeDialog(flag,id){
 	$("#upload_code_div #id").val(id);
 }
 
-function openUploadTestResultDialog(flag,orderId,orderNo,bagId,orderUserId){
+function openUploadTestResultDialog(flag,taskOrderId,taskOrderNo,taskBagId,projectId,orderUserId){
 	if(flag){
 		$("#upload_test_result_bg_div").css("display","block");
 	}
 	else{
 		$("#upload_test_result_bg_div").css("display","none");
 	}
-	$("#upload_test_result_div #orderId").val(orderId);
-	$("#upload_test_result_div #orderNo").val(orderNo);
-	$("#upload_test_result_div #bagId").val(bagId);
+	$("#upload_test_result_div #taskOrderId").val(taskOrderId);
+	$("#upload_test_result_div #taskOrderNo").val(taskOrderNo);
+	$("#upload_test_result_div #taskBagId").val(taskBagId);
+	$("#upload_test_result_div #projectId").val(projectId);
 	$("#upload_test_result_div #orderUserId").val(orderUserId);
 }
 
-function startTest(orderId,orderNo,taskBagId,orderUserId){
+function startTest(taskOrderId,taskOrderNo,taskBagId,orderUserId){
 	$.post(taskBagManaPath + "startTestOrder",
-		{orderId:orderId,orderNo:orderNo,taskBagId:taskBagId,orderUserId:orderUserId},
-		function(result){
-			if(result.status==1){
-				alert(result.msg);
-				tab1.datagrid("load");
-			}
-			else{
-				alert(result.msg);
-			}
-		}
-	,"json");
-}
-
-function comfirmPay(orderId,orderNo,orderUserId){
-	$.post(taskBagManaPath + "comfirmOrderPay",
-		{orderIds:orderId,orderNos:orderNo,orderUserIds:orderUserId},
-		function(result){
-			if(result.status==1){
-				alert(result.msg);
-				tab1.datagrid("load");
-			}
-			else{
-				alert(result.msg);
-			}
-		}
-	,"json");
-}
-
-function comfirmPaid(orderId,taskBagId,projectId){
-	$.post(taskBagManaPath + "comfirmOrderPaid",
-		{orderIds:orderId,taskBagIds:taskBagId,projectIds:projectId},
+		{taskOrderId:taskOrderId,taskOrderNo:taskOrderNo,taskBagId:taskBagId,orderUserId:orderUserId},
 		function(result){
 			if(result.status==1){
 				alert(result.msg);
@@ -689,7 +622,7 @@ function uploadTestResult(){
 		success: function (data){
 			if(data.message=="ok"){
 				alert(data.info);
-				openUploadTestResultDialog(false,"","","","");
+				openUploadTestResultDialog(false,"","","","","");
 				tab1.datagrid("load");
 			}
 			else{
@@ -781,7 +714,7 @@ function setFitWidthInParent(parent,self){
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
 				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,taskOrderDelPermStr)}">
-				<a id="discarded_but">废弃</a>
+				<a id="remove_but">删除</a>
 				</c:if>
 			</div>
 		</div>
@@ -813,9 +746,10 @@ function setFitWidthInParent(parent,self){
 		<div class="upload_test_result_div" id="upload_test_result_div">
 			<div class="upload_test_result_dialog_div" id="upload_test_result_dialog_div">
 			<form id="form2" name="form2" method="post" action="" enctype="multipart/form-data">
-				<input type="hidden" id="orderId" name="orderId"/>
-				<input type="hidden" id="orderNo" name="orderNo"/>
-				<input type="hidden" id="bagId" name="bagId"/>
+				<input type="hidden" id="taskOrderId" name="taskOrderId"/>
+				<input type="hidden" id="taskOrderNo" name="taskOrderNo"/>
+				<input type="hidden" id="taskBagId" name="taskBagId"/>
+				<input type="hidden" id="projectId" name="projectId"/>
 				<input type="hidden" id="orderUserId" name="orderUserId"/>
 				<input type="hidden" id="testUserId" name="testUserId" value="${sessionScope.user.id}"/>
 				<input type="hidden" id="testUserName" name="testUserName" value="${sessionScope.user.username}"/>

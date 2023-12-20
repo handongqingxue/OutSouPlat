@@ -111,7 +111,7 @@
 		update task_order set 
 		<trim suffixOverrides=",">
 		state=#{state},
-		<if test="state==@com.outSouPlat.entity.TaskOrder@UN_PAY">
+		<if test="state==@com.outSouPlat.entity.TaskOrder@FINISHED">
 			finishTime=now(),
 		</if>
 		</trim>
@@ -121,7 +121,7 @@
 		update task_order set 
 		<trim suffixOverrides=",">
 		state=#{state},
-		<if test="state==@com.outSouPlat.entity.TaskOrder@UN_PAY">
+		<if test="state==@com.outSouPlat.entity.TaskOrder@FINISHED">
 			finishTime=now(),
 		</if>
 		</trim>
@@ -130,4 +130,10 @@
 		#{id}
 		</foreach>
 	</update>
+	<delete id="deleteByIdList">
+		delete from task_order where
+		<foreach collection="idList" item="id" open="1=1 and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 </mapper>

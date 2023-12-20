@@ -20,7 +20,7 @@
 .tab1_div .toolbar .row_div{
 	height:32px;
 }
-.tab1_div .toolbar .row_div .orderNo_span,
+.tab1_div .toolbar .row_div .taskOrderNo_span,
 .tab1_div .toolbar .row_div .result_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
 .tab1_div .toolbar .row_div .uploadUserName_span,
@@ -32,7 +32,7 @@
 .tab1_div .toolbar .row_div .search_but{
 	margin-left: 13px;
 }
-.tab1_div .toolbar .row_div .orderNo_inp,
+.tab1_div .toolbar .row_div .taskOrderNo_inp,
 .tab1_div .toolbar .row_div .taskBagName_inp,
 .tab1_div .toolbar .row_div .uploadUserName_inp,
 .tab1_div .toolbar .row_div .orderUserName_inp,
@@ -134,7 +134,7 @@ function initSearchLB(){
 	$("#search_but").linkbutton({
 		iconCls:"icon-search",
 		onClick:function(){
-			var orderNo=$("#toolbar #orderNo").val();
+			var taskOrderNo=$("#toolbar #taskOrderNo").val();
 			var taskBagName=$("#toolbar #taskBagName").val();
 			var uploadUserName=$("#toolbar #uploadUserName").val();
 			var orderUserName=$("#toolbar #orderUserName").val();
@@ -145,7 +145,7 @@ function initSearchLB(){
 			var createTimeEnd=createTimeEndDTB.datetimebox("getValue");
 			var result=resultCBB.combobox("getValue");
 			
-			tab1.datagrid("load",{orderNo:orderNo,taskBagName:taskBagName,uploadUserName:uploadUserName,orderUserName:orderUserName,agreeUserName:agreeUserName,
+			tab1.datagrid("load",{taskOrderNo:taskOrderNo,taskBagName:taskBagName,uploadUserName:uploadUserName,orderUserName:orderUserName,agreeUserName:agreeUserName,
 				testUserName:testUserName,phone:phone,createTimeStart:createTimeStart,createTimeEnd:createTimeEnd,result:result,userId:'${sessionUserIdStr}',roleFlag:roleFlag});
 		}
 	});
@@ -185,7 +185,7 @@ function initTab1(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"orderNo",title:"任务单号",width:150},
+			{field:"taskOrderNo",title:"任务单号",width:150},
 			{field:"taskBagName",title:"任务包",width:150},
 			{field:"uploadUserName",title:"上传人",width:150},
 			{field:"orderUserName",title:"接单人",width:150},
@@ -206,8 +206,8 @@ function initTab1(){
 	    ]],
         onLoadSuccess:function(data){
 			if(data.total==0){
-				$(this).datagrid("appendRow",{orderNo:"<div style=\"text-align:center;\">暂无信息<div>"});
-				$(this).datagrid("mergeCells",{index:0,field:"orderNo",colspan:10});
+				$(this).datagrid("appendRow",{taskOrderNo:"<div style=\"text-align:center;\">暂无信息<div>"});
+				$(this).datagrid("mergeCells",{index:0,field:"taskOrderNo",colspan:10});
 				data.total=0;
 			}
 			
@@ -244,8 +244,8 @@ function setFitWidthInParent(parent,self){
 	<div class="tab1_div" id="tab1_div">
 		<div class="toolbar" id="toolbar">
 			<div class="row_div">
-				<span class="orderNo_span">任务单号：</span>
-				<input type="text" class="orderNo_inp" id="orderNo" placeholder="请输入任务单号"/>
+				<span class="taskOrderNo_span">任务单号：</span>
+				<input type="text" class="taskOrderNo_inp" id="taskOrderNo" placeholder="请输入任务单号"/>
 				<span class="taskBagName_span">任务包：</span>
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
 				<span class="uploadUserName_span">上传人：</span>

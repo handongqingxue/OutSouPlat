@@ -19,30 +19,14 @@ public class TaskOrder {
 	 */
 	public static final int REWORKING=4;
 	/**
-	 * 待支付佣金
-	 */
-	public static final int UN_PAY=5;
-	/**
-	 * 已支付佣金
-	 */
-	public static final int PAID=6;
-	/**
 	 * 已完成
 	 */
-	public static final int FINISHED=7;
-	/**
-	 * 已废弃
-	 */
-	public static final int DISCARDED=8;
+	public static final int FINISHED=5;
 	
 	/**
 	 * 开发中
 	 */
 	public static final String DEVELOPING_NAME="开发中";
-	/**
-	 * 已完成
-	 */
-	public static final String FINISHED_NAME="已完成";
 	/**
 	 * 待测试
 	 */
@@ -56,17 +40,9 @@ public class TaskOrder {
 	 */
 	public static final String REWORKING_NAME="返工中";
 	/**
-	 * 待支付佣金
+	 * 已完成
 	 */
-	public static final String UN_PAY_NAME="待支付佣金";
-	/**
-	 * 已支付佣金
-	 */
-	public static final String PAID_NAME="已支付佣金";
-	/**
-	 * 已废弃
-	 */
-	public static final String DISCARDED_NAME="已废弃";
+	public static final String FINISHED_NAME="已完成";
 
 	private Integer id;
 	private String no;

@@ -27,29 +27,41 @@ public class TestResult {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getOrderId() {
-		return orderId;
+	public Integer getTaskOrderId() {
+		return taskOrderId;
 	}
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setTaskOrderId(Integer taskOrderId) {
+		this.taskOrderId = taskOrderId;
 	}
-	public String getOrderNo() {
-		return orderNo;
+	public String getTaskOrderNo() {
+		return taskOrderNo;
 	}
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public void setTaskOrderNo(String taskOrderNo) {
+		this.taskOrderNo = taskOrderNo;
 	}
-	public Integer getBagId() {
-		return bagId;
+	public Integer getTaskBagId() {
+		return taskBagId;
 	}
-	public void setBagId(Integer bagId) {
-		this.bagId = bagId;
+	public void setTaskBagId(Integer taskBagId) {
+		this.taskBagId = taskBagId;
 	}
 	public String getTaskBagName() {
 		return taskBagName;
 	}
 	public void setTaskBagName(String taskBagName) {
 		this.taskBagName = taskBagName;
+	}
+	public Integer getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	public String getUploadUserName() {
 		return uploadUserName;
@@ -111,10 +123,12 @@ public class TestResult {
 	public void setResult(Boolean result) {
 		this.result = result;
 	}
-	private Integer orderId;
-	private String orderNo;
-	private Integer bagId;
+	private Integer taskOrderId;
+	private String taskOrderNo;
+	private Integer taskBagId;
 	private String taskBagName;
+	private Integer projectId;
+	private String projectName;
 	private String uploadUserName;
 	private Integer orderUserId;
 	private String orderUserName;

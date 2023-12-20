@@ -36,11 +36,19 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 		// TODO Auto-generated method stub
 		int count=0;
 		Integer taskBagId = taskOrder.getTaskBagId();
+		Integer projectId = taskOrder.getProjectId();
 		String taskOrderNo = yMdHmsSDF.format(new Date())+"_"+taskBagId+"_"+taskOrder.getAgreeUserId()+"_"+taskOrder.getOrderUserId();
 		taskOrder.setNo(taskOrderNo);
 		count=taskOrderDao.add(taskOrder);
 		if(count>0) {
 			count=taskBagDao.updateStateById(TaskBag.DEVELOPING,taskBagId);
+			
+			Project project = projectDao.selectById(projectId+"");
+			if(project.getState()==Project.UN_CONTRACT) {
+				projectDao.updateStateById(Project.CONTRACTED, projectId);
+			}
+			
+			projectDao.updateOutCountById(Project.ADD_OUT, 1, projectId);
 
 			Integer agreeUserId = taskOrder.getAgreeUserId();
 			String agreeUserName = taskOrder.getAgreeUserName();
@@ -57,23 +65,55 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	}
 
 	@Override
-	public int discardByIds(String ids, String nos, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername) {
+	public int deleteByIds(String ids, String nos, String projectIds, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername) {
 		// TODO Auto-generated method stub
 		int count=0;
 		List<String> idList = Arrays.asList(ids.split(","));
-		count=taskOrderDao.updateStateByIdList(TaskOrder.DISCARDED,idList);
+		count=taskOrderDao.deleteByIdList(idList);
 		if(count>0) {
 			FileUtil.delete(codeFileUrls);
 			List<String> taskBagIdList = Arrays.asList(taskBagIds.split(","));
 			count=taskBagDao.updateStateByIdList(TaskBag.UN_ORDER,taskBagIdList);
+
+			Map<String,Integer> projectIdCountMap=new HashMap<String,Integer>();
+			List<String> projectIdList = Arrays.asList(projectIds.split(","));
+			for (String projectId : projectIdList) {
+				boolean projectIdExist = checkIfProjectIdExistInMap(projectId,projectIdCountMap);
+				if(projectIdExist) {
+					int projectIdCount = Integer.valueOf(projectIdCountMap.get(projectId).toString());
+					projectIdCount++;
+					projectIdCountMap.put(projectId, projectIdCount);
+				}
+				else {
+					projectIdCountMap.put(projectId,1);
+				}
+			}
+			Set<String> projectIdKeySet = projectIdCountMap.keySet();
+			for (String projectIdKey : projectIdKeySet) {
+				int projectId = Integer.valueOf(projectIdKey);
+				int outCount = Integer.valueOf(projectIdCountMap.get(projectIdKey).toString());
+				projectDao.updateOutCountById(Project.DEL_OUT, outCount, projectId);
+			}
 			
 			SysNotice sysNotice=new SysNotice();
 			sysNotice.setSendUserId(sendUserId);
 			sysNotice.setTitle("任务单废弃");
-			sysNotice.setContent("任务单"+nos+"已废弃，操作用户"+sendUsername);
+			sysNotice.setContent("任务单"+nos+"已删除，操作用户"+sendUsername);
 			sysNoticeDao.add(sysNotice);
 		}
 		return count;
+	}
+	
+	private boolean checkIfProjectIdExistInMap(String projectId, Map<String,Integer> projectIdCountMap) {
+		boolean exist = false;
+		Set<String> projectIdKeySet = projectIdCountMap.keySet();
+		for (String projectIdKey : projectIdKeySet) {
+			if(projectIdKey.equals(projectId)) {
+				exist=true;
+				break;
+			}
+		}
+		return exist;
 	}
 
 	@Override
@@ -114,82 +154,20 @@ public class TaskOrderServiceImpl implements TaskOrderService {
 	}
 
 	@Override
-	public int startTest(Integer orderId, String orderNo,Integer taskBagId, Integer orderUserId) {
+	public int startTest(Integer taskOrderId, String taskOrderNo,Integer taskBagId, Integer orderUserId) {
 		// TODO Auto-generated method stub
 		int count=0;
-		List<String> idList=new ArrayList<String>();
-		idList.add(orderId+"");
-		count=taskOrderDao.updateStateByIdList(TaskOrder.TESTING, idList);
+		count=taskOrderDao.updateStateById(TaskOrder.TESTING, taskOrderId);
 		if(count>0) {
 			taskBagDao.updateStateById(TaskBag.TESTING, taskBagId);
 			
 			SysNotice sysNotice=new SysNotice();
 			sysNotice.setReceiveUserId(orderUserId);
 			sysNotice.setTitle("任务单测试通知");
-			sysNotice.setContent("任务单"+orderNo+"已开始测试，请等待测试结果。");
+			sysNotice.setContent("任务单"+taskOrderNo+"已开始测试，请等待测试结果。");
 			sysNoticeDao.add(sysNotice);
 			
 		}
 		return count;
-	}
-
-	@Override
-	public int comfirmPay(String orderIds, String orderNos, String orderUserIds) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> orderIdList = Arrays.asList(orderIds.split(","));
-		count=taskOrderDao.updateStateByIdList(TaskOrder.PAID, orderIdList);
-		if(count>0) {
-			SysNotice sysNotice=new SysNotice();
-			sysNotice.setReceiveUserId(Integer.valueOf(orderUserIds));//前期先单个用户推送
-			sysNotice.setTitle("佣金支付通知");
-			sysNotice.setContent("任务单"+orderNos+"佣金已支付，请查看相关账户。");
-			sysNoticeDao.add(sysNotice);
-		}
-		return count;
-	}
-
-	@Override
-	public int comfirmPaid(String orderIds,String taskBagIds,String projectIds) {
-		// TODO Auto-generated method stub
-		int count=0;
-		List<String> orderIdList = Arrays.asList(orderIds.split(","));
-		count=taskOrderDao.updateStateByIdList(TaskOrder.FINISHED, orderIdList);
-		if(count>0) {
-			List<String> taskBagIdList = Arrays.asList(taskBagIds.split(","));
-			taskBagDao.updateStateByIdList(TaskBag.FINISH, taskBagIdList);
-			Map<String,Integer> projectIdCountMap=new HashMap<String,Integer>();
-			List<String> projectIdList = Arrays.asList(projectIds.split(","));
-			for (String projectId : projectIdList) {
-				boolean projectIdExist = checkIfProjectIdExistInMap(projectId,projectIdCountMap);
-				if(projectIdExist) {
-					int projectIdCount = Integer.valueOf(projectIdCountMap.get(projectId).toString());
-					projectIdCount++;
-					projectIdCountMap.put(projectId, projectIdCount);
-				}
-				else {
-					projectIdCountMap.put(projectId,1);
-				}
-			}
-			Set<String> projectIdKeySet = projectIdCountMap.keySet();
-			for (String projectIdKey : projectIdKeySet) {
-				int projectId = Integer.valueOf(projectIdKey);
-				int finishBagCount = Integer.valueOf(projectIdCountMap.get(projectIdKey).toString());
-				projectDao.updateFinishBagCountById(finishBagCount, projectId);
-			}
-		}
-		return count;
-	}
-	
-	private boolean checkIfProjectIdExistInMap(String projectId, Map<String,Integer> projectIdCountMap) {
-		boolean exist = false;
-		Set<String> projectIdKeySet = projectIdCountMap.keySet();
-		for (String projectIdKey : projectIdKeySet) {
-			if(projectIdKey.equals(projectId)) {
-				exist=true;
-				break;
-			}
-		}
-		return exist;
 	}
 }

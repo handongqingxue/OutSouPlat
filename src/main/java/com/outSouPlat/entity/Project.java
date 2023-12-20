@@ -37,6 +37,15 @@ public class Project {
 	 */
 	public static final boolean DEL_TASK_BAG=false;
 
+	/**
+	 * 添加外包人数
+	 */
+	public static final boolean ADD_OUT=true;
+	/**
+	 * 删除外包人数
+	 */
+	public static final boolean DEL_OUT=false;
+
 	private Integer id;
 	public Integer getId() {
 		return id;

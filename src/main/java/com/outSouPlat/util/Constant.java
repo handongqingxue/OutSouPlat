@@ -130,19 +130,13 @@ public class Constant {
 		request.setAttribute("unTestState", TaskOrder.UN_TEST);
 		request.setAttribute("testingState", TaskOrder.TESTING);
 		request.setAttribute("reworkingState", TaskOrder.REWORKING);
-		request.setAttribute("unPayState", TaskOrder.UN_PAY);
-		request.setAttribute("paidState", TaskOrder.PAID);
 		request.setAttribute("finishedState", TaskOrder.FINISHED);
-		request.setAttribute("discardedState", TaskOrder.DISCARDED);
 		
 		request.setAttribute("developingStateName", TaskOrder.DEVELOPING_NAME);
 		request.setAttribute("unTestStateName", TaskOrder.UN_TEST_NAME);
 		request.setAttribute("testingStateName", TaskOrder.TESTING_NAME);
 		request.setAttribute("reworkingStateName", TaskOrder.REWORKING_NAME);
-		request.setAttribute("unPayStateName", TaskOrder.UN_PAY_NAME);
-		request.setAttribute("paidStateName", TaskOrder.PAID_NAME);
 		request.setAttribute("finishedStateName", TaskOrder.FINISHED_NAME);
-		request.setAttribute("discardedStateName", TaskOrder.DISCARDED_NAME);
 	}
 	
 	/**
@@ -222,8 +216,8 @@ public class Constant {
 		request.setAttribute("agreeOrderPerm", Permission.AGREE_ORDER);//24
 		request.setAttribute("refuseOrderPerm", Permission.REFUSE_ORDER);//25
 		request.setAttribute("testCodePerm", Permission.TEST_CODE);//26
-		request.setAttribute("payCommissionPerm", Permission.PAY_COMMISSION);//27
-		request.setAttribute("getCommissionPerm", Permission.GET_COMMISSION);//28
+		//request.setAttribute("payCommissionPerm", Permission.PAY_COMMISSION);//27
+		//request.setAttribute("getCommissionPerm", Permission.GET_COMMISSION);//28
 		
 		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
 		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10

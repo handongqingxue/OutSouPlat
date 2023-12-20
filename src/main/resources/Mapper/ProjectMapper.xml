@@ -150,7 +150,20 @@
 		</if>
 		where id=#{id}
 	</update>
+	<update id="updateOutCountById">
+		update project set outCount=
+		<if test="addFlag==@com.outSouPlat.entity.Project@ADD_OUT">
+			outCount+#{count}
+		</if>
+		<if test="addFlag==@com.outSouPlat.entity.Project@DEL_OUT">
+			outCount-#{count}
+		</if>
+		where id=#{id}
+	</update>
 	<update id="updateFinishBagCountById">
-		update project set finishBagCount=finishBagCount+#{finishBagCount} where id=#{id}
+		update project set finishBagCount=finishBagCount+1 where id=#{id}
+	</update>
+	<update id="updateStateById">
+		update project set state=#{state} where id=#{id}
 	</update>
 </mapper>
