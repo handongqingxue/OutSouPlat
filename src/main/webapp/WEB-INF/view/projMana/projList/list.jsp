@@ -177,9 +177,11 @@ function initTab1(){
             }},
             {field:"id",title:"操作",width:150,formatter:function(value,row){
             	var str="";
-	            	if(showEditOptionBut)
-	            		str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
-            		str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
+            	if(showEditOptionBut){
+            		if(row.state!=finishState)
+            			str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;"
+            	}
+           		str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
             	return str;
             }}
 	    ]],

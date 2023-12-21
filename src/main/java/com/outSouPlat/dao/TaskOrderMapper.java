@@ -10,10 +10,10 @@ public interface TaskOrderMapper {
 
 	int add(TaskOrder taskOrder);
 
-	int queryForInt(@Param("no") String no, @Param("taskBagName") String taskBagName,@Param("uploadUserName") String uploadUserName, @Param("orderUserName") String orderUserName, @Param("agreeUserName") String agreeUserName, @Param("createTimeStart") String createTimeStart, 
+	int queryForInt(@Param("no") String no, @Param("taskBagName") String taskBagName, @Param("projectName") String projectName,@Param("uploadUserName") String uploadUserName, @Param("orderUserName") String orderUserName, @Param("agreeUserName") String agreeUserName, @Param("createTimeStart") String createTimeStart, 
 			@Param("createTimeEnd") String createTimeEnd, @Param("finishTimeStart") String finishTimeStart, @Param("finishTimeEnd") String finishTimeEnd, @Param("state") Integer state, @Param("userId") Integer userId);
 
-	List<TaskOrder> queryList(@Param("no") String no, @Param("taskBagName") String taskBagName,@Param("uploadUserName") String uploadUserName, @Param("orderUserName") String orderUserName, @Param("agreeUserName") String agreeUserName, @Param("createTimeStart") String createTimeStart,
+	List<TaskOrder> queryList(@Param("no") String no, @Param("taskBagName") String taskBagName, @Param("projectName") String projectName,@Param("uploadUserName") String uploadUserName, @Param("orderUserName") String orderUserName, @Param("agreeUserName") String agreeUserName, @Param("createTimeStart") String createTimeStart,
 			@Param("createTimeEnd") String createTimeEnd, @Param("finishTimeStart") String finishTimeStart, @Param("finishTimeEnd") String finishTimeEnd, @Param("state") Integer state, @Param("userId") Integer userId, 
 			@Param("rowNum") int rowNum, @Param("rows") int rows, @Param("sort") String sort, @Param("order") String order);
 

@@ -47,6 +47,9 @@
 		<if test="taskBagName!=''&amp;taskBagName!=null">
 			and tb.name like CONCAT('%',#{taskBagName},'%')
 		</if>
+		<if test="projectName!=''&amp;projectName!=null">
+			and p.name like CONCAT('%',#{projectName},'%')
+		</if>
 		<if test="uploadUserName!=''&amp;uploadUserName!=null">
 			and upload_u.username like CONCAT('%',#{uploadUserName},'%')
 		</if>
@@ -76,6 +79,9 @@
 		</if>
 		<if test="taskBagName!=''&amp;taskBagName!=null">
 			and tb.name like CONCAT('%',#{taskBagName},'%')
+		</if>
+		<if test="projectName!=''&amp;projectName!=null">
+			and p.name like CONCAT('%',#{projectName},'%')
 		</if>
 		<if test="uploadUserName!=''&amp;uploadUserName!=null">
 			and upload_u.username like CONCAT('%',#{uploadUserName},'%')

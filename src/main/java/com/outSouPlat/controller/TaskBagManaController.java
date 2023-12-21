@@ -396,7 +396,7 @@ public class TaskBagManaController {
 	
 	@RequestMapping(value="/queryTaskOrderList")
 	@ResponseBody
-	public Map<String, Object> queryTaskOrderList(String no,String taskBagName,String uploadUserName,String orderUserName,String agreeUserName,String createTimeStart,String createTimeEnd,
+	public Map<String, Object> queryTaskOrderList(String no,String taskBagName,String projectName,String uploadUserName,String orderUserName,String agreeUserName,String createTimeStart,String createTimeEnd,
 			String finishTimeStart,String finishTimeEnd,Integer state,Integer userId,int page,int rows,String sort,String order) {
 		
 		//System.out.println("uploadUserName="+uploadUserName);
@@ -406,8 +406,8 @@ public class TaskBagManaController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {
-			int count = taskOrderService.queryForInt(no,taskBagName,uploadUserName,orderUserName,agreeUserName,createTimeStart,createTimeEnd,finishTimeStart,finishTimeEnd,state,userId);
-			List<TaskOrder> taskOrderList=taskOrderService.queryList(no,taskBagName,uploadUserName,orderUserName,agreeUserName,createTimeStart,createTimeEnd,finishTimeStart,finishTimeEnd,state,userId, page, rows, sort, order);
+			int count = taskOrderService.queryForInt(no,taskBagName,projectName,uploadUserName,orderUserName,agreeUserName,createTimeStart,createTimeEnd,finishTimeStart,finishTimeEnd,state,userId);
+			List<TaskOrder> taskOrderList=taskOrderService.queryList(no,taskBagName,projectName,uploadUserName,orderUserName,agreeUserName,createTimeStart,createTimeEnd,finishTimeStart,finishTimeEnd,state,userId, page, rows, sort, order);
 			
 			jsonMap.put("total", count);
 			jsonMap.put("rows", taskOrderList);

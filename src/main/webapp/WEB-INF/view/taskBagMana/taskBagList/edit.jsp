@@ -64,7 +64,7 @@ function initEditDialog(){
 	$("#edit_div").dialog({
 		title:"任务信息",
 		width:setFitWidthInParent("body","edit_div"),
-		height:500,
+		height:630,
 		top:dialogTop,
 		left:dialogLeft,
 		buttons:[

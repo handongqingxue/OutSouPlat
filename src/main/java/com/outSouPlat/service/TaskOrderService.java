@@ -10,10 +10,10 @@ public interface TaskOrderService {
 
 	int deleteByIds(String ids, String nos, String projectIds, String codeFileUrls, String taskBagIds, Integer sendUserId, String sendUsername);
 
-	int queryForInt(String no, String taskBagName,String uploadUserName, String orderUserName,String agreeUserName, String createTimeStart,
+	int queryForInt(String no, String taskBagName,String projectName,String uploadUserName, String orderUserName,String agreeUserName, String createTimeStart,
 			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, Integer userId);
 
-	List<TaskOrder> queryList(String no, String taskBagName,String uploadUserName, String orderUserName,String agreeUserName, String createTimeStart,
+	List<TaskOrder> queryList(String no, String taskBagName,String projectName,String uploadUserName, String orderUserName,String agreeUserName, String createTimeStart,
 			String createTimeEnd, String finishTimeStart, String finishTimeEnd, Integer state, Integer userId, 
 			int page, int rows, String sort, String order);
 

@@ -13,7 +13,7 @@ public class Project {
 	/**
 	 * 已完成
 	 */
-	public static final int FINISH=4;
+	public static final int FINISH=3;
 	
 	/**
 	 * 待承包

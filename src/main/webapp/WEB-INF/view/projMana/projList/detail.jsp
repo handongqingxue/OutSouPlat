@@ -53,7 +53,7 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"项目信息",
 		width:setFitWidthInParent("body","detail_div"),
-		height:500,
+		height:550,
 		top:dialogTop,
 		left:dialogLeft
 	});

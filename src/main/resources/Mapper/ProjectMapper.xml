@@ -138,7 +138,7 @@
 		select * from project where id=#{0}
 	</select>
 	<select id="queryCBBList" resultType="com.outSouPlat.entity.Project">
-		select id,name from project order by createTime
+		select id,name from project where state!=${@com.outSouPlat.entity.Project@FINISH} order by createTime
 	</select>
 	<update id="updateTaskBagCountById">
 		update project set taskBagCount=

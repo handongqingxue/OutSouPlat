@@ -62,17 +62,17 @@ public class TestResultServiceImpl implements TestResultService {
 	}
 
 	@Override
-	public int queryForInt(String taskOrderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
+	public int queryForInt(String taskOrderNo, String taskBagName,String projectName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart, String createTimeEnd,
 			Boolean result, Integer userId, Integer roleFlag) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryForInt(taskOrderNo, taskBagName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, result, userId, roleFlag);
+		return testResultDao.queryForInt(taskOrderNo, taskBagName, projectName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, result, userId, roleFlag);
 	}
 
 	@Override
-	public List<TestResult> queryList(String taskOrderNo, String taskBagName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,
+	public List<TestResult> queryList(String taskOrderNo, String taskBagName,String projectName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,
 			String createTimeEnd, Boolean result, Integer userId, Integer roleFlag, int page, int rows, String sort, String order) {
 		// TODO Auto-generated method stub
-		return testResultDao.queryList(taskOrderNo, taskBagName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, 
+		return testResultDao.queryList(taskOrderNo, taskBagName, projectName, uploadUserName, orderUserName, agreeUserName, testUserName, phone, createTimeStart, createTimeEnd, 
 				result, userId, roleFlag, (page-1)*rows, rows, sort, order);
 	}
 

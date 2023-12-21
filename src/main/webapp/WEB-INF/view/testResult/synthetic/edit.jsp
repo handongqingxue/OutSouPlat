@@ -59,8 +59,8 @@ function initDialogPosition(){
 }
 
 function initResultVar(){
-	unPass=parseInt('${requestScope.unPass}');
-	pass=parseInt('${requestScope.pass}');
+	unPass='${requestScope.unPass}';
+	pass='${requestScope.pass}';
 
 	unPassName='${requestScope.unPassName}';
 	passName='${requestScope.passName}';
@@ -229,7 +229,7 @@ function setFitWidthInParent(parent,self){
 					任务单号
 				</td>
 				<td class="td2">
-					${requestScope.testResult.orderNo }
+					${requestScope.testResult.taskOrderNo }
 				</td>
 				<td class="td1" align="right">
 					任务包

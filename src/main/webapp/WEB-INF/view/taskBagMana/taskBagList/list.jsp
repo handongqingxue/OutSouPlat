@@ -261,8 +261,10 @@ function initTab1(){
             }},
             {field:"id",title:"操作",width:220,formatter:function(value,row){
             	var str="";
-	            	if(showEditOptionBut)
-	            		str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+	            	if(showEditOptionBut){
+	            		if(row.state==unSubmitState||row.state==unOrderState)
+	            			str+="<a href=\"edit?id="+value+"\">编辑</a>&nbsp;&nbsp;";
+	            	}
 	            	str+="<a href=\"detail?id="+value+"\">详情</a>&nbsp;&nbsp;";
 	            	if(showSubmitOptionBut){
 		   	            if(row.state==unSubmitState)

@@ -26,6 +26,7 @@
 .tab1_div .toolbar .row_div .no_span,
 .tab1_div .toolbar .row_div .state_span,
 .tab1_div .toolbar .row_div .taskBagName_span,
+.tab1_div .toolbar .row_div .projectName_span,
 .tab1_div .toolbar .row_div .uploadUserName_span,
 .tab1_div .toolbar .row_div .orderUserName_span,
 .tab1_div .toolbar .row_div .agreeUserName_span,
@@ -36,6 +37,7 @@
 }
 .tab1_div .toolbar .row_div .no_inp,
 .tab1_div .toolbar .row_div .taskBagName_inp,
+.tab1_div .toolbar .row_div .projectName_inp,
 .tab1_div .toolbar .row_div .uploadUserName_inp,
 .tab1_div .toolbar .row_div .orderUserName_inp,
 .tab1_div .toolbar .row_div .agreeUserName_inp{
@@ -244,6 +246,7 @@ function initSearchLB(){
 		onClick:function(){
 			var no=$("#toolbar #no").val();
 			var taskBagName=$("#toolbar #taskBagName").val();
+			var projectName=$("#toolbar #projectName").val();
 			var uploadUserName=$("#toolbar #uploadUserName").val();
 			var orderUserName=$("#toolbar #orderUserName").val();
 			var agreeUserName=$("#toolbar #agreeUserName").val();
@@ -253,7 +256,7 @@ function initSearchLB(){
 			var finishTimeEnd=finishTimeEndDTB.datetimebox("getValue");
 			var state=stateCBB.combobox("getValue");
 			
-			tab1.datagrid("load",{no:no,taskBagName:taskBagName,uploadUserName:uploadUserName,orderUserName:orderUserName,agreeUserName:agreeUserName,createTimeStart:createTimeStart,
+			tab1.datagrid("load",{no:no,taskBagName:taskBagName,projectName:projectName,uploadUserName:uploadUserName,orderUserName:orderUserName,agreeUserName:agreeUserName,createTimeStart:createTimeStart,
 				createTimeEnd:createTimeEnd,finishTimeStart:finishTimeStart,finishTimeEnd:finishTimeEnd,state:state,userId:userId});
 		}
 	});
@@ -470,7 +473,7 @@ function initTab1(){
 		pagination:true,
 		pageSize:10,
 		columns:[[
-			{field:"no",title:"任务单号",width:150},
+			{field:"no",title:"任务单号",width:180},
 			{field:"taskBagName",title:"任务包",width:150},
 			{field:"projectName",title:"项目",width:150},
 			{field:"uploadUserName",title:"上传人",width:150},
@@ -696,6 +699,8 @@ function setFitWidthInParent(parent,self){
 				<input type="text" class="no_inp" id="no" placeholder="请输入任务单号"/>
 				<span class="taskBagName_span">任务包：</span>
 				<input type="text" class="taskBagName_inp" id="taskBagName" placeholder="请输入任务包名"/>
+				<span class="projectName_span">项目：</span>
+				<input type="text" class="projectName_inp" id="projectName" placeholder="请输入项目"/>
 				<span class="uploadUserName_span">上传人：</span>
 				<input type="text" class="uploadUserName_inp" id="uploadUserName" placeholder="请输入上传人"/>
 				<span class="orderUserName_span">接单人：</span>

@@ -220,19 +220,19 @@ public class Constant {
 		//request.setAttribute("getCommissionPerm", Permission.GET_COMMISSION);//28
 		
 		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
-		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10
-		request.setAttribute("downloadCodePerm", Permission.DOWNLOAD_CODE);//11
-		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12
-		request.setAttribute("uploadCodePerm", Permission.UPLOAD_CODE);//23
+		request.setAttribute("taskOrderDelPerm", Permission.TASK_ORDER_DEL);//10 15
+		request.setAttribute("downloadCodePerm", Permission.DOWNLOAD_CODE);//11 16
+		request.setAttribute("taskOrderSearPerm", Permission.TASK_ORDER_SEAR);//12 17
+		request.setAttribute("uploadCodePerm", Permission.UPLOAD_CODE);//23 18
 		
-		request.setAttribute("testResultUplPerm", Permission.TEST_RESULT_UPL);//13
-		request.setAttribute("testResultDelPerm", Permission.TEST_RESULT_DEL);//14
-		request.setAttribute("testResultEditPerm", Permission.TEST_RESULT_EDIT);//15
-		request.setAttribute("testResultSearPerm", Permission.TEST_RESULT_SEAR);//16
+		request.setAttribute("testResultUplPerm", Permission.TEST_RESULT_UPL);//13 19
+		request.setAttribute("testResultDelPerm", Permission.TEST_RESULT_DEL);//14 20
+		request.setAttribute("testResultEditPerm", Permission.TEST_RESULT_EDIT);//15 21
+		request.setAttribute("testResultSearPerm", Permission.TEST_RESULT_SEAR);//16 22
 		
-		request.setAttribute("userSearPerm", Permission.USER_SEAR);//17
-		request.setAttribute("userEditPerm", Permission.USER_EDIT);//18
-		request.setAttribute("userCheckPerm", Permission.USER_CHECK);//19
+		request.setAttribute("userSearPerm", Permission.USER_SEAR);//17 23
+		request.setAttribute("userEditPerm", Permission.USER_EDIT);//18 24
+		request.setAttribute("userCheckPerm", Permission.USER_CHECK);//19 25
 		request.setAttribute("unCheckUserSearPerm", Permission.UN_CHECK_USER_SEAR);//20
 		
 		/*
