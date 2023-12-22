@@ -179,8 +179,7 @@ function setFitWidthInParent(parent,self){
 					<c:choose>
 						<c:when test="${requestScope.project.state eq requestScope.unContractState }">${requestScope.unContractStateName}</c:when>
 						<c:when test="${requestScope.project.state eq requestScope.contractedState }">${requestScope.contractedStateName}</c:when>
-						<c:when test="${requestScope.project.state eq requestScope.developingState }">${requestScope.developingStateName}</c:when>
-						<c:when test="${requestScope.project.state eq requestScope.discardedState }">${requestScope.discardedStateName}</c:when>
+						<c:when test="${requestScope.project.state eq requestScope.finishState }">${requestScope.finishStateName}</c:when>
 					</c:choose>
 				</td>
 			  </tr>

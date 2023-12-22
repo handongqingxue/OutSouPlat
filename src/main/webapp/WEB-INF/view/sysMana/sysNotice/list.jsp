@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@include file="../../inc/js.jsp"%>
+<c:set var="sysNoticeDelPermStr" value=",${requestScope.sysNoticeDelPerm},"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,6 +36,10 @@
 var path='<%=basePath %>';
 var sysManaPath=path+'sysMana/';
 
+var sessionUsernameStr='${sessionUsernameStr}';
+var usernameStr='${usernameStr}';
+var sysNoticeDelPermStr='${sysNoticeDelPermStr}';
+
 var unRead;
 var read;
 
@@ -45,6 +50,7 @@ var userId;
 $(function(){
 	initQSNUserId();
 	initReadVar();
+	showCompontByPermission();
 	
 	initCreateTimeStartDTB();
 	initCreateTimeEndDTB();
@@ -75,6 +81,11 @@ function initReadVar(){
 
 	unReadName='${requestScope.unReadName}';
 	readName='${requestScope.readName}';
+}
+
+function showCompontByPermission(){
+	if(sessionUsernameStr==usernameStr||permissionIdsStr.indexOf(sysNoticeDelPermStr)!=-1)
+		initRemoveLB();
 }
 
 function initCreateTimeStartDTB(){
@@ -161,6 +172,41 @@ function initSearchLB(){
 	});
 }
 
+function initRemoveLB(){
+	removeLB=$("#remove_but").linkbutton({
+		iconCls:"icon-remove",
+		onClick:function(){
+			deleteByIds();
+		}
+	});
+}
+
+function deleteByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	
+	var ids="";
+	for (var i = 0; i < rows.length; i++) {
+		ids += "," + rows[i].id;
+	}
+	
+	$.post(sysManaPath + "deleteSysNoticeByIds",
+		{ids:ids.substring(1)},
+		function(result){
+			if(result.status==1){
+				alert(result.msg);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(result.msg);
+			}
+		}
+	,"json");
+}
+
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"系统管理-通知查询-列表",
@@ -230,6 +276,9 @@ function setFitWidthInParent(parent,self){
 			<input id="read_cbb"/>
 			<a id="signRead_but">标记为已读</a>
 			<a class="search_but" id="search_but">查询</a>
+			<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,sysNoticeDelPermStr)}">
+			<a id="remove_but">删除</a>
+			</c:if>
 		</div>
 		<table id="tab1">
 		</table>

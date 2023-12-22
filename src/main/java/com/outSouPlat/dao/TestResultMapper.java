@@ -10,6 +10,8 @@ public interface TestResultMapper {
 
 	int add(TestResult testResult);
 
+	int deleteByIdList(@Param("idList")List<String> idList);
+
 	int edit(TestResult testResult);
 
 	int queryForInt(@Param("taskOrderNo") String taskOrderNo, @Param("taskBagName") String taskBagName,@Param("projectName") String projectName, @Param("uploadUserName") String uploadUserName, @Param("orderUserName") String orderUserName, @Param("agreeUserName") String agreeUserName, @Param("testUserName") String testUserName, @Param("phone") String phone,

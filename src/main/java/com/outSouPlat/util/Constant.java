@@ -216,7 +216,6 @@ public class Constant {
 		request.setAttribute("agreeOrderPerm", Permission.AGREE_ORDER);//24
 		request.setAttribute("refuseOrderPerm", Permission.REFUSE_ORDER);//25
 		request.setAttribute("testCodePerm", Permission.TEST_CODE);//26
-		//request.setAttribute("payCommissionPerm", Permission.PAY_COMMISSION);//27
 		//request.setAttribute("getCommissionPerm", Permission.GET_COMMISSION);//28
 		
 		request.setAttribute("taskOrderAddPerm", Permission.TASK_ORDER_ADD);//9
@@ -234,6 +233,7 @@ public class Constant {
 		request.setAttribute("userEditPerm", Permission.USER_EDIT);//18 24
 		request.setAttribute("userCheckPerm", Permission.USER_CHECK);//19 25
 		request.setAttribute("unCheckUserSearPerm", Permission.UN_CHECK_USER_SEAR);//20
+		request.setAttribute("sysNoticeDelPerm", Permission.SYS_NOTICE_DEL);//27 27
 		
 		/*
 		request.setAttribute("cxbdjlQx", QuanXian.CHA_XUN_BANG_DAN_JI_LU);//29

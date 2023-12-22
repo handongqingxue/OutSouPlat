@@ -1,5 +1,6 @@
 package com.outSouPlat.service.serviceImpl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,13 @@ public class TestResultServiceImpl implements TestResultService {
 			sysNoticeDao.add(sysNotice);
 		}
 		return count;
+	}
+
+	@Override
+	public int deleteByIds(String ids) {
+		// TODO Auto-generated method stub
+		List<String> idList = Arrays.asList(ids.split(","));
+		return testResultDao.deleteByIdList(idList);
 	}
 
 	@Override

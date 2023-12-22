@@ -163,6 +163,32 @@ function initRemoveLB(){
 	});
 }
 
+function deleteByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+	
+	var ids="";
+	for (var i = 0; i < rows.length; i++) {
+		ids += "," + rows[i].id;
+	}
+	
+	$.post(testResultPath + "deleteByIds",
+		{ids:ids.substring(1)},
+		function(result){
+			if(result.status==1){
+				alert(result.msg);
+				tab1.datagrid("load");
+			}
+			else{
+				alert(result.msg);
+			}
+		}
+	,"json");
+}
+
 function initQTRRoleFlag(){
 	if(sessionUsernameStr==usernameStr){
 		roleFlag=adminFlag;
@@ -272,7 +298,7 @@ function setFitWidthInParent(parent,self){
 				<span class="result_span">结果：</span>
 				<input id="result_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
-				<c:if test="${sessionUsername eq usernameStr||fn:contains(permissionIdsStr,testResultDelPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,testResultDelPermStr)}">
 				<a id="remove_but">删除</a>
 				</c:if>
 			</div>

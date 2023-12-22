@@ -113,7 +113,7 @@ function initEditDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
-	initProjectCBB();
+	//initProjectCBB();
 }
 
 function initProjectCBB(){
@@ -129,6 +129,7 @@ function initProjectCBB(){
 				valueField:"value",
 				textField:"text",
 				data:data,
+				disabled:true,
 				onLoadSuccess:function(){
 					$(this).combobox("setValue",'${requestScope.taskBag.projectId }');
 				}
@@ -139,13 +140,13 @@ function initProjectCBB(){
 
 function checkEdit(){
 	if(checkName()){
-		if(checkProjectId()){
+		//if(checkProjectId()){
 			if(checkCommission()){
 				if(checkMakeTime()){
 					editTaskBag();
 				}
 			}
-		}
+		//}
 	}
 }
 
@@ -164,8 +165,8 @@ function changeLBOptionStyle(lb,flag){
 
 function editTaskBag(){
 	changeLBOptionStyle(okLB,true);
-	var projectId=projectCBB.combobox("getValue");
-	$("#edit_div #projectId").val(projectId);
+	//var projectId=projectCBB.combobox("getValue");
+	//$("#edit_div #projectId").val(projectId);
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
@@ -292,8 +293,11 @@ function setFitWidthInParent(parent,self){
 					项目
 				</td>
 				<td class="td2">
+					<!-- 
 					<input id="project_cbb"/>
 					<input type="hidden" id="projectId" name="projectId" value="${requestScope.taskBag.projectId }"/>
+					 -->
+					${requestScope.taskBag.projectName }
 				</td>
 			  </tr>
 			  <tr>

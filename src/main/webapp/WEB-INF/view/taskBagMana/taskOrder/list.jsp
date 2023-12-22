@@ -287,16 +287,45 @@ function deleteByIds() {
 	var allowProjectIds="";
 	var allowCodeFileUrls="";
 	var allowTaskBagIds="";
-	for (var i = 0; i < rows.length; i++) {
-		if(rows[i].state==developingState){
-			allowIds += "," + rows[i].id;
-			allowNos += "," + rows[i].no;
-			allowProjectIds += "," + rows[i].projectId;
-			allowCodeFileUrls += "," + rows[i].codeFileUrl;
-			allowTaskBagIds += "," + rows[i].taskBagId;
+	var roleNames='${sessionScope.user.roleNames}';
+	if(roleNames=="超级管理员"){
+		for (var i = 0; i < rows.length; i++) {
+			if(rows[i].state==developingState||rows[i].state==reworkingState||rows[i].state==finishedState){
+				allowIds += "," + rows[i].id;
+				allowNos += "," + rows[i].no;
+				allowProjectIds += "," + rows[i].projectId;
+				allowCodeFileUrls += "," + rows[i].codeFileUrl;
+				allowTaskBagIds += "," + rows[i].taskBagId;
+			}
+			else
+				notAllowNos += "、" + rows[i].no;
 		}
-		else
-			notAllowNos += "、" + rows[i].no;
+	}
+	else if(roleNames.includes("技术人员")){
+		for (var i = 0; i < rows.length; i++) {
+			if(rows[i].state==finishedState){
+				allowIds += "," + rows[i].id;
+				allowNos += "," + rows[i].no;
+				allowProjectIds += "," + rows[i].projectId;
+				allowCodeFileUrls += "," + rows[i].codeFileUrl;
+				allowTaskBagIds += "," + rows[i].taskBagId;
+			}
+			else
+				notAllowNos += "、" + rows[i].no;
+		}
+	}
+	else{
+		for (var i = 0; i < rows.length; i++) {
+			if(rows[i].state==developingState||rows[i].state==reworkingState){
+				allowIds += "," + rows[i].id;
+				allowNos += "," + rows[i].no;
+				allowProjectIds += "," + rows[i].projectId;
+				allowCodeFileUrls += "," + rows[i].codeFileUrl;
+				allowTaskBagIds += "," + rows[i].taskBagId;
+			}
+			else
+				notAllowNos += "、" + rows[i].no;
+		}
 	}
 	if(notAllowNos!="")
 		notAllowNos=notAllowNos.substring(1);
@@ -308,13 +337,21 @@ function deleteByIds() {
 		allowTaskBagIds=allowTaskBagIds.substring(1);
 	}
 	
+	var stateStr;
+	if(roleNames=="超级管理员")
+		stateStr="开发中或完成";
+	else if(roleNames.includes("技术人员"))
+		stateStr="完成";
+	else
+		stateStr="开发中";
+	
 	if(notAllowNos!=""&allowIds==""){
-		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法删除";
+		confirmStr="任务单"+notAllowNos+"不是"+stateStr+"状态，无法删除";
 		alert(confirmStr);
 		return false;
 	}
 	else if(notAllowNos!=""&allowIds!="")
-		confirmStr="任务单"+notAllowNos+"不是未完成状态，无法删除,要删除其他任务单吗？";
+		confirmStr="任务单"+notAllowNos+"不是"+stateStr+"状态，无法删除,要删除其他任务单吗？";
 	else
 		confirmStr="确实要删除选中的任务单吗？";
 	

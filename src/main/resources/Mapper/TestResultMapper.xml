@@ -43,6 +43,12 @@
 			</if>
 		</trim>
 	</insert>
+	<delete id="deleteByIdList">
+		delete from test_result where
+		<foreach collection="idList" item="id" open="1=1 and cast(id as char) in (" separator="," close=")">
+		#{id}
+		</foreach>
+	</delete>
 	<update id="edit" parameterType="com.outSouPlat.entity.TestResult">
 		update test_result set 
 		<trim suffixOverrides=",">

@@ -107,9 +107,9 @@ public class Permission {
 	 */
 	public static final int TEST_CODE=26;
 	/**
-	 * 支付佣金
+	 * 系统通知删除
 	 */
-	//public static final int PAY_COMMISSION=27;
+	public static final int SYS_NOTICE_DEL=27;
 	/**
 	 * 收到佣金
 	 */

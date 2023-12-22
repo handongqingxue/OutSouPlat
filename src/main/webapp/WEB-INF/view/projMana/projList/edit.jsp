@@ -61,12 +61,10 @@ var edNum=0;
 
 var unContractState;
 var contractedState;
-var developingState;
 var finishState;
 
 var unContractStateName;
 var contractedStateName;
-var developingStateName;
 var finishStateName;
 $(function(){
 	initStateVar();
@@ -90,12 +88,10 @@ function initDialogPosition(){
 function initStateVar(){
 	unContractState=parseInt('${requestScope.unContractState}');
 	contractedState=parseInt('${requestScope.contractedState}');
-	developingState=parseInt('${requestScope.developingState}');
 	finishState=parseInt('${requestScope.finishState}');
 
 	unContractStateName='${requestScope.unContractStateName}';
 	contractedStateName='${requestScope.contractedStateName}';
-	developingStateName='${requestScope.developingStateName}';
 	finishStateName='${requestScope.finishStateName}';
 }
 
@@ -143,7 +139,7 @@ function initEditDialog(){
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
 	
-	initStateCBB();
+	//initStateCBB();
 }
 
 function initStateCBB(){
@@ -151,7 +147,6 @@ function initStateCBB(){
 	data.push({"value":"","text":"请选择"});
 	data.push({"value":unContractState,"text":unContractStateName});
 	data.push({"value":contractedState,"text":contractedStateName});
-	data.push({"value":developingState,"text":developingStateName});
 	data.push({"value":finishState,"text":finishStateName});
 	
 	stateCBB=$("#state_cbb").combobox({
@@ -170,9 +165,9 @@ function checkEdit(){
 		if(checkDeveLang()){
 			if(checkDatabase()){
 				if(checkDeveTool()){
-					if(checkState()){
+					//if(checkState()){
 						editProject();
-					}
+					//}
 				}
 			}
 		}
@@ -180,8 +175,8 @@ function checkEdit(){
 }
 
 function editProject(){
-	var state=stateCBB.combobox("getValue");
-	$("#edit_div #state").val(state);
+	//var state=stateCBB.combobox("getValue");
+	//$("#edit_div #state").val(state);
 	
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
@@ -399,8 +394,15 @@ function setFitWidthInParent(parent,self){
 					状态
 				</td>
 				<td class="td2">
+					<!--
 					<input id="state_cbb"/>
 					<input type="hidden" id="state" name="state" value="${requestScope.project.state }"/>
+					-->
+					<c:choose>
+						<c:when test="${requestScope.project.state eq requestScope.unContractState }">${requestScope.unContractStateName}</c:when>
+						<c:when test="${requestScope.project.state eq requestScope.contractedState }">${requestScope.contractedStateName}</c:when>
+						<c:when test="${requestScope.project.state eq requestScope.finishState }">${requestScope.finishStateName}</c:when>
+					</c:choose>
 				</td>
 				<td class="td1" align="right">
 				</td>

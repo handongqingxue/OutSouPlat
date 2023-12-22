@@ -17,6 +17,13 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 	private SysNoticeMapper sysNoticeDao;
 
 	@Override
+	public int deleteByIds(String ids) {
+		// TODO Auto-generated method stub
+		List<String> idList = Arrays.asList(ids.split(","));
+		return sysNoticeDao.deleteByIdList(idList);
+	}
+
+	@Override
 	public int queryForInt(String title,String sendUserName,String receiveUserName,String createTimeStart,String createTimeEnd,Boolean read, Integer userId) {
 		// TODO Auto-generated method stub
 		return sysNoticeDao.queryForInt(title,sendUserName,receiveUserName,createTimeStart,createTimeEnd,read, userId);

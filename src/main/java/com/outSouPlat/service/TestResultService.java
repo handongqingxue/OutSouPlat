@@ -8,6 +8,8 @@ public interface TestResultService {
 
 	int add(TestResult testResult);
 
+	int deleteByIds(String ids);
+
 	int edit(TestResult testResult);
 
 	int queryForInt(String taskOrderNo, String taskBagName,String projectName, String uploadUserName, String orderUserName, String agreeUserName, String testUserName, String phone, String createTimeStart,

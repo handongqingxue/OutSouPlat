@@ -8,6 +8,8 @@ import com.outSouPlat.entity.*;
 
 public interface SysNoticeMapper {
 
+	int deleteByIdList(@Param("idList") List<String> idList);
+
 	int add(SysNotice sysNotice);
 
 	int queryForInt(@Param("title") String title,@Param("sendUserName") String sendUserName,@Param("receiveUserName") String receiveUserName,@Param("createTimeStart") String createTimeStart,@Param("createTimeEnd") String createTimeEnd,@Param("read") Boolean read, @Param("userId") Integer userId);

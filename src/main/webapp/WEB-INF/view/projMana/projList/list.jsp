@@ -155,6 +155,55 @@ function initRemoveLB(){
 	});
 }
 
+function deleteByIds() {
+	var rows=tab1.datagrid("getSelections");
+	if (rows.length == 0) {
+		$.messager.alert("提示","请选择要删除的信息！","warning");
+		return false;
+	}
+
+	var confirmStr="";
+	var notAllowNames="";
+	var allowIds="";
+	for (var i = 0; i < rows.length; i++) {
+		if(rows[i].taskBagCount==0){
+			allowIds += "," + rows[i].id;
+		}
+		else
+			notAllowNames += "、" + rows[i].name;
+	}
+	if(notAllowNames!="")
+		notAllowNames=notAllowNames.substring(1);
+	if(allowIds!=""){
+		allowIds=allowIds.substring(1);
+	}
+
+	if(notAllowNames!=""&allowIds==""){
+		confirmStr="项目"+notAllowNames+"下有任务包，无法删除";
+		alert(confirmStr);
+		return false;
+	}
+	else if(notAllowNames!=""&allowIds!="")
+		confirmStr="项目"+notAllowNames+"下有任务包，无法删除,要删除其他任务单吗？";
+	else
+		confirmStr="确实要删除选中的项目吗？";
+	
+	if(confirm(confirmStr)){
+		$.post(projManaPath + "deleteProjectByIds",
+			{ids:allowIds},
+			function(result){
+				if(result.status==1){
+					alert(result.msg);
+					tab1.datagrid("load");
+				}
+				else{
+					alert(result.msg);
+				}
+			}
+		,"json");
+	}
+}
+
 function initTab1(){
 	tab1=$("#tab1").datagrid({
 		title:"项目列表",
@@ -253,10 +302,10 @@ function setFitWidthInParent(parent,self){
 				<span class="state_span">状态：</span>
 				<input id="state_cbb"/>
 				<a class="search_but" id="search_but">查询</a>
-				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,projAddPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,projAddPermStr)}">
 				<a id="add_but">添加</a>
 				</c:if>
-				<c:if test="${sessionScope.user.username eq usernameStr||fn:contains(permissionIdsStr,projDelPermStr)}">
+				<c:if test="${sessionUsernameStr eq usernameStr||fn:contains(permissionIdsStr,projDelPermStr)}">
 				<a id="remove_but">删除</a>
 				</c:if>
 			</div>
