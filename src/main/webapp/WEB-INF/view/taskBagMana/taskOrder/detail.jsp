@@ -79,6 +79,8 @@ var dialogTop=70;
 var dialogLeft=20;
 var ddNum=0;
 var ucdNum=1;
+
+var okBut;
 $(function(){
 	initFilePlaceVar();
 	initFileTypeVar();
@@ -167,7 +169,7 @@ function initDetailDialog(){
 	$(".window-shadow").eq(ddNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ddNum).css("border-color","#ddd");
 
-	var okBut=$("#detail_div #ok_but");
+	okBut=$("#detail_div #ok_but");
 	okBut.css("left","45%");
 	okBut.css("position","absolute");
 	if(showUploadCodeOptionBut){
@@ -238,7 +240,21 @@ function openUploadCodeDialog(flag,id){
 	$("#upload_code_div #id").val(id);
 }
 
+function changeLBOptionStyle(lb,flag){
+	if(flag){
+		if(lb==okBut){
+			lb.linkbutton({text:"上传中",iconCls:"icon-save",disabled:true});
+		}
+	}
+	else{
+		if(lb==okBut){
+			lb.linkbutton({text:"确定",iconCls:"icon-ok",disabled:false});
+		}
+	}
+}
+
 function uploadCode(){
+	changeLBOptionStyle(okBut,true);
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",

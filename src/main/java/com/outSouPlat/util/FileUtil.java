@@ -49,8 +49,18 @@ public class FileUtil {
 			//String timeStr = String.valueOf(time);
 			String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 			folder+="/"+time.substring(0, 4);
-			String[] originalFileName = myFile.getOriginalFilename().split("\\.");
-			String fileName = time + "." + originalFileName[1];
+			String fileName = null;
+			String originalFilename = myFile.getOriginalFilename();
+			//String[] originalFileName = originalFilename.split("\\.");//分割时需要加双斜线
+			//String fileName = time + "." + originalFileName[1];
+			int pointLoc = originalFilename.lastIndexOf(".");//获取最后一个点时不需要加双斜线
+			if(pointLoc==-1) {
+				fileName = time;
+			}
+			else {
+				String fileSufName = originalFilename.substring(pointLoc,originalFilename.length());
+				fileName = time + fileSufName;
+			}
 			String avaPath ="/OutSouPlat/upload/"+folder+"/"+fileName;
 			String realPath="D:\\resource\\OutSouPlat\\"+folder+"\\";
 			System.out.println(avaPath);

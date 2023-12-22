@@ -124,6 +124,8 @@ var unPassName;
 var passName;
 
 var userId;
+
+var okLB;
 $(function(){
 	initTOStateVar();
 	initUTRVar();
@@ -369,11 +371,13 @@ function initUploadCodeDialog(){
 	$(".window-shadow").eq(ucdNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ucdNum).css("border-color","#ddd");
 
-	$("#upload_code_dialog_div #ok_but").css("left","30%");
-	$("#upload_code_dialog_div #ok_but").css("position","absolute");
+	okLB=$("#upload_code_dialog_div #ok_but");
+	okLB.css("left","30%");
+	okLB.css("position","absolute");
 
 	$("#upload_code_dialog_div #cancel_but").css("left","50%");
 	$("#upload_code_dialog_div #cancel_but").css("position","absolute");
+	
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
@@ -586,7 +590,21 @@ function checkTestResult(){
 	}
 }
 
+function changeLBOptionStyle(lb,flag){
+	if(flag){
+		if(lb==okLB){
+			lb.linkbutton({text:"上传中",iconCls:"icon-save",disabled:true});
+		}
+	}
+	else{
+		if(lb==okLB){
+			lb.linkbutton({text:"确定",iconCls:"icon-ok",disabled:false});
+		}
+	}
+}
+
 function uploadCode(){
+	changeLBOptionStyle(okLB,true);
 	var formData = new FormData($("#form1")[0]);
 	$.ajax({
 		type:"post",
@@ -599,11 +617,13 @@ function uploadCode(){
 		success: function (data){
 			if(data.message=="ok"){
 				alert(data.info);
-				history.go(-1);
+	        	openUploadCodeDialog(false,"");
+				tab1.datagrid("load");
 			}
 			else{
 				alert(data.info);
 			}
+			changeLBOptionStyle(okLB,false);
 		}
 	});
 }

@@ -39,6 +39,8 @@ var taskBagManaPath=path+'taskBagMana/';
 var dialogTop=70;
 var dialogLeft=20;
 var ndNum=0;
+
+var okLB;
 $(function(){
 	initNewDialog();//0
 
@@ -94,8 +96,9 @@ function initNewDialog(){
 	$(".window-shadow").eq(ndNum).css("margin-top","20px");
 	$(".window,.window .window-body").eq(ndNum).css("border-color","#ddd");
 
-	$("#new_div #ok_but").css("left","45%");
-	$("#new_div #ok_but").css("position","absolute");
+	okLB=$("#new_div #ok_but");
+	okLB.css("left","45%");
+	okLB.css("position","absolute");
 	
 	$(".dialog-button").css("background-color","#fff");
 	$(".dialog-button .l-btn-text").css("font-size","20px");
@@ -133,7 +136,21 @@ function checkNew(){
 	}
 }
 
+function changeLBOptionStyle(lb,flag){
+	if(flag){
+		if(lb==okLB){
+			lb.linkbutton({text:"保存中",iconCls:"icon-save",disabled:true});
+		}
+	}
+	else{
+		if(lb==okLB){
+			lb.linkbutton({text:"保存",iconCls:"icon-ok",disabled:false});
+		}
+	}
+}
+
 function newTaskBag(){
+	changeLBOptionStyle(okLB,true);
 	var projectId=projectCBB.combobox("getValue");
 	$("#new_div #projectId").val(projectId);
 	
@@ -153,6 +170,7 @@ function newTaskBag(){
 			}
 			else{
 				alert(data.info);
+				changeLBOptionStyle(okLB,false);
 			}
 		}
 	});
