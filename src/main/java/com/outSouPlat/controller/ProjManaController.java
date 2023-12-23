@@ -100,6 +100,12 @@ public class ProjManaController {
 		return url;
 	}
 	
+	/**
+	 * 添加项目
+	 * @param project
+	 * @param illus_file
+	 * @return
+	 */
 	@RequestMapping(value="/newProject")
 	@ResponseBody
 	public Map<String, Object> newProject(Project project,
@@ -150,6 +156,11 @@ public class ProjManaController {
 		return jsonMap;
 	}
 
+	/**
+	 * 批量删除项目
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value="/deleteProjectByIds",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteProjectByIds(String ids) {
@@ -170,6 +181,12 @@ public class ProjManaController {
 		return json;
 	}
 
+	/**
+	 * 编辑项目
+	 * @param project
+	 * @param illus_file
+	 * @return
+	 */
 	@RequestMapping(value="/editProject")
 	@ResponseBody
 	public Map<String, Object> editProject(Project project,
@@ -219,6 +236,21 @@ public class ProjManaController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 查询项目
+	 * @param name
+	 * @param deveLang
+	 * @param database
+	 * @param deveTool
+	 * @param createTimeStart
+	 * @param createTimeEnd
+	 * @param state
+	 * @param page
+	 * @param rows
+	 * @param sort
+	 * @param order
+	 * @return
+	 */
 	@RequestMapping(value="/queryList")
 	@ResponseBody
 	public Map<String, Object> queryList(String name,String deveLang,String database,String deveTool,String createTimeStart,String createTimeEnd,Integer state,int page,int rows,String sort,String order) {
@@ -239,6 +271,10 @@ public class ProjManaController {
 		return jsonMap;
 	}
 	
+	/**
+	 * 项目下拉框查询
+	 * @return
+	 */
 	@RequestMapping(value="/queryCBBList")
 	@ResponseBody
 	public Map<String, Object> queryCBBList() {

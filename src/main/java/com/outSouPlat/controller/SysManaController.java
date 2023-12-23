@@ -52,6 +52,11 @@ public class SysManaController {
 		return MODULE_NAME+"/perInfo";
 	}
 	
+	/**
+	 * 跳转到系统管理-系统通知列表页
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/sysNotice/list")
 	public String goSysNoticeList(HttpServletRequest request) {
 		
@@ -98,6 +103,11 @@ public class SysManaController {
 		return MODULE_NAME+"/user/edit";
 	}
 	
+	/**
+	 * 跳转到系统管理-用户查询-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/user/list")
 	public String goUserList(HttpServletRequest request) {
 		
@@ -109,7 +119,7 @@ public class SysManaController {
 	}
 
 	/**
-	 * 跳转到角色查询-详情页面
+	 * 跳转到系统管理-角色查询-详情页面
 	 * @param request
 	 * @return
 	 */
@@ -127,6 +137,11 @@ public class SysManaController {
 		return MODULE_NAME+"/user/detail";
 	}
 	
+	/**
+	 * 跳转到系统管理-待审核用户-列表页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/unCheckUser/list")
 	public String goUnCheckUserList(HttpServletRequest request) {
 		
@@ -137,7 +152,7 @@ public class SysManaController {
 	}
 	
 	/**
-	 * 跳转到角色查询-添加页面
+	 * 跳转到系统管理-角色查询-添加页面
 	 * @param request
 	 * @return
 	 */
@@ -155,7 +170,7 @@ public class SysManaController {
 	}
 
 	/**
-	 * 跳转到角色查询-编辑页面
+	 * 跳转到系统管理-角色查询-编辑页面
 	 * @param request
 	 * @return
 	 */
@@ -178,7 +193,7 @@ public class SysManaController {
 	}
 	
 	/**
-	 * 跳转到角色查询-列表页面
+	 * 跳转到系统管理-角色查询-列表页面
 	 * @param request
 	 * @return
 	 */
@@ -196,7 +211,7 @@ public class SysManaController {
 	}
 
 	/**
-	 * 跳转到角色查询-详情页面
+	 * 跳转到系统管理-角色查询-详情页面
 	 * @param request
 	 * @return
 	 */
@@ -219,7 +234,7 @@ public class SysManaController {
 	}
 
 	/**
-	 * 跳转到权限查询-编辑页面
+	 * 跳转到系统管理-权限查询-编辑页面
 	 * @param request
 	 * @return
 	 */
@@ -242,7 +257,7 @@ public class SysManaController {
 	}
 	
 	/**
-	 * 跳转到权限查询-列表页面
+	 * 跳转到系统管理-权限查询-列表页面
 	 * @param request
 	 * @return
 	 */
@@ -260,7 +275,7 @@ public class SysManaController {
 	}
 	
 	/**
-	 * 跳转到权限查询-添加页面
+	 * 跳转到系统管理-权限查询-添加页面
 	 * @param request
 	 * @return
 	 */
@@ -277,6 +292,11 @@ public class SysManaController {
 		return url;
 	}
 
+	/**
+	 * 批量删除系统通知
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value="/deleteSysNoticeByIds",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteSysNoticeByIds(String ids) {
@@ -322,6 +342,11 @@ public class SysManaController {
 		return jsonMap;
 	}
 
+	/**
+	 * 标记系统通知为已读
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value="/signNoticeRead",produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String signNoticeRead(String ids) {

@@ -41,6 +41,11 @@ public class MainController {
 		return "login";
 	}
 	
+	/**
+	 * 跳转到注册页
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/goRegist")
 	public String goRegist(HttpServletRequest request) {
 		
@@ -72,6 +77,14 @@ public class MainController {
 		return JsonUtil.getJsonFromObject(plan);
 	}
 	
+	/**
+	 * 登录
+	 * @param username
+	 * @param password
+	 * @param rememberMe
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="plain/text; charset=UTF-8")
 	@ResponseBody
 	public String login(String username,String password,
@@ -139,6 +152,11 @@ public class MainController {
 		return json;
 	}
 
+	/**
+	 * 退出
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/exit")
 	public String exit(HttpSession session) {
 		System.out.println("退出接口");
