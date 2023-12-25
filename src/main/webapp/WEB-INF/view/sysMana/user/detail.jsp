@@ -19,6 +19,12 @@
 	margin-left: 20px;
 	font-size: 18px;
 }
+
+.detail_div .proExp_div{
+	width: 100%;
+	height: 380px;
+	overflow-y:scroll;
+}
 </style>
 <script type="text/javascript">
 var path='<%=basePath %>';
@@ -48,20 +54,24 @@ function initDetailDialog(){
 	$("#detail_div").dialog({
 		title:"用户信息",
 		width:setFitWidthInParent("body","detail_div"),
-		height:250,
+		height:700,
 		top:dialogTop,
 		left:dialogLeft
 	});
 
 	$("#detail_div table").css("width",(setFitWidthInParent("body","detail_div_table"))+"px");
 	$("#detail_div table").css("magin","-100px");
-	$("#detail_div table td").css("padding-left","50px");
+	$("#detail_div table td").css("padding-left","20px");
 	$("#detail_div table td").css("padding-right","20px");
 	$("#detail_div table td").css("font-size","15px");
-	$("#detail_div table .td1").css("width","15%");
-	$("#detail_div table .td2").css("width","30%");
+	$("#detail_div table .td1").css("width","10%");
+	$("#detail_div table .td2").css("width","15%");
+	$("#detail_div table .td3").css("width","60%");
+	$("#detail_div table .td4").css("width","85%");
 	$("#detail_div table tr").css("border-bottom","#CAD9EA solid 1px");
-	$("#detail_div table tr").css("height","45px");
+	$("#detail_div table tr").each(function(i){
+		$(this).css("height",(i==5?400:45)+"px");
+	});
 
 	$(".panel.window").eq(ddNum).css("margin-top","20px");
 	$(".panel.window .panel-title").eq(ddNum).css("color","#000");
@@ -111,7 +121,7 @@ function setFitWidthInParent(parent,self){
 				<td class="td1" align="right">
 					手机号
 				</td>
-				<td class="td2">
+				<td class="td3">
 					${requestScope.user.phone }
 				</td>
 			  </tr>
@@ -125,7 +135,7 @@ function setFitWidthInParent(parent,self){
 				<td class="td1" align="right">
 					微信号
 				</td>
-				<td class="td2">
+				<td class="td3">
 					${requestScope.user.weixin }
 				</td>
 			  </tr>
@@ -139,7 +149,7 @@ function setFitWidthInParent(parent,self){
 				<td class="td1" align="right">
 					审核状态
 				</td>
-				<td class="td2">
+				<td class="td3">
 					<c:choose>
 						<c:when test="${requestScope.user.state eq requestScope.noCheckState }">${requestScope.noCheckStateName}</c:when>
 						<c:when test="${requestScope.user.state eq requestScope.checkedState }">${requestScope.checkedStateName}</c:when>
@@ -155,8 +165,30 @@ function setFitWidthInParent(parent,self){
 					${requestScope.user.roleNames }
 				</td>
 				<td class="td1" align="right">
+					学历
+				</td>
+				<td class="td3">
+					${requestScope.user.education }
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					擅长的开发语言
 				</td>
 				<td class="td2">
+					${requestScope.user.deveLang }
+				</td>
+				<td class="td1" align="right">
+				</td>
+				<td class="td3">
+				</td>
+			  </tr>
+			  <tr>
+				<td class="td1" align="right">
+					项目经历
+				</td>
+				<td class="td4" colspan="3">
+					<div class="proExp_div">${requestScope.user.proExp }</div>
 				</td>
 			  </tr>
 			</table>
